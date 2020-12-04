@@ -1,0 +1,56 @@
+1) Introduction who I am
+2) Introduction - Course overview what we gonna learn + projects: 
+  pasirinkti: NT Skelbimai, Autoplius, DateSite, Doctor register, TVS/CMS
+
+3.1) Code Editor and extentions
+  - VsCode
+      PHP Intelephense by Ben MweBurn
+  Sublime
+  Atom
+  - PHPStorm
+3.) html
+  html
+  head
+  body
+  div
+  p
+  h1
+  em i
+  bold strong
+  <a href>
+  link
+  img
+  forms
+  semantic HTML
+    SEO
+3.) CSS
+  syntax
+  class
+  Id 
+  atributes
+3.) git
+3.) Js
+3.) php
+Installing XAMPP / installing php
+PHPINFO
+PHP code in HTML / file .php .html .js
+The echo statement / HTML with PHP
+Comments in PHP
+Variables $ / naming / Syntax . "" ''
+Data Types:
+  String "Hello world"
+  Integger 123 
+  Boolean True / False
+  Null 
+Arrays
+Associative Arrays
+Multidmensional arrays
+
+
+PHP interface
+PHP abstract
+
+
+
+3.) laravel
+installing php

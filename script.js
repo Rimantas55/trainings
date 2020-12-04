@@ -2,8 +2,37 @@
 // code editor
 // code editor extentions
 // install PHP
-// fun code from file
+// how code from file
 // console.log()  / alert('') / promt(); prmot give a string
+// variables let vat const // const value can not change, let can change, var variable which is decleared in function scope you can use outside the function, if you will declear it as var
+//
+
+// Lexical scope,function inside function, nested functions
+// function bankRobbery() {
+//     const heroes = ["Spiderman", "Wolverine", "Black Panther"];
+//     // console.table(heroes);
+//     function cryForHelp() {
+//         for (let hero of heroes) {
+//             console.log(`Please help us ${hero.toUpperCase()}`);
+//         }
+//     }
+//     // cryForHelp();
+// }
+// // bankRobbery();
+
+// talk about return that needs to save to variable
+
+// passing function as parameter
+// function callTwiceFn(functio) {
+//     functio();
+//     functio();
+// }
+
+// function rollDieFn() {
+//     const roll = Math.floor(Math.random() * 6) + 1;
+//     console.log(roll);
+// }
+// callTwiceFn(rollDieFn); // we passing function without parentesis ()
 
 //* CONCAT ARRAY IN JS OR MERGE ARRAY IN PHP
 // const vegetables = ["Bulve", "Kopustas", "Burokas"];
@@ -294,12 +323,18 @@
 // Math.floor(Math.random() * 3) + 20 (reiskia 20-23)
 
 // FOR OF LOOP - GET VALUES OF ARRAY
-// const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]; //DON'T CHANGE THIS LINE PLEASE!
+// const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-// // WRITE YOUR LOOP BELOW THIS LINE:
-// for (const number of numbers) {
-//     console.log(Math.pow(number, 2));
+// for (let number of numbers) {
+//     console.log(number);
+//     // console.log(Math.pow(number, 2));
 // }
+
+// FOREACH METHOD
+// const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+// numbers.forEach(function (element) {
+//     console.log(element);
+// });
 
 //* Excercise how to make string from array
 // const temp = [17, 21, 23, -5, 26];
@@ -376,3 +411,103 @@
 // <?php foreach($avriables as $kye => $value): ?>
 //   <div>Smth content <?php echo smth ;?></div>
 //   <?php endForeach; ?>
+
+//* MAP METHOD - CAN MODIFY CREATES NEW MODIFIED ARRAY
+// const texts = ["rolf", "lol", "omg", "wow"];
+// const caps = texts.map(function (arrayElement) {
+//     return arrayElement.toUpperCase();
+// });
+// console.table(texts);
+// console.table(caps);
+
+// array with objects example
+// const movies = [
+//     {
+//         title: "Alien",
+//         score: 90,
+//     },
+//     {
+//         title: "Superman",
+//         score: 20,
+//     },
+//     {
+//         title: "Spiderman",
+//         score: 88,
+//     },
+// ];
+
+// const titlesArray = movies.map(function (movie) {
+//     return movie.title;
+// });
+// console.table(titlesArray);
+
+// console.table([" timethree", "    darth_hater", "sassyfrassy     ", " elton john     "]);
+
+// function cleanNames(array) {
+//     return array.map(function (element) {
+//         return element.trim();
+//     });
+// }
+
+// console.table(cleanNames([" timethree", "    darth_hater", "sassyfrassy     ", " elton john     "]));
+
+// SETTIMEOUT AND SETINTERVAL
+// arrow function option 1
+// setTimeout(() => {
+//     console.log("Hello");
+// }, 3000);
+
+// regular function option 2
+// function time() {
+//   return console.log("Hello World");
+// }
+// setTimeout(time, 3000);
+
+// const id = setInterval(() => {
+//     console.log(Math.random());
+// }, 2000);
+
+// clearInterval(id);//sustabdo setInterval jei reikia
+
+//* ARRAY FILTER - creates a new array with all elements that pass the test implemented by the provided function
+// const nums = [9, 8, 7, 6, 5, 4, 3, 2, 1];
+// const odds = nums.filter((n) => {
+//     return n % 2 === 1; // out call back returns true or false
+//     // if it returns true, n is added to the filtered array
+// });
+// // [9, 7, 5, 3 ,1]
+// console.table(odds);
+
+// const smallNums = nums.filter((n) => n < 5);
+// // [4, 3, 2, 1]
+// console.table(smallNums);
+
+// exercise
+// const names = ["mark", "aaaaaaaaaaaaaaa", "q2sassssssssssss", "carrie98", "MoanaFan"];
+
+// const shortNames = [];
+// for (let i = 0; i < names.length; i++) {
+//     if (names[i].length < 10) {
+//         console.log(names[i]);
+//         shortNames.push(names[i]);
+//     }
+// }
+// console.table(shortNames);
+
+//* SOME & EVERY - returns true or false
+// const exams = [80, 98, 92, 78, 77, 90, 84, 77];
+// // if all elements pass condition returns true, if not false
+// console.log(exams.every((score) => score >= 75)); // returns true
+
+// const exams2 = [80, 98, 92, 78, 77, 90, 84, 77, 45];
+// // if at least 1 element pass condition returns true, if not false
+// console.log(exams2.some((score) => score <= 75)); // returns true
+
+// exercise code challenge 50
+// const allEvens = function (array) {
+//     return array.every((element) => element % 2 === 0);
+// };
+
+// console.log(allEvens([2, 4, 6, 8]));
+// console.log(allEvens([1, 4, 6, 8]));
+// console.log(allEvens([1, 2, 3]));

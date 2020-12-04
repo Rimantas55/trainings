@@ -134,7 +134,7 @@ $person = [
 //    echo $key . " -- " . $value . "<br>";
 // }
 
-// array filter - helps to create totally new array from old one
+//* ARRAY FILTER - creates a new array with all elements that pass the test implemented by the provided function
 // $array1 = ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5];
 // $array2 = [6, 7, 8, 9, 10, 11, 12];
 
@@ -440,3 +440,115 @@ $person = [
 // echo "<pre>";
 // echo var_dump($parseDate);
 // echo "</pre>";
+
+//? CLASSES
+
+class Person {
+  public $name; // public string $name;
+  public $age; // public int $age;
+  private $salary; // public float $salary // private can be called from inside class
+
+  public function __construct($name, $age, $salary)
+  {
+    $this->name = $name;
+    $this->age = $age;
+    $this->salary = $salary;
+  }
+
+  public function getSalary() 
+  {
+    return $this->salary;
+  }
+
+  public function setSalary() 
+  {
+    $this->salary = $salary;
+  }
+
+
+}
+
+$p = new Person('Rimas', 28, null);
+
+// echo '<pre>'; echo print_r($p); echo '</pre>';
+// echo '<pre>'; echo var_dump($p); echo '</pre>';
+
+
+//? INTERFACE ############################################
+
+// interface PaymentInterface { // we need to define rules which classes should follow if they want to youse that interfase
+//   public function payNow(); // if class follows interface rules class should have metchod also payNow()
+// }
+// interface LoginInterface { 
+//   public function loginFirst(); 
+// }
+
+// //Payment types
+// class Paypal implements PaymentInterface LoginInterface {
+//   public function loginFirst(){}
+//   public function payNow(){}
+//   public function paymentProcess() {
+//     $this->loginFirst();
+//     $this->payNow();
+    
+//   }
+// }
+// class BankTransfer implements PaymentInterface LoginInterface {
+//   public function loginFirst(){}
+//   public function payNow(){}
+//   public function paymentProcess() {
+//     $this->loginFirst();
+//     $this->payNow();
+    
+//   }
+// }
+// class Visa implements PaymentInterface {
+//   public function payNow(){}
+//   public function paymentProcess() {
+//     $this->payNow();
+    
+//   }
+// }
+// class Cash implements PaymentInterface {
+//   public function payNow(){}
+//   public function paymentProcess() {
+//     $this->payNow();
+    
+//   }
+// }
+
+// // this class is like route controler linking interface with other classes
+// class ByProduct {
+//   public function pay(PaymentInterface $paymentType){
+//     $paymentType->paymentProcess();
+//   }
+// }
+
+// $paymentType = new Cash(); // or new Paypal
+// $buyProduct = new ByProduct();
+// $buyProduct->pay($paymentType);
+
+//?##############################################################
+interface newInterfaceClass {
+  public function interfaceFunction();
+}
+class A implements newInterfaceClass {
+  public function interfaceFunction();
+  public function string()  {
+    echo 'This is class A';
+  }
+}
+class B  implements newInterfaceClass {
+  public function interfaceFunction();
+  public function string() {
+    echo 'This is class B';
+  }
+}
+
+$aClass = new A;
+$bClass = new B;
+echo $aClass->string();
+echo "<br>";
+echo $bClass->string();
+
+$newObj = new A;

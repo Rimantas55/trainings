@@ -1,0 +1,115 @@
+https://www.youtube.com/watch?v=cGwSm8xDSwI
+Code With Dary
+Prisegė Code With Dary
+Code With Dary
+Prieš 5 mėnesius
+TIMESTAMP
+
+INTRODUCTION TO PHP
+0:00 - introduction
+04:26 - Installing XAMPP
+
+16:49 - PHP code in HTML
+19:23 - PHPINFO
+22:49 - The echo statement
+26:28 - The print statement
+28:04 - Comments in PHP
+31:46 - Line break
+
+VARIABLES & DATA TYPES
+36:19 - Variables & data types
+42:37 - Variables in echo/print
+47:46 - Data Types
+52:01 - Arrays
+59:48 - Associative Arrays
+01:04:32 - Multidmensional arrays
+01:10:42 - Exercises data types
+
+OPERATORS
+01:28:12 - Arithmetic operators
+01:32:10 - Assignment operators
+01:36:17 - Comparison operators
+01:42:52 - Increment & decrement operators
+01:46:10 - Logical operators
+
+CONTROL STRUCTURES
+01:51:51 - Conditional statements
+01:58:57 - Switch statement
+02:02:55 - While loop
+02:05:41 - Do while loop
+02:09:27 - For loop
+02:16:50 - Foreach loop
+
+FUNCTIONS
+02:21:14 - Introduction to functions
+02:24:46 - Creating our first function
+02:28:43 - Functions with arguments/parameters, defalt parametes
+02:33:27 - Functions with return value
+02:40:20 - Global and local scope
+02:42:39 - Constants
+02:48:01 - How to include documents
+02:57:15 - How to require documents
+02:59:57 - Exercises functions
+
+BUILT-IN FUNCTIONS
+03:14:40 - Introduction to built-in functions
+03:17:22 - Math built-in functions
+03:20:17 - String built-in functions
+03:27:13 - Array built-in functions
+03:35:10 - Date and time functions
+03:45:57 - Random number generator
+03:48:29  - Exercises built-in functions
+
+SUPERGLOBALS
+04:00:14 - Superglobals
+04:05:15 - Superglobal Post
+04:09:36 - Superglobal Get
+04:13:02 - Superglobal Session
+04:17:35 - Superglobal cookies
+04:24:12 - Superglobal Files
+04:30:50 - How to create a upload system
+04:47:56 - Create & write files
+04:56:51 - Read from a file
+05:01:23 - Script for a contact form
+
+DATABASES
+05:16:05 - Introduction to databases
+05:21:48 - Creating a MySQL databas
+05:25:35 - Creating a MySQL table
+05:35:07 -  Inserting data using MySQL
+05:42:45 - Selecting data using MySQL
+05:48:14 - Updating data using MySQL X
+05:51:28 - Deleting data using MySQL
+05:53:55 - Ordering data using MySQL
+
+
+https://www.youtube.com/watch?v=yXzWfZ4N4xU
+1:24      - Introduction Slides
+9:04      - Install necessary tools and setup working environment
+17:03    - Download source files
+19:24    - Syntax, Writing "Hello World"
+22:42    - Comments
+24:08    - Variables & Constants
+35:11    - Numbers
+50:00    - Strings
+1:05:00 - Arrays
+1:21:11 - Associative Arrays
+1:26:30 - If - else, ternary if 
+1:43:20 - PHP 7.4 Null Coalescing assignment operator
+1:44:54 - Switch Statement
+1:46:40 - Loops
+1:55:26 - Functions
+2:01:21 - Dates
+2:09:08 - $_SERVER
+2:11:54 - $_GET (Create Search Form)
+2:17:51 - $_POST (Create signup form with validation)
+2:47:43 - Sessions
+2:54:02 - Cookies
+2:59:28 - File uploading and file validation
+3:12:39 - Including files
+3:24:15 - Working with file system
+3:31:14 - Create TODO Application with file system
+3:59:34 - Object Oriented PHP
+4:14:04 - Create Notes Application with MySql
+4:47:35 - Namespaces
+4:54:01 - Composer & Autoloading
