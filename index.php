@@ -529,26 +529,57 @@ $p = new Person('Rimas', 28, null);
 // $buyProduct->pay($paymentType);
 
 //?##############################################################
-interface newInterfaceClass {
-  public function interfaceFunction();
-}
-class A implements newInterfaceClass {
-  public function interfaceFunction();
-  public function string()  {
-    echo 'This is class A';
-  }
-}
-class B  implements newInterfaceClass {
-  public function interfaceFunction();
-  public function string() {
-    echo 'This is class B';
-  }
-}
+// interface newInterfaceClass {
+//   public function interfaceFunction();
+// }
+// class A implements newInterfaceClass {
+//   public function interfaceFunction();
+//   public function string()  {
+//     echo 'This is class A';
+//   }
+// }
+// class B  implements newInterfaceClass {
+//   public function interfaceFunction();
+//   public function string() {
+//     echo 'This is class B';
+//   }
+// }
 
-$aClass = new A;
-$bClass = new B;
-echo $aClass->string();
-echo "<br>";
-echo $bClass->string();
+// $aClass = new A;
+// $bClass = new B;
+// echo $aClass->string();
+// echo "<br>";
+// echo $bClass->string();
 
-$newObj = new A;
+// $newObj = new A;
+
+// example interface 2
+// interface ShapeInterface {
+//   public function draw();
+//   public function color();
+//   public function reDraw();
+// }
+// class Circle implements ShapeInterface {
+//   public function draw(){}
+//   public function color(){}
+//   public function reDraw(){}
+// }
+// class Square implements ShapeInterface {
+//   public function draw(){}
+//   public function color(){}
+//   public function reDraw(){}
+// }
+// class Line implements ShapeInterface {
+//   public function draw(){}
+//   public function color(){}
+//   public function reDraw(){}
+// }
+// class Painter {
+//   public function addShape(ShapeInterface $shape) {
+//     return $shape->draw();
+//   }
+// }
+
+// $shape = new Circle();
+// $artist = new Painter();
+// $artist->addShape($shape);

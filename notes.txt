@@ -5,6 +5,8 @@
 3.1) Code Editor and extentions
   - VsCode
       PHP Intelephense by Ben MweBurn
+      GitLens by Eric Amodio - lets to show code changes
+      https://stackoverflow.com/questions/52575341/gitlens-extension-disappeared
   Sublime
   Atom
   - PHPStorm

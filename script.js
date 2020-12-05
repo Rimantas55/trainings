@@ -511,3 +511,11 @@
 // console.log(allEvens([2, 4, 6, 8]));
 // console.log(allEvens([1, 4, 6, 8]));
 // console.log(allEvens([1, 2, 3]));
+
+// Spred with Array Literals - it seems that it creates new array
+// const cats = ["Blue", "Scout", "Rocket"];
+// const dogs = ["Rusty", "Wyatt", "Smoothy"];
+// const allPets = [...cats, ...dogs];
+// console.log(cats);
+// console.log(dogs);
+// console.table(allPets);
