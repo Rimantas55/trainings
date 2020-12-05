@@ -583,3 +583,49 @@ $p = new Person('Rimas', 28, null);
 // $shape = new Circle();
 // $artist = new Painter();
 // $artist->addShape($shape);
+
+// example interface 3
+// interface StndardPaymentInterface{
+//   public function pay();
+// }
+// interface FraudCheckInterface {
+//   public function fraudCheck();
+// }
+// interface ThreeDSecureCheck {
+//   public function ThreeDCheck();
+// }
+// interface PaymentProcessInterface {
+//   public function process();
+// }
+// class PayFee implements StndardPaymentInterface, ThreeDSecureCheck, PaymentProcessInterface {
+//   public function pay(){}
+//   public function ThreeDCheck(){}
+//   public function process(){
+//     $this->ThreeDCheck();
+//     $this->pay();
+//   }
+// }
+// class WorldFee implements StndardPaymentInterface, PaymentProcessInterface {
+//   public function pay(){}
+//   public function process(){
+//     $this->pay();
+//   }
+// }
+// class MintFee implements StndardPaymentInterface, PaymentProcessInterface, FraudCheckInterface  {
+//   public function pay(){}
+//   public function fraudCheck(){}
+//   public function process(){
+//     $this->fraudCheck();
+//     $this->pay();
+//   }
+// }
+// class PaymentGateWay {
+//   public function takePayment(PaymentProcessInterface $paymentType){
+//     $paymentType->process();
+    
+//   }
+// }
+
+// $paymentType = new MintFee();
+// $getWay = new PaymentGateWay();
+// $getWay->takePayment($paymentType);
