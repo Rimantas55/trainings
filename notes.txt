@@ -1,5 +1,5 @@
 1) Introduction who I am
-2) Introduction - Course overview what we gonna learn + projects: 
+2) Introduction - Course overview what we gonna learn + projects, begginner ant intermidiate 
   pasirinkti: NT Skelbimai, Autoplius, DateSite, Doctor register, TVS/CMS
 
 3.1) Code Editor and extentions
@@ -30,6 +30,19 @@
   class
   Id 
   atributes
+  // kada naudoti grid ir kada naudoti flex?
+  flex box // https://www.youtube.com/watch?v=qZv-rNx0jEA
+  grid
+  units REM EM % VH px
+  width height / min max
+  media query
+    exercises:
+     NAV https://codepen.io/danrim/pen/XWjdqzg
+     BANER https://codepen.io/danrim/pen/OJRNvYB
+     FLEX https://codepen.io/collection/XMzgEL
+     LAYOUT https://codepen.io/danrim/pen/MWjebpO
+
+
 3.) git
 3.) Js
 3.) php
