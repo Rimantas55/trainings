@@ -52,12 +52,30 @@ PHP code in HTML / file .php .html .js
 The echo statement / HTML with PHP
 Comments in PHP
 Variables $ / naming / Syntax . "" ''
-Data Types:
-  String "Hello world"
-  Integger 123 
+Data Types & Type Casting:
+
+gettype(); - suzinoti koks reiksmes tipas
+var_dum();
+
+Scalar Types:
+  bool - true or false
+  int  123 numerc values without decimals points, sveiki skaiciai
+  float 12.6
+  string  String "Hello world"
+
+Compound Types:
+  arrays []
+  object
+  callable
+  interable
+
+Special Types
+  resoure
+  null
+
   Boolean True / False
   Null 
-Arrays
+
 Associative Arrays
 Multidmensional arrays
 

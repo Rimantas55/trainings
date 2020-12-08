@@ -1,4 +1,5 @@
 "use strict"; // allways include in beginngin of the script for errors
+// most of times input values is returned as strings and we need to convert to number type if needed
 // code editor
 // code editor extentions
 // install PHP
