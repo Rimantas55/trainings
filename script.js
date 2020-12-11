@@ -132,7 +132,7 @@
 // }
 // console.log(age);
 
-//? ASSOCIATIVE ARRAY IN JS IS LIKE ASSOCIATIVE IN PHP AND CLASSES WITH METHODS
+//? ASSOCIATIVE ARRAY IN JS CAN HAVE METHODS BUT IT IS NOT CLASSES
 // const person = {
 //     name: "Brad",
 //     lastName: "Traversy",
