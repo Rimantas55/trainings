@@ -58,10 +58,32 @@ gettype(); - suzinoti koks reiksmes tipas
 var_dum();
 
 Scalar Types:
-  bool - true or false
-  int  123 numerc values without decimals points, sveiki skaiciai
-  float 12.6
-  string  String "Hello world"
+  
+  INT  123 numerc values without decimals points, sveiki skaiciai
+
+  FLOAT 12.6 
+
+  echo 13 . "\n";
+  echo 13e3 . "\n";
+  echo 13e-3 . "\n";
+  $x = (float) "14.5";
+  echo $x . "\n";
+  var_dump($x);
+  echo "\n";
+  $t = 5.8; // 5.5 , 5.3 it always will be lower intiger.
+  echo (int) $t  . "\n"; // keiciam i integer, po kablelio skaiciu nelieka
+  var_dump((int) $t);
+  // is_int(); // true false
+
+  STRING  
+  String "Hello world $variable" 
+  'hello world' 
+  concat =. or .
+  find position of string
+   exercise: 
+    
+
+   BOOLEAN - true or false
 
 Compound Types:
   arrays []
