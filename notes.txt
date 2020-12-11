@@ -10,26 +10,39 @@
   Sublime
   Atom
   - PHPStorm
-3.) html
+3.) HTML
+parodyti HTML be CSS - file html-elements.html
   html
   head
   body
   div
   p
-  h1
+  h1-h6
   em i
   bold strong
   <a href>
-  link
-  img
-  forms
-  semantic HTML
+  <link rel tarp pagu 
+  img (alt="")
+  forms (active, method important)
+  semantic HTML main / section / article, footer nav header
     SEO
 3.) CSS
-  syntax
-  class
-  Id 
-  atributes
+  syntax  - kaip rasosi
+  attributes - kas tai yra?
+  elemento, clases, ir id herarchija, gali perrasyti kas ka.
+    class - .class-Name
+    Id -    #idName                 
+
+Parodyti su CSS file html-elements.html
+code pen: https://codepen.io/danrim/pen/LYRbvZG
+
+  box model - kad yra border, margin, padding, text-content
+  inline and block elements:
+  width
+  height
+  selectoriai
+  absolute - pavyzdziai
+  relative - pavyzdziai
   // kada naudoti grid ir kada naudoti flex?
   flex box // https://www.youtube.com/watch?v=qZv-rNx0jEA
   grid
@@ -41,7 +54,7 @@
      BANER https://codepen.io/danrim/pen/OJRNvYB
      FLEX https://codepen.io/collection/XMzgEL
      LAYOUT https://codepen.io/danrim/pen/MWjebpO
-
+     BUTTONS, OVERLAY, HIDDEN, ABSOLUTE, RELATIVE example https://codepen.io/danrim/pen/GRjNePj
 
 3.) git
 3.) Js
