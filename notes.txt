@@ -2,59 +2,117 @@
 2) Introduction - Course overview what we gonna learn + projects, begginner ant intermidiate 
   pasirinkti: NT Skelbimai, Autoplius, DateSite, Doctor register, TVS/CMS
 
-3.1) Code Editor and extentions
-  - VsCode
-      PHP Intelephense by Ben MweBurn
-      GitLens by Eric Amodio - lets to show code changes
+3) Code Editor and extentions:
+  VsCode
+    1) PHP Intelephense by Ben MweBurn
+    2) GitLens by Eric Amodio - lets to show code changes 
+      https://www.youtube.com/watch?v=C6wMNoe78oc
       https://stackoverflow.com/questions/52575341/gitlens-extension-disappeared
+    3) Emmet - for HTML structure and building faster some HTML elements. (lorem10)
+    4) Prettier - Formatter for Visual Studio Code
+        Config prettier:
+        For js, search in Settings for format form and editor: Default Formatter, choose esbenp.prettier-vscode (before was null), than Search for Format on save and click check on Format on save.
+        --- tu change default quates (kabutes) of prettier we need to create a new file in the project with extention .prrettierrc and write (this will change from "" quotes to single ''):
+        arrowParens will change arrows funtion paramter not in parentesis (be skliausteliu bus, buvo always)
+        {
+        "singleQuote": true
+        "arrowParens": "avoid"
+        }
+    5) Advance-New-File - Create files anywhere in your workspace from the keyboard
+        Creates new file: Ctrl + p then type >new file 
+        then choose directory and file name. 
+        You can set this for key shortcut Ctrl + n:
+        Go to Settings → keyboardshortcuts find Advance new file and change
+    6) Better comment    
+    7) Live server - aunch a development local Server with live reload feature for static & dynamic pages / Ctrl + p, >liveserver
+    8) Live share - Real-time collaborative development from the comfort of your favorite tools.
+    9) Auto Rename Tag - auto rename paired HTML/XML tag
+    10) Bracket Pair Colorizer - A customizable extension for colorizing matching brackets
+    11) CSS peek
+    12) 
+    
+    CREATE SNIPPETS like console.log():
+      File → Preferences → User snippets → 
+      New global snippets file... → give a name (ex. myCustomSnippets) 
+      - see example and uncomment, change shortcut name.
+
+    SHORT CUTS:
+      alt + ↓  move whole line down or up
+      alt + shift + ↓ copy lines
+      ctl + shift + arrow highlight fast
+      ctl + l highlight whole line (better line select extention)
+      crlt + [ arba ]
+
+      shift  + alt + A comment block comment
+      ctrl + / (from keyboard) slash comment
+      ctrl + ` open terminal
+      ctrl + enter is naujos eilutes
+      shift + cmd + \
+      alt + click kursioriu padeti galima skirtinguose vietose
+      ctrl + D select word
+
   Sublime
   Atom
   - PHPStorm
-3.) HTML
-parodyti HTML be CSS - file html-elements.html
-  html
-  head
-  body
-  div
-  p
-  h1-h6
-  em i
-  bold strong
-  <a href>
-  <link rel tarp pagu 
-  img (alt="")
-  forms (active, method important)
-  semantic HTML main / section / article, footer nav header
-    SEO
-3.) CSS
-  syntax  - kaip rasosi
-  attributes - kas tai yra?
-  elemento, clases, ir id herarchija, gali perrasyti kas ka.
-    class - .class-Name
-    Id -    #idName                 
+4) HTML
+    parodyti HTML be CSS - file html-elements.html
+    code pen: https://codepen.io/danrim/pen/LYRbvZG
+      html
+      head
+      body
+      div
+      p
+      h1-h6
+      em i
+      bold strong
+      <a href>
+      <link rel tarp pagu 
+      img (alt="")
+      forms (active, method important, input, name, value, button,type)
+      select and option tags (dropdown)
+      semantic HTML main / section / article, footer nav header
+        SEO
+5) CSS
+    Inline CSS, inner css, outer CSS
+    Syntax  - kaip rasosi
+    attributes - kas tai yra?
+    elemento, clases, ir id herarchija, gali perrasyti kas ka.
+      class - .class-Name
+      Id -    #idName                 
 
-Parodyti su CSS file html-elements.html
+Parodyti su CSS file: html-elements.html
 code pen: https://codepen.io/danrim/pen/LYRbvZG
 
-  box model - kad yra border, margin, padding, text-content
+  Box model - kad yra border, margin, padding, text-content
   inline and block elements:
-  width
-  height
+  width min max
+  height min max
+  units REM EM % VH px
   selectoriai
   absolute - pavyzdziai
   relative - pavyzdziai
   // kada naudoti grid ir kada naudoti flex?
   flex box // https://www.youtube.com/watch?v=qZv-rNx0jEA
   grid
-  units REM EM % VH px
-  width height / min max
-  media query
-    exercises:
-     NAV https://codepen.io/danrim/pen/XWjdqzg
-     BANER https://codepen.io/danrim/pen/OJRNvYB
-     FLEX https://codepen.io/collection/XMzgEL
-     LAYOUT https://codepen.io/danrim/pen/MWjebpO
-     BUTTONS, OVERLAY, HIDDEN, ABSOLUTE, RELATIVE example https://codepen.io/danrim/pen/GRjNePj
+  media query:
+    Extra small devices (phones, 600px and down)
+    Small devices (portrait tablets and large phones, 600px and up
+    Medium Devices (landscape tablets, 768px and up)
+    Large devices (laptop/desktops, 992px and up)
+    Extra large devices (large laptops and desktops, 1200px and up)
+
+  google fonts
+  general fonts
+  Serif - news papers, books, clasic style
+  Sans-Serif  - web digital stuff, some logos, profesional elegant look like a bank
+  BOOTSTRAP
+  Exercises:
+    NAV https://codepen.io/danrim/pen/XWjdqzg
+    BANER https://codepen.io/danrim/pen/OJRNvYB
+    FLEX https://codepen.io/collection/XMzgEL
+    LAYOUT https://codepen.io/danrim/pen/MWjebpO
+    BUTTONS, OVERLAY, HIDDEN, ABSOLUTE, RELATIVE example https://codepen.io/danrim/pen/GRjNePj
+
 
 3.) git
 3.) Js
