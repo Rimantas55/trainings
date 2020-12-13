@@ -1,4 +1,5 @@
 <?php 
+define('BR', '</br>');
 
 session_start();
 
@@ -68,7 +69,39 @@ session_start();
 // echo $amountOFExpences;
 
 
-// Numbers
+//? NUMBERS - integers and floats
+//* INTEGERS - integers are numbers without any decimals points 1 2 3 ... 
+// $p = (int) 5.98; // output 5 / value is rounded
+// var_dump(is_int($p)); 
+// $p = (float) 5; // output 5 
+
+//* FLOATS - floats 1.1, 15.9, 22.5 ...
+// https://www.youtube.com/watch?v=d3c_OOD4Jzs&t=1s
+
+// $a = 13.5e3; //  x1000 / output 13500
+// $x = 13.5e-3 // /1000 / 0.0135
+
+// $x = floor((0.1 + 0.7) * 10); // is really 8?
+// echo $x; // output 7
+// $x = ceil((0.1 + 0.7) * 10); // output 8
+// echo $x; // output 8
+
+// $x = ceil((0.1 + 0.2) * 10); // is it really 3?
+// echo $x; // output 4
+
+// atention - do not compare directly floats!!
+// $x = 0.23;
+// $y = 1 - 0.77;
+
+// var_dump($x, $y);
+
+// if ($x == $y) {
+//   echo 'Yes';
+// } else {
+//   echo 'No';
+// }
+
+// #######################################
 // $x = 4;
 // $y = 9;
 // $z = 4;
@@ -79,36 +112,51 @@ session_start();
 // echo number_format($average, 2, ',', '');
 
 
+// echo round(0.54335); // output 1
+// echo round(0.54335, 4); // output 0.5433
+
+
+
 // echo "<pre>";
 // echo var_dump();
 // echo "</pre>";
 
 
-//STRING
-$string = "Bananas, Apple, Morka";
-$vegetables = ["Bulve", "Kopustas", "Burokas"];
-$fruits = ["Bananas", "Apple", "Morka"];
+//? STRINGS
+// $string = "Bananas, Apple, Morka";
+// $string = "Bananas, Apple, Morka, 1, Hello, @";
 
-// STRINGA PAVERCIA I ARRAY KURIS SAUGOMAS KINTAMAJME
-$makeArray = explode(",", $string); // galima saugoti variable, gaunasi tipas ARRAY
+//* COUNT STRING LENGTH
+// strlen($string) ; // output number with included spaces
 
-// IS ARRAY GALIMA PAVERSTI I STRINGA IR SAUGOTI KINTAMAJAME
-//$makeFromArrayToString = implode(" && ", $fruits); // galima saugoti variable, gaunasi STRINGAS
+//* CONVERT STRING TO ARRAY, STORE VALUE IN VARIABLE
+// $makeArray = explode(",", $string); // galima saugoti variable, gaunasi tipas ARRAY
+
+//* COUNT STRING WORDS
+// str_word_count($string);
+
+//* FIND WORD IN A STRING
+// if (strpos($string, "@")) {
+//   echo "String contains @ sign";
+// } else {
+//   echo "String do not contain @ sign";
+// }
 
 
 
 
-// ARRAYS 
+//? ARRAYS 
 // $vegetables = ["Bulve", "Kopustas", "Burokas"];
-// $fruits = ["Bananas", "Apple", "Morka"];
+// $fruits = ['Banana', 'Apple', 'Orange'];
+// $friends = ["Mike", "Steve", "Peter"];
 
-// STRINGA PAVERCIA I ARRAY KURIS SAUGOMAS KINTAMAJME
-$makeArray = explode(",", $string); // galima saugoti variable, gaunasi tipas ARRAY
+//* CONVERT STRING TO ARRAY, STORE VALUE IN VARIABLE
+// $makeArray = explode(",", $string); // galima saugoti variable, gaunasi tipas ARRAY
 
-// IS ARRAY GALIMA PAVERSTI I STRINGA IR SAUGOTI KINTAMAJAME
-$makeFromArrayToString = implode(" && ", $fruits); // galima saugoti variable, gaunasi STRINGAS
+//* CONVERT ARRAY TO STRING, STORE VALUE IN VARIABLE
+// $makeFromArrayToString = implode(" && ", $fruits); // galima saugoti variable, gaunasi STRINGAS
 
-// ASOCIATIVE ARRAY
+//? ASOCIATIVE ARRAY
 $person = [
     'name' => 'Brand',
     'surname' => 'Traversy',
@@ -164,9 +212,9 @@ $person = [
 // print_r(array_filter($array2, "even"));
 // echo "/<pre>";
 
-// Ternary if one linde condition
+//* TERNERY OPERATOR - short comparison
 // $age = 25;
-//echo $age >= 25 ? "age is $age" : "Person ir younger than $age";
+// echo $age >= 25 ? "age is $age" : "Person ir younger than $age";
 
 
 
@@ -178,13 +226,9 @@ echo "</pre>" . "</;>-----------------------</br>";
 echo $makeFromArrayToString;
 */
 
-//? STRINGS
-// $string = "Bananas, Apple, Morka";
 
 
-//? ARRAY
-//* $fruits = ['Banana', 'Apple', 'Orange'];
-//* $friends = ["Mike", "Steve", "Peter"];
+
 
 //* SHOW/GET ALL ARRAYS ELEMENTS IN CONSOLE
 // $friends = ["Mike", "Steve", "Peter"];
@@ -386,7 +430,7 @@ $person = [
 // do {
 //   //echo "Counter $counter <br>";
 //   $counter++;
-// } while ($counter < 10);
+// } while ($counter <br 10);
 
 
 
@@ -442,34 +486,26 @@ $person = [
 // echo var_dump($parseDate);
 // echo "</pre>";
 
+//? include and require, include_once and require_once difrences
+
 //? CLASSES
+// check file Person.php and Student.php
+require_once 'Person.php';
+require_once 'Student.php';
 
-class Person {
-  public $name; // public string $name;
-  public $age; // public int $age;
-  private $salary; // public float $salary // private can be called from inside class
-
-  public function __construct($name, $age, $salary)
-  {
-    $this->name = $name;
-    $this->age = $age;
-    $this->salary = $salary;
-  }
-
-  public function getSalary() 
-  {
-    return $this->salary;
-  }
-
-  public function setSalary() 
-  {
-    $this->salary = $salary;
-  }
+$student = new Student('Lukas', 30, 100000, 0624530);
+echo $student->name . BR;
+echo $student->studentId . " students ID" . BR;
+echo $student->getSalary() . " students salary" ;
 
 
-}
-
-$p = new Person('Rimas', 28, null);
+// $person1 = new Person('Rimas', 28, null); //  instace Object 
+// echo $person1->name . " Age". BR;
+// echo $person1->age . " Name" . BR;
+// echo $person1->getSalary() . " Salary". BR;
+// $person1->setSalary(100);
+// echo $person1->getSalary() .  " New Salary" . BR;
+// echo '<pre>'; echo var_dump($person1); echo '</pre>';
 
 // echo '<pre>'; echo print_r($p); echo '</pre>';
 // echo '<pre>'; echo var_dump($p); echo '</pre>';

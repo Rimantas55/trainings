@@ -54,6 +54,9 @@
   Sublime
   Atom
   - PHPStorm
+
+SOLID PRINCIPLES - supazindinti ir tureti omenyje visada!!!
+
 4) HTML
     parodyti HTML be CSS - file html-elements.html
     code pen: https://codepen.io/danrim/pen/LYRbvZG
@@ -172,7 +175,12 @@ Special Types
 Associative Arrays
 Multidmensional arrays
 
-
+CLASSES AND OOP 
+PHP CLASES 
+public, private
+constructors
+instace object
+get and set methods for parameters
 PHP interface
 PHP abstract
 
