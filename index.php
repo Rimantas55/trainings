@@ -1,4 +1,6 @@
 <?php 
+require_once './Classes/Person.php';
+require_once './Classes/Student.php';
 define('BR', '</br>');
 
 session_start();
@@ -489,15 +491,13 @@ $person = [
 //? include and require, include_once and require_once difrences
 
 //? CLASSES
-// check file Person.php and Student.php
-require_once 'Person.php';
-require_once 'Student.php';
+// check Folder Classes and files Person.php and Student.php for basics
 
-$student = new Student('Lukas', 30, 100000, 0624530);
-echo $student->name . BR;
-echo $student->studentId . " students ID" . BR;
-echo $student->getSalary() . " students salary" ;
-
+// inhereted functionalilty
+// $student = new Student('Lukas', 30, 100000, 0624530);
+// echo $student->name . BR;
+// echo $student->studentId . " students ID" . BR;
+// echo $student->getSalary() . " students salary" ;
 
 // $person1 = new Person('Rimas', 28, null); //  instace Object 
 // echo $person1->name . " Age". BR;
