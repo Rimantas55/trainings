@@ -344,3 +344,16 @@
 // }
 // const a = sumRange(3);
 // console.log(a);
+
+// PHP exercise for FOR - how many punctuations is in the string
+// $str = "My name is Dary, I am 24 years old and I live in Italy. I am getting pretty old. I like PHP, because it is a programing language.";
+// $punctuation = 0;
+// function searchText($str, $punctuation) {
+//   for($i = 0; $i < strlen($str); $i++) {
+//     if ($str[$i] == ".") {
+//       $punctuation++;
+//     }
+//   }
+//   echo "The text has " . $punctuation . " punctuation.";
+// }
+// searchText($str, $punctuation);

@@ -57,6 +57,16 @@ session_start();
 
 <?php
 
+//* DESTROY ARRAY OR VARIABLE
+//unset destroys variable, array or variable array, but index position does not changes.
+// unset($variable);
+// $array = [1,2,3];
+//print_r($array);
+// unset($array[0], $array[1], $array[2]);
+// print_r($array);
+// $array[] = 1; 
+// print_r($array); // value will start from index 3. 
+
 // COUNT HOW MANY ELEMENTS ARE IN ARRAY AND SUM ARRAYS ELEMENTS
 
 // $expenses = [40, 70, 20];
@@ -116,6 +126,9 @@ session_start();
 
 // echo round(0.54335); // output 1
 // echo round(0.54335, 4); // output 0.5433
+
+// rand();
+// rand(1,5);
 
 
 
@@ -267,13 +280,17 @@ echo $makeFromArrayToString;
 // echo var_dump($friends); 
 // echo "</pre>";
 
-//* ADD ELEMENT TO THE END OF ARRAY ARRAY
+//* ADD ELEMENT TO THE END OF ARRAY 
 // $friends = ["Mike", "Steve", "Peter"];
 
 // echo "<pre>";
 // echo var_dump($friends); 
 // echo "</pre>";
 
+// option 1
+// $friends = ["Mike", "Steve", "Peter"];
+//$friends[] = 'Jhon'; // → ["Mike", "Steve", "Peter", "John"]
+// option2
 // array_push($friends, 'Jay'); // add element to the end of array
 
 // echo "<pre>";
@@ -452,6 +469,12 @@ $person = [
 
 
 //? DATE AND TIME
+
+// echo (int)((mktime(0,0,0,11,6,2021) - time()) / 86400) . " Days til the next b-day";
+
+// set timezone
+// date_default_timezone_set('Europe/Vilnius');
+// echo date('H:i:s a');
 
 // echo time() . "<br>";
 // echo date('Y-m-d H:i:s') . "<br>";

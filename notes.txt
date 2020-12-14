@@ -54,10 +54,18 @@
   Sublime
   Atom
   - PHPStorm
+      Install PHPStorm: 
+      JetBrains.com -> 
+      Download -> 
+      Install → 
+      On Installation Options check - 64-bit launcher and Add "Open Folder as Project" →
+      Next → 
+      Install
 
 SOLID PRINCIPLES - supazindinti ir tureti omenyje visada!!!
 
 4) HTML
+      Instal PhpStorm  → jetbrains.com → download
     parodyti HTML be CSS - file html-elements.html
     code pen: https://codepen.io/danrim/pen/LYRbvZG
       html
@@ -120,7 +128,91 @@ code pen: https://codepen.io/danrim/pen/LYRbvZG
 3.) git
 3.) Js
 3.) php
-Installing XAMPP / installing php
+WHAT IS PHP 
+  Hypertext Preprocessor
+  Open source - scripting language
+  Server side language
+  Best Suited for web development
+  can be embedded into HTML
+  Interpreted language
+
+Multi-purpose
+  Simple Websites
+  Complex Websites
+  CRM Portals
+  E-Commerce systems
+  REST Autopliusimage/video/audio processig
+  Works with almost all databases
+
+  Easy to learn
+  Easy to set up
+  Large Comunity
+
+PHP CMSs 
+  Wordpress - the most popular CMS
+  Magento - E-Commerce
+  Drupal - CMS + E-Commerce
+  OpenCart - E-commerce solution
+
+PHP frameworks
+  Laravel 
+  Symphony
+  CodeIgniter
+  Yii
+
+
+High Demand on job market -  only for seniors
+
+Installing PHP, XAMPP, Appache - it is a package which contains Appache, MySQL and PHP, Appache is a webserver is necessery to process php files and send to the browser
+
+  Google or www.apacheFriends.org → 
+  enter Xampp → 
+  Download latest PHP for your opperating system →
+  Go to your download folder →
+  Leave checked on Server, Appache, MySQL, Perl, PHP, Program Languages, phpMyAdmin →
+  Click Next couple times → 
+  uncheck - LEarn more about Bitnami for Xampp →
+  Next
+
+  Check if XAMPP working:
+    Type in Browser localhost and see if you will get default XAMPP page
+
+  Check if MYSQL working:
+    Type in Browser localhost/phpmyAdmin and see if you will get default XAMPP page
+
+  Check in CMD php version:
+    Open CMD via Start → 
+    Type in search CMD →
+    Press Enter →
+    Type php -value →
+    Press Enter
+
+    if it does not show then:
+    How to check on terminal if we have php?
+      write on CMD php -v
+      you probably will get fail
+        How to set up it?
+        This PC →
+        Disk C: →
+        xampp →
+        php (open folder and copy path C:\xampp\php) this is path where is php.exe file →
+
+
+        This PC (right mouse click) → 
+        Properties →
+        Advanced system settings →
+        Environment Variables →
+        Click Path →
+        Edit →
+        New →
+        ad new path which should be folder where php executable is lacoted
+        add new path →
+        Click Ok on all open tabs→
+        Close CMD and  and Open
+
+
+
+  
 PHPINFO
 PHP code in HTML / file .php .html .js
 The echo statement / HTML with PHP
@@ -174,6 +266,15 @@ Special Types
 
 Associative Arrays
 Multidmensional arrays
+
+Super Globals
+  GLOBALS  - access variable anywhere in PHP
+  $_POST  - collect data from HTML after submiting it, data does not visible in query string
+  $_GET - like $_POST but you can see it
+  $_SERVER - 
+  $_COOKIE
+  $_SESSION
+  $_FILES
 
 CLASSES AND OOP 
 PHP CLASES 
