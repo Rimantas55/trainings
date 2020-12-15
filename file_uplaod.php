@@ -26,6 +26,9 @@ if (isset($_FILES['file'])) {
     }
 }
 
+// can be more validations for such file already exist, illigal characters, white spaces
+
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -38,9 +41,9 @@ if (isset($_FILES['file'])) {
 </head>
 <body>
 <p><?php echo $errorMessage ?></p>
-<form action="" method="post" enctype="multipart/form-data">
+<form action="file_uplaod.php" method="post" enctype="multipart/form-data">
   <input type="file" name="file"><br>
-  <button>Submit</button>
+  <button type="submit">Submit</button>
 </form>
 </body>
 </html>

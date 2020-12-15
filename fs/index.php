@@ -7,12 +7,20 @@ echo __FILE__ . "</br>";
 // CREATE DIRECOTRY
 // if (!is_dir('test')){
 //   echo "such folder does not exist";
-//   mkdir('test');
+//   mkdir('test'); // create folder
 // } elseif (is_dir('test')) {
 //   echo "such folder exist" ;
 // }
 
-// mkdir('test');
+// Creates new file
+// $myFile = fopen(__DIR__."/newFileName.txt", "a"); // we can use w, but it wil everytime overwite itself
+// $txt = "The best Marvels movies";
+// // add text to file
+// fwrite($myFile, $txt); // takes 2 parametres
+// echo $myFile;
+// // after opening file and writing we need to close file
+// fclose($myFile); // file name which we want to close
+
 
 // RENAME DIRECTORY
 // rename('basic_test', 'test');
@@ -36,7 +44,7 @@ echo __FILE__ . "</br>";
 //     [4] => test
 // )
 
-// fil_get_contents, file_put_contents
+// file_get_contents, file_put_contents
 // $loremContent = file_get_contents('lorem.txt'); // output file content
 // echo file_put_contents('test1',"Hello World"); // creates new file with new content
 // file_put_contents('lorem.txt', 'My New text' . PHP_EOL . $loremContent); // with every browsers refresh new content will be added again

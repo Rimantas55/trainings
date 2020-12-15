@@ -23,7 +23,8 @@ session_start();
 
 <a href="index.php">Index</a>
 <a href="form.php">Form</a>
-<a href="about.php">About</a><br>
+<a href="about.php">About</a>
+<a href="file_uplaod.php">File Upload</a><br>
 <button class="btn btn-success">Click Me</button> <br>
 
 <?php
