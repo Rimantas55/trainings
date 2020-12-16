@@ -4,7 +4,7 @@
 echo __DIR__ . "</br>";
 echo __FILE__ . "</br>";
 
-// CREATE DIRECOTRY
+//* CREATE DIRECOTRY
 // if (!is_dir('test')){
 //   echo "such folder does not exist";
 //   mkdir('test'); // create folder
@@ -12,24 +12,34 @@ echo __FILE__ . "</br>";
 //   echo "such folder exist" ;
 // }
 
-// Creates new file
+//* CREATE NEW FILE
 // $myFile = fopen(__DIR__."/newFileName.txt", "a"); // we can use w, but it wil everytime overwite itself
 // $txt = "The best Marvels movies";
-// // add text to file
+//* ADD TEXT TO FILE */
 // fwrite($myFile, $txt); // takes 2 parametres
 // echo $myFile;
-// // after opening file and writing we need to close file
+//* CLOSE FILE - after opening file and writing we need to close file
 // fclose($myFile); // file name which we want to close
 
+//* UPLOAD FILE TO BROWSER
+// $filePath = __DIR__."/lorem.txt";
+// $filePath = "C:/xampp/htdocs/Trainings/fs/lorem.txt";
+// $output = file_get_contents($filePath);
+// $newLinesOutput = explode("\n", $output);
 
-// RENAME DIRECTORY
+// foreach($newLinesOutput as $newLine) {
+//   echo $newLine . "<br>";
+// }
+
+
+//* RENAME DIRECTORY
 // rename('basic_test', 'test');
 
 
-// DELETE DIRECOTRY
+//* DELETE DIRECOTRY
 // rmdir('test');
 
-// READ FILES AND FOLDERS INSIDE DIRECOTRY
+//* READ FILES AND FOLDERS INSIDE DIRECOTRY
 // $files = scandir('./');
 // echo "<pre>";
 // echo print_r($files);

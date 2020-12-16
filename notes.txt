@@ -289,3 +289,19 @@ PHP abstract
 
 3.) laravel
 installing php
+
+
+
+
+
+
+TOPICS
+how to send email from php
+how to optimize images and faser load 
+  - resizeimage.net
+  - compres image tinypng.com
+create rate system
+change language
+REST API 
+drag and drop
+
