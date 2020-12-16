@@ -1,6 +1,7 @@
 1) Introduction who I am
 2) Introduction - Course overview what we gonna learn + projects, begginner ant intermidiate 
-  pasirinkti: NT Skelbimai, Autoplius, DateSite, Doctor register, TVS/CMS
+  pasirinkti: NT Skelbimai, Autoplius, DateSite, Doctor register, TVS/CMS. Back-end Front-end
+  technologies.
 
 3) Code Editor and extentions:
   VsCode
@@ -84,11 +85,13 @@ SOLID PRINCIPLES - supazindinti ir tureti omenyje visada!!!
       semantic HTML main / section / article, footer nav header
         SEO
 5) CSS
-    Inline CSS, inner css, outer CSS
+    what is CSS? 
+    DEMO 
     Syntax  - kaip rasosi
+    Inline CSS, inner css, outer CSS
     attributes - kas tai yra?
     elemento, clases, ir id herarchija, gali perrasyti kas ka.
-      class - .class-Name
+      class - .class - Name
       Id -    #idName                 
 
 Parodyti su CSS file: html-elements.html
@@ -276,6 +279,40 @@ Super Globals
   $_SESSION
   $_FILES
 
+  DATABASE
+    what is DB? Structured set of data
+    what is MySQL? Open-source relational database, Structured Query language (SQL)
+    Why to use a DB? Fast/reliable/easy
+    What is a Query? Request to retrieve information, extract data from a DB and formats it into a human readable form
+    Examples:
+      show phpmyAdmin
+      create DB 
+      create table / id, types, leanth, autoincrement, primary
+      Queries:
+    1. SELECT * FROM users
+    2. DROP table users
+    3. create table users(
+        id int(11) not null PRIMARY KEY AUTO_INCREMENT,
+        username VARCHAR(255) not null,
+        password VARCHARR(255) not null
+      );
+    4. INSERT TO users (username, password) VALUES ('John', '12345'), ('Bob', '98765') 
+    5. SELECT username FROM users
+    6. SELECT * FROM users WHERE username = 'John'
+    7. SELECT * FROM users WHERE username = 'John' OR id = 4
+
+    8. UPDATE users 
+       SET username = 'John', password = 'newPassword123'
+       WHERE id = 2
+
+    9. DELETE FROM users
+       WHERE id = 2 OR username = 'John';
+
+    10. SELECT * FROM users
+        ORDER BY id DESC (means decending, or ASC stands for Ascending)
+
+    
+
 CLASSES AND OOP 
 PHP CLASES 
 public, private
@@ -304,4 +341,8 @@ create rate system
 change language
 REST API 
 drag and drop
+send email to gmail and other - https://www.youtube.com/watch?v=QUWDC1ZjMHA
+Search feature
+sort feature
+
 

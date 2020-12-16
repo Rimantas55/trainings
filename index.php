@@ -27,7 +27,15 @@ session_start();
 <a href="file_uplaod.php">File Upload</a><br>
 <button class="btn btn-success">Click Me</button> <br>
 
+<form action="index.php" method="post">
+Name: <input type="text" name="name"><br>
+E-mail: <input type="text" name="email"><br>
+<input type="submit">
+</form>
+
 <?php
+
+
 
 
   $_SESSION['username'] = "rimas1987";
@@ -38,7 +46,6 @@ session_start();
   // } else {
   //   echo "Hello Rimantas";
   // }
-
 
 
 
