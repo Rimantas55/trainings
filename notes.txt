@@ -126,7 +126,9 @@ code pen: https://codepen.io/danrim/pen/LYRbvZG
     FLEX https://codepen.io/collection/XMzgEL
     LAYOUT https://codepen.io/danrim/pen/MWjebpO
     BUTTONS, OVERLAY, HIDDEN, ABSOLUTE, RELATIVE example https://codepen.io/danrim/pen/GRjNePj
-
+    http://www.flexboxdefense.com/
+    https://flexboxfroggy.com/
+    https://www.freecodecamp.org/news/flexbox-the-ultimate-css-flex-cheatsheet/
 
 3.) git
 3.) Js
@@ -270,6 +272,29 @@ Special Types
 Associative Arrays
 Multidmensional arrays
 
+
+OPERATORS
+  Arithmetic Operators (+ - * / % **)
+    $x = '10';
+    $y = 2;
+    Arithmetics with stings which containes number works
+
+  Assignment Operators (= += -= /= %= **=)
+  String Operators (. .=)
+  Comparison Operators (== === != <> !== < > <= >= ?? ?:) Ternary 
+  $x = 5;
+  $y = '5'; // string
+  var_dump($x == $y) // true
+  var_dump($x === $y) // false, because compares types
+  
+  Error Control Operators (@)
+  Increment/Decrement Operators (++, --)
+  Logical Operators (&& || ! and or xor)
+  Bitwise Operators (& | ^ ~ << >>)
+  Array Operators (+ == === != !==)
+  Execution Operators('')
+
+
 Super Globals
   GLOBALS  - access variable anywhere in PHP
   $_POST  - collect data from HTML after submiting it, data does not visible in query string
@@ -344,5 +369,6 @@ drag and drop
 send email to gmail and other - https://www.youtube.com/watch?v=QUWDC1ZjMHA
 Search feature
 sort feature
+shopping cart
 
 
