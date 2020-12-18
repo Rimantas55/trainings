@@ -344,8 +344,47 @@ public, private
 constructors
 instace object
 get and set methods for parameters
+inherits / extends
+namaspaces
 PHP interface
 PHP abstract
+
+COMPOSER:
+What it is? What it does? What for?
+Type in CLI: composer 
+www.getcomposer.org
+Download
+Click → Composer.Setup.exe
+Install composer and follow instructios 
+C:\xamp\php/php.exe // check where will be composer installed, composer runs woth php, it is important
+after instalation you can check in CML if composer was installed
+right in CLI: composer
+clear CML
+now we need navigate composer to our project
+copy folder path where project is created
+example: project folder paths is C:\xampp\htdocs\Trainings
+open CML
+type: cd C:\xampp\htdocs\Trainings
+enter
+when we are in the project right directory type:
+composer init 
+system will ask couple questions - just click Enter for each question
+After all questions you will see coposer.json file in your projectfile next to index.php
+add some code to composer.json file
+"autoload": {
+  "psr-4": {
+    "app\\": "./app"  // first word app revering to namespace name, and direction where namespace is mapped, under app folder all the Clases will be under app namespace  
+  }
+}
+
+after editing composer.json file you need to update composer via terminal
+open CLI
+right: composer update
+after updating you will see new vendor folder
+
+after this updates you do not need use require_once function, because composer will take care of such classes connection
+but we need require_once one file in the index.php file which is - require_once "./vendor/autoload.php"
+we do not need to write requite_once 100 times , fixes dependecy management problem
 
 
 
