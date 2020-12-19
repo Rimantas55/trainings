@@ -1,7 +1,11 @@
-1) Introduction who I am
-2) Introduction - Course overview what we gonna learn + projects, begginner ant intermidiate 
-  pasirinkti: NT Skelbimai, Autoplius, DateSite, Doctor register, TVS/CMS. Back-end Front-end
-  technologies.
+1) Introduction who I am - maybe do not need this part because there is not much to say.
+2) Introduction 
+  - Course overview. What we gonna learn. Basics, projects, begginner to intermidiate 
+  Choose project: NT Skelbimai, Autoplius, DateSite, Doctor register, TVS/CMS. 
+
+  Path of programer:
+    Back-end Front-end technologies. Mobile Apps technologies
+    https://www.youtube.com/watch?v=pkdgVYehiTE
 
 3) Code Editor and extentions:
   VsCode
@@ -344,9 +348,16 @@ public, private
 constructors
 instace object
 get and set methods for parameters
+magic methods
+access modifiers: 
+  Public - easy access 
+  Private - can be access only though class itself
+  Protected - 
 inherits / extends
 namaspaces
 PHP interface
+  You should use extend when you have two similar classes, but one has some additional features.
+  You need to use interface when you want to define what your classes must do, but the classes can decide themselves how to do that.
 PHP abstract
 
 COMPOSER:
@@ -385,6 +396,11 @@ after updating you will see new vendor folder
 after this updates you do not need use require_once function, because composer will take care of such classes connection
 but we need require_once one file in the index.php file which is - require_once "./vendor/autoload.php"
 we do not need to write requite_once 100 times , fixes dependecy management problem
+
+Some packages which yoi can install with composer.
+www.packagist.org
+click Browse
+
 
 
 

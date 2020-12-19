@@ -524,6 +524,11 @@ $person = [
 //? CLASSES
 // check Folder Classes and files Person.php and Student.php for basics
 
+
+
+
+
+
 // inhereted functionalilty
 // $student = new Student('Lukas', 30, 100000, 0624530);
 // echo $student->name . BR;
@@ -537,9 +542,6 @@ $person = [
 // $person1->setSalary(100);
 // echo $person1->getSalary() .  " New Salary" . BR;
 // echo '<pre>'; echo var_dump($person1); echo '</pre>';
-
-// echo '<pre>'; echo print_r($p); echo '</pre>';
-// echo '<pre>'; echo var_dump($p); echo '</pre>';
 
 
 //? INTERFACE ############################################

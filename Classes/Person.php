@@ -22,5 +22,27 @@ class Person {
   {
     $this->salary = $salary;
   }
+&
+  // magic methid __get()
+  public function __get($property) {
+    if(property_exists($this, $property)) {
+      return $this->$property;
+    }
+  }
+
+    // magic methid set()
+    public function __set($property, $value) {
+      if(property_exists($this, $property)) {
+        $this->$property = $value;
+      }
+      return $this;
+    }
 }
 
+// call magic method
+// $person = new Person('John',24, 1000);
+// echo $person->__get('name');
+
+// use magic method __set()
+// $person->__set('name', 'Mike');
+// echo $person->name;
