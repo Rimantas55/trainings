@@ -528,7 +528,6 @@ $person = [
 
 
 
-
 // inhereted functionalilty
 // $student = new Student('Lukas', 30, 100000, 0624530);
 // echo $student->name . BR;
