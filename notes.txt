@@ -402,6 +402,7 @@ www.packagist.org
 click Browse
 
 
+PDO connection to DB
 
 
 3.) laravel

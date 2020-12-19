@@ -1,6 +1,7 @@
 <?php 
 require_once './Classes/Person.php';
 require_once './Classes/Student.php';
+require_once './Classes/abstractManager.php';
 define('BR', '</br>');
 
 session_start();
@@ -523,9 +524,6 @@ $person = [
 
 //? CLASSES
 // check Folder Classes and files Person.php and Student.php for basics
-
-
-
 
 
 // inhereted functionalilty
