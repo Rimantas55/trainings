@@ -223,7 +223,7 @@ Installing PHP, XAMPP, Appache - it is a package which contains Appache, MySQL a
 
   
 PHPINFO
-PHP code in HTML / file .php .html .js
+PHP code in HTML / file change to .php .html .js
 The echo statement / HTML with PHP
 Comments in PHP
 Variables $ / naming / Syntax . "" ''
@@ -340,6 +340,11 @@ Super Globals
     10. SELECT * FROM users
         ORDER BY id DESC (means decending, or ASC stands for Ascending)
 
+DATABASE PLANNING AND STRUCTURE 
+https://www.youtube.com/watch?v=ZBgXb66Ckz0
+https://www.youtube.com/watch?v=gNlydqjmI9g
+https://www.youtube.com/watch?v=uKwR9fWsZJ4&list=PLoIr4C6k4Mf7GwzbhxMvqHyDqei9szpEu&index=2
+
     
 
 CLASSES AND OOP 
@@ -403,6 +408,24 @@ click Browse
 
 
 PDO connection to DB
+
+
+MVC - Model View Controller // concept
+Model: 
+  "In touch" with database
+  Fetch, insert, update and delete data
+  Communicates with Controller
+
+View:
+  The User Interface
+  Its your HTML/CSS3/JS/XML
+  Shows data
+
+Controller:
+  Precess the data
+  Request from View, Update in Model
+
+
 
 
 3.) laravel
