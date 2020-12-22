@@ -66,6 +66,10 @@ E-mail: <input type="text" name="email"><br>
 
 <?php
 
+// constance
+// define('PI', 3.14);
+// echo PI . BR;
+
 //* DESTROY ARRAY OR VARIABLE
 //unset destroys variable, array or variable array, but index position does not changes.
 // unset($variable);
@@ -91,10 +95,15 @@ E-mail: <input type="text" name="email"><br>
 
 
 //? NUMBERS - integers and floats
+
+// is_numeric can understand that in string is number
+// is_numeric("3.45"); // true
+// is_numeric("3g.45"); // false
+
 //* INTEGERS - integers are numbers without any decimals points 1 2 3 ... 
 // $p = (int) 5.98; // output 5 / value is rounded
 // var_dump(is_int($p)); 
-// $p = (float) 5; // output 5 
+// $p = (float) 5; // output 5 // cast (float)
 
 //* FLOATS - floats 1.1, 15.9, 22.5 ...
 // https://www.youtube.com/watch?v=d3c_OOD4Jzs&t=1s
@@ -130,7 +139,7 @@ E-mail: <input type="text" name="email"><br>
 // $sum = $x+$y+$z;
 // $average = ($x + $y + $z) / 3;
 // echo $sum . "<br>" . $average . "<br>";
-// echo number_format($average, 2, ',', '');
+// echo number_format($average, 2, ',', ' ');
 
 
 // echo round(0.54335); // output 1
@@ -147,6 +156,7 @@ E-mail: <input type="text" name="email"><br>
 
 
 //? STRINGS
+// is_string();
 // $string = "Bananas, Apple, Morka";
 // $string = "Bananas, Apple, Morka, 1, Hello, @";
 

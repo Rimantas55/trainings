@@ -279,9 +279,12 @@ Multidmensional arrays
 
 OPERATORS
   Arithmetic Operators (+ - * / % **)
-    $x = '10';
-    $y = 2;
+    $a = '10';
+    $b = 2;
+    $c = 12;
     Arithmetics with stings which containes number works
+    echo $a + $b * $c;
+    echo ($a + $b) * $c;
 
   Assignment Operators (= += -= /= %= **=)
   String Operators (. .=)
