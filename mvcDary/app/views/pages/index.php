@@ -1,4 +1,7 @@
 <?php
+echo APPROOT;
 echo "<br>";
-  echo $data['title'];
+echo URLROOT;
+echo "<br>";
+echo SITENAME;
 ?>

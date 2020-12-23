@@ -4,9 +4,7 @@ class Pages extends Controller {
 
   public function __construct()
   {
-    echo 'hello  from Pages controller construct method - loaded' . "<br>";
-    
-    
+    // echo 'hello  from Pages controller construct method - loaded' . "<br>"; 
   }
 
   public function index() 
