@@ -1,3 +1,3 @@
 <?php 
 
-echo "Hello from Database " . "<br>";
+// echo "Hello from Database " . "<br>";

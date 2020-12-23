@@ -1,6 +1,7 @@
 <?php
   // Core App Class
-  class Core {
+  class Core 
+  {
     // if there are no any controllers in out controller folder this page will be automaticaly loaded
     protected $currentController = 'Pages'; 
     // inside Pages controller it will load index method
@@ -16,7 +17,7 @@
     // checking if getUrl() method works and stores url to array
     public function __construct()
     {
-      echo '<pre>'; echo print_r($this->getUrl()); echo '</pre>'; // for checking purpose
+      // echo '<pre>'; echo print_r($this->getUrl()); echo '</pre>'; // for checking purpose
       $url = $this->getUrl();
 
         // Look in 'controllers' folder for first value, ucwords() will capitalize first letter, because classes will be named with first  capital letter 

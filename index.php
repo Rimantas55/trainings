@@ -160,6 +160,15 @@ E-mail: <input type="text" name="email"><br>
 // $string = "Bananas, Apple, Morka";
 // $string = "Bananas, Apple, Morka, 1, Hello, @";
 
+// $longText = "
+//   Hello, my name is John
+//   I am web developer,
+//   I work as freelancer.
+// ";
+// echo $longText . BR;
+// echo nl2br($longText) . BR;
+
+
 //* COUNT STRING LENGTH
 // strlen($string) ; // output number with included spaces
 
