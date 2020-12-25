@@ -415,7 +415,8 @@
 
 //* MAP METHOD - CAN MODIFY CREATES NEW MODIFIED ARRAY
 // const texts = ["rolf", "lol", "omg", "wow"];
-// const caps = texts.map(function (arrayElement) {
+// const caps = texts.map(
+   (arrayElement) {
 //     return arrayElement.toUpperCase();
 // });
 // console.table(texts);
