@@ -294,7 +294,6 @@ OPERATORS
   var_dump($x == $y) // true
   var_dump($x === $y) // false, because compares types
   
-  Error Control Operators (@)
   Increment/Decrement Operators (++, --)
   Logical Operators (&& || ! and or xor)
   Bitwise Operators (& | ^ ~ << >>)

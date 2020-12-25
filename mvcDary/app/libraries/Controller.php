@@ -6,7 +6,7 @@ class Controller
   public function model($model) // if we want to load post or shop model
   {
     // require model file
-    require_once '../app/models' . $model . '.php';
+    require_once '../app/models/' . $model . '.php';
     //instantiate model
     return new $model();
   }
