@@ -1,0 +1,25 @@
+.intro {
+    padding: 50px;
+}
+
+.intro-content {
+    display: flex;
+}
+
+.intro-content img {
+    margin: 0 auto;
+    width: 30%;
+}
+
+.intro-text {
+    width: 40%;
+    transition: all 0.8s ease-in-out;
+    opacity: 0;
+    transform: translateY(20px);
+    padding: 3.2%;
+}
+
+.intro-appear {
+    opacity: 1;
+    transform: translateY(0px);
+}
