@@ -49,11 +49,15 @@ E-mail: <input type="text" name="email"><br>
   $_SESSION['username'] = "rimas1987";
   //echo $_SESSION['username'];
 
+  // option 1
   // if (!isset($_SESSION['username'])) {
   //   echo "you are not logged in";
   // } else {
   //   echo "Hello Rimantas";
   // }
+
+
+
 
 
 

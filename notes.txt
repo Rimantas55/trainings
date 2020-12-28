@@ -105,6 +105,7 @@ code pen: https://codepen.io/danrim/pen/LYRbvZG
   inline and block elements:
   width min max
   height min max
+  box-sizing
   units REM EM % VH px
   selectoriai
   absolute - pavyzdziai
@@ -346,6 +347,7 @@ DATABASE PLANNING AND STRUCTURE
 https://www.youtube.com/watch?v=ZBgXb66Ckz0
 https://www.youtube.com/watch?v=gNlydqjmI9g
 https://www.youtube.com/watch?v=uKwR9fWsZJ4&list=PLoIr4C6k4Mf7GwzbhxMvqHyDqei9szpEu&index=2
+https://www.youtube.com/watch?v=BQ5xYJMyplw
 
     
 
