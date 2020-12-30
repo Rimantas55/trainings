@@ -1,0 +1,113 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 8vh;
+    background-color: #5d4954;
+    font-family: "Poppins", sans-serif;
+}
+
+.logo {
+    color: rgb(243, 243, 243);
+    font-size: 20px;
+    letter-spacing: 5px;
+}
+
+.nav-links {
+    display: flex;
+    width: 30%;
+    justify-content: space-around;
+    letter-spacing: 3px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.nav-links li {
+    list-style: none;
+}
+
+.nav-links a {
+    color: rgb(243, 243, 243);
+    text-decoration: none;
+}
+
+.burger {
+    display: none;
+}
+
+.burger div {
+    width: 25px;
+    height: 3px;
+    background-color: rgb(243, 243, 243);
+    margin: 5px;
+    transition: all 0.3s ease;
+}
+
+/* mobile */
+@media screen and (max-width: 1200px) {
+    .nav-links {
+        width: 55%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    /* hide link content which was moved to the right and was out of body box */
+    body {
+        overflow: hidden;
+    }
+    .nav-links {
+        position: absolute;
+        right: 0px;
+        height: 92vh;
+        top: 8vh;
+        background-color: #5d4954;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transform: translateX(100%);
+    }
+    .nav-links li {
+        opacity: 0;
+    }
+    .burger {
+        display: block;
+        cursor: pointer;
+    }
+}
+
+.nav-active {
+    transform: translateX(0%);
+    transition: transform 0.5s ease-in;
+}
+
+@keyframes navLinkFade {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0px);
+    }
+}
+
+.toggle-burger .line1 {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+.toggle-burger .line2 {
+    opacity: 0;
+}
+.toggle-burger .line3 {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
+/* navbar animation slide out*/
+.nav-slide-out {
+    transform: translateX(100%);
+    transition: transform 0.5s ease-in;
+}
