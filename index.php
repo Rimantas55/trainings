@@ -507,6 +507,38 @@ $person = [
 // }
 // echo "sum " . $sum . " //index of array/loop round " . $key . " //value of array: $value" ."<br>"  ;
 
+//? ASOCIATIVE ARRAY AND FOREACH LOOP
+// option 1
+// $user = [
+//   'name' => 'Mike',
+//   'email' => '@mike.com',
+//   'skills' => ['php', 'graphql', 'react'],
+// ];
+
+// foreach ($user as $key => $value) {
+//   echo $key . ': ';
+
+//   if (is_array($value)) {
+//     foreach ($value as $skill) {
+//       echo $skill . ' - ';
+//     }
+//   } else {
+//     echo $value;
+//   }
+//   echo '<br>';
+// }
+
+// option 2 // but it is not recommended 
+// $user = [
+//   'name' => 'Mike',
+//   'email' => '@mike.com',
+//   'skills' => ['php', 'graphql', 'react'],
+// ];
+
+// foreach ($user as $key => $value) {
+//  echo $key . ': ' . json_encode($value) . '<br/>';
+// }
+
 
 //? DATE AND TIME
 

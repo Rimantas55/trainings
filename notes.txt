@@ -301,6 +301,14 @@ OPERATORS
   Array Operators (+ == === != !==)
   Execution Operators('')
 
+- web simple simulation with links/refactor header and footer
+https://www.youtube.com/watch?v=2eebptXfEvw
+laikas 01:50:36
+  INCLUDE  - shows errors and still run code
+  INCLUDE_ONCE  - if I will include 2 times the same file ir wont include it two times
+  REQUIRE - shows error but do not rest of code
+  REQUIRE_ONCE
+
 
 Super Globals
   GLOBALS  - access variable anywhere in PHP
@@ -453,5 +461,6 @@ send email to gmail and other - https://www.youtube.com/watch?v=QUWDC1ZjMHA
 Search feature
 sort feature
 shopping cart
+send sms from PHP to phone or email, confirmation email and sms
 
 
