@@ -423,6 +423,7 @@ PDO connection to DB
 
 
 MVC - Model View Controller // concept
+https://www.youtube.com/watch?v=DUg2SWWK18I
 Model: 
   "In touch" with database
   Fetch, insert, update and delete data
@@ -450,6 +451,7 @@ installing php
 
 TOPICS
 how to send email from php
+Pasto sistema
 how to optimize images and faser load 
   - resizeimage.net
   - compres image tinypng.com
@@ -462,5 +464,8 @@ Search feature
 sort feature
 shopping cart
 send sms from PHP to phone or email, confirmation email and sms
+payment system
+bar scan coder generator
+
 
 
