@@ -36,6 +36,44 @@
     11) CSS peek
     12) vscode-icons (if it is not setted yet, file and folder icons to better recognition)
     13) go to settings → type enable preview → uncheck - Workbench > Editor: Enable Preview - this allows you to open file faster on the new tab
+
+
+    ########### Connect git with VsCode ############
+    https://www.youtube.com/watch?v=S7TbHDN8EXA
+
+    runs two programs:
+    Local (Git)
+    Cloud (Github)
+    
+    create account on github
+
+    master branches
+    to create branch → F1 or View →  Command palette → Git: Checkout to... → Create new branch → give a name to the branch
+    always check on which branch you working
+    
+    how to back to master branch?
+    F1 or View →  Command palette → Git: Checkout to... → choose master branch
+
+    how to switch between branches?
+    F1 or View →  Command palette → Git: Checkout to... → and bellow will be displayed your branches
+
+    how to merge changes (add changes) from branch to master branch?
+    F1 or View →  Command palette → Git: Merge branch
+
+    OR
+
+    it can be done localy from github Website using Pull request (it  have addition functionalites which allow to check if merging have conflicts or no)
+    keep merged branch for a while, but it better to delete to keep it cleaner (manualy in github website)
+
+    (check what is netlify)
+
+  to see merged changes from github website we need to do additional step in vscode:
+  click on 3 dots which you will see bellow menu Source Control bar.
+
+    Commit push
+    pull
+    git bash 
+
     
     CREATE SNIPPETS like console.log():
       File → Preferences → User snippets → 
