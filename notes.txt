@@ -40,6 +40,8 @@
 
     ########### Connect git with VsCode ############
     https://www.youtube.com/watch?v=S7TbHDN8EXA
+    https://www.youtube.com/watch?v=F2DBSH2VoHQ&t=421s
+    https://www.youtube.com/watch?v=N_bMCff8q6A
 
     runs two programs:
     Local (Git)
@@ -73,6 +75,38 @@
     Commit push
     pull
     git bash 
+
+    some git commands in terminal
+    git --version
+    git config --global --list
+    git config --global user.name "Your Name"
+    git config --global user.email "Your Email"
+
+    to quit type :q + Enter
+
+    git log
+
+    git checkout -
+    git init >initialize local git repo
+    git add <file> >add file(s) to staging area 
+    git status > Check status of working area
+    git push -u origin master >Push to remote repo
+    git pull >Pull latest from remote repogit cline >Cline remote repo locally
+    git branch <branch name> create a new branch 
+    git checkout <branch name> >switch to a branch 
+    git checkout -b 'branch name' >create branch if it is not there
+    git merge <branch name> >Merge a branch with another | you must do this from master branch
+    git add .
+    git commit  -m 'your comment here'
+    git rm --cashed fileName.html
+
+    some commands on git bash
+    touch index.html
+    touch app.js
+    touch .gitignore
+    touch log.txt
+    touch README.md
+
 
     
     CREATE SNIPPETS like console.log():
