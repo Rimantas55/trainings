@@ -34,7 +34,8 @@
     9) Auto Rename Tag - auto rename paired HTML/XML tag
     10) Bracket Pair Colorizer - A customizable extension for colorizing matching brackets
     11) CSS peek
-    12) 
+    12) vscode-icons (if it is not setted yet, file and folder icons to better recognition)
+    13) go to settings → type enable preview → uncheck - Workbench > Editor: Enable Preview - this allows you to open file faster on the new tab
     
     CREATE SNIPPETS like console.log():
       File → Preferences → User snippets → 
