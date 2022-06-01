@@ -1,3 +1,40 @@
+// name pairing randomizer
+// let arr = ["Tom", "Bob", "Jack", "Susan", "Piotr", "Lucy", "Jerad", "Viky"]; //"Tom",
+// let namePairs = [];
+
+// namePairRandomizer();
+
+// // console.log(arr);
+// function namePairRandomizer() {
+//     if (arr.length % 2 !== 0) {
+//         let ats = "enter one more name";
+//         return console.log(ats);
+//     } else {
+//         while (arr.length !== 0) {
+//             // console.log('Original Array');
+//             // console.log(arr);
+//             let randNumber3 = Math.floor(Math.random() * arr.length);
+//             let randName3 = arr[randNumber3];
+//             // console.log(randName3);
+//             // console.log("name Pares");
+//             arr = arr.filter((item) => item !== randName3);
+//             // console.log("after removing item");
+//             // console.log(arr);
+//             let randNumber4 = Math.floor(Math.random() * arr.length);
+//             // console.log(arr);
+//             //console.log(`new random`);
+//             let randname4 = arr[randNumber4];
+//             //console.log(randname4);
+//             namePairs.push(randName3 + " + " + randname4);
+//             //console.log(arr);
+//             arr = arr.filter((item) => item !== randname4);
+//             // console.log(namePairs);
+//         }
+//         console.log("Final Array");
+//         console.log(namePairs);
+//     }
+// }
+
 //? exercize
 // Back to the two gymnastics teams, the Dolphins and the Koalas! There is a new gymnastics discipline, which works differently.
 // Each team competes 3 times, and then the average of the 3 scores is calculated (so one average score per team).

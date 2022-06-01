@@ -1,14 +1,38 @@
 "use strict"; // allways include in beginngin of the script for errors
-// most of times input values is returned as strings and we need to convert to number type if needed
-// code editor
-// code editor extentions
-// install PHP
-// how code from file
-// console.log()  / alert('') / promt(); prmot give a string
-// variables let vat const // const value can not change, let can change, var variable which is decleared in function scope you can use outside the function, if you will declear it as var
-//
 
-// Lexical scope,function inside function, nested functions
+// most of times input values is returned as strings and we need to convert to number type if needed
+//* DATA TYPES: Number, String, Boolean, Undefined (let children), Null...
+
+// console.log()  / alert('') / promt(); prmot give a string
+// variables let var const // const value can not change, let can change, var variable which is decleared in function scope you can use outside the function, if you will declear it as var
+
+//*SWITCH
+// const day = "monday";
+// switch (day) {
+//     case "monday": // day === 'monday'
+//         console.log(`Plan course structure`);
+//         break;
+//     case "Tuesday":
+//         console.log(`do smth else`);
+//         break;
+//     default:
+//         console.log(`Not a valid day`);
+// }
+
+//* THE CONDITIONAL (Tenary) Operator
+// const age = 12;
+// age >= 18 ? console.log(`I like to drink wine`) : console.log(`I like to drink water`);
+
+// const drink = age >= 18 ? "wine" : "water";
+// console.log(drink);
+
+// let hasDriversLicense = false;
+// const passTest = true;
+
+// if (passTest) hasDriversLicense = true;
+// if (hasDriversLicense) console.log(`I can drive :D`);
+
+//* Lexical scope, function inside function, nested functions
 // function bankRobbery() {
 //     const heroes = ["Spiderman", "Wolverine", "Black Panther"];
 //     // console.table(heroes);
@@ -34,6 +58,68 @@
 //     console.log(roll);
 // }
 // callTwiceFn(rollDieFn); // we passing function without parentesis ()
+
+//* PASSING PARAMETERS IN FUNCTION
+// function fruitProcessor(apples, oranges) {
+//     console.log(apples, oranges);
+//     const juice = `Juice with ${apples} apples and ${oranges} oranges.`;
+//     return juice; // you can store function value/result in variable if you will use → return
+// }
+// const appleJuice = fruitProcessor(10, 0);
+// console.log(appleJuice);
+
+//* FUNCTIONS DECLARATION AND EXPRESSION
+// // Function declaration
+
+// // const age1 = calcAge1(1991); // you can call decleared function before function was defined
+// function calcAge1(birthYear) {
+//      return2037 - birthYear;
+// }
+// const age1 = calcAge1(1991);
+
+// // Function expression. You can not call function before you defined it
+// const calcAgle2 = function (birthYear) {
+//     return 2037 - birthYear;
+// };
+// const age2 = calcAgle2(1991);
+
+// console.log(age1, age2);
+
+//* ARROW FUNCTION
+// const calcAge3 = (birthYear) => 2037 - birthYear;
+// const age3 = calcAge3(1991);
+// console.log(age3);
+
+// extended arrow function
+// const yearUntilRetirement = (birthYear) => {
+//     const age = 2037 - birthYear;
+//     const retirement = 65 - age;
+//     return retirement;
+// };
+// console.log(yearUntilRetirement(1991));
+
+// passing more parameters in arrow function
+// const yearUntilRetirement = (birthYear, firstName) => {
+//     const age = 2022 - birthYear;
+//     const retirement = 65 - age;
+//     return `${firstName} retires in ${retirement} years`;
+// };
+// console.log(yearUntilRetirement(1987, "John"));
+
+//* CALLING FUNCTION INSIDE FUNCTION
+
+// function cutFruitPieces(fruit) {
+//     return fruit * 4;
+// }
+
+// function fruitProcessor(apples, oranges) {
+//     const applePieces = cutFruitPieces(apples);
+//     const orangePieces = cutFruitPieces(oranges);
+//     const juice = `Juice with ${applePieces} piece of apples and ${orangePieces} piece of oranges.`;
+//     return juice;
+// }
+
+// console.log(fruitProcessor(2, 3));
 
 //* CONCAT ARRAY IN JS OR MERGE ARRAY IN PHP
 // const vegetables = ["Bulve", "Kopustas", "Burokas"];
@@ -105,7 +191,7 @@
 // friends.shift();
 // console.log(friends);
 
-//* VALIDATE IF ELEMENT EXIST IN ARRAY - RETURN VALUE 1 OR -1
+//* VALIDATE/CHECK IF ELEMENT EXIST IN ARRAY - RETURN VALUE 1 OR -1
 // const friends = ["Mike", "Steve", "Peter"];
 // console.log(friends);
 // console.log(friends.indexOf("Steve") + " index is Steve");
@@ -233,6 +319,15 @@
 // console.log(types);
 
 //* CONTINUE AND BREAK LOOP
+// CONTINUE - means skip
+// const array = ["John", "Wick", 46, "teacher", ["Tom", "Bob", "Rob"], true];
+// for (let i = 0; i < array.length; i++) {
+//     if (typeof array[i] !== "string") continue;
+//     console.log(array[i], typeof [i]);
+// }
+
+
+// BREAK - prints all outputs and then reaches that one breaks the loop
 // const years = [1990, 1999, 2005, 1987, 2010];
 // const ages = [];
 
@@ -454,14 +549,14 @@
 // console.table(cleanNames([" timethree", "    darth_hater", "sassyfrassy     ", " elton john     "]));
 
 // SETTIMEOUT AND SETINTERVAL
-// arrow function option 1
+// // arrow function option 1
 // setTimeout(() => {
 //     console.log("Hello");
 // }, 3000);
 
-// regular function option 2
+// // regular function option 2
 // function time() {
-//   return console.log("Hello World");
+//     return console.log("Hello World");
 // }
 // setTimeout(time, 3000);
 

@@ -1,7 +1,39 @@
 1) Introduction who I am - maybe do not need this part because there is not much to say.
 2) Introduction 
   - Course overview. What we gonna learn. Basics, projects, begginner to intermidiate 
-  Choose project: NT Skelbimai, Autoplius, DateSite, Doctor register, TVS/CMS. 
+  Choose project: 
+  NT Skelbimai, 
+  Autoplius, 
+  DateSite, 
+  Doctor register, 
+  TVS/CMS. 
+  google map integration
+  data base creation
+  wolt, bolt gps tacker
+  date site
+  MVC
+  connect payment
+  CRUD
+  laguages implement
+  schedule apointment
+  Live chat
+  animation 2D, 3D
+  emails sending:
+https://www.youtube.com/watch?v=r4RQ38EoLds
+https://www.youtube.com/watch?v=0X0kovjzLrw
+https://www.youtube.com/watch?v=e2ParVVIgqs
+https://www.youtube.com/watch?v=sGQSz22U8VM
+https://www.youtube.com/watch?v=GAe2nZpI39c
+https://www.youtube.com/watch?v=i2eXkSKjl0A
+https://www.youtube.com/watch?v=h5ghlfvU3S8
+gimtadienio vardu pickeris
+uzduociu laimes bugnas
+vertimas - en, LT, Ru and so on
+create pdf formant and edit (documentation)
+send sms verifications
+
+
+
 
   Path of programer:
     Back-end Front-end technologies. Mobile Apps technologies
@@ -129,6 +161,8 @@
       alt + click kursioriu padeti galima skirtinguose vietose
       ctrl + D select word
 
+      emoji WIN + . or ;
+
   Sublime
   Atom
   - PHPStorm
@@ -139,6 +173,12 @@
       On Installation Options check - 64-bit launcher and Add "Open Folder as Project" →
       Next → 
       Install
+
+
+  Create account for hosting website on server
+  FileZila
+
+
 
 SOLID PRINCIPLES - supazindinti ir tureti omenyje visada!!!
 
@@ -165,9 +205,33 @@ SOLID PRINCIPLES - supazindinti ir tureti omenyje visada!!!
     what is CSS? 
     DEMO 
     Syntax  - kaip rasosi
-    Inline CSS, inner css, outer CSS
+    Inline CSS, inner css, outer CSS (link files)
+    <head>
+      <title>Web Title</title>
+      <link rel="stylesheet" href="my_styles.css"> // apps/my_styles.css
+    </head>
+    
+    usful links:
+    https://colorhunt.co/
+    Pesticide for Chrome (without hover bar) 33 lesson angela
+    https://chrome.google.com/webstore/detail/pesticide-for-chrome-with/neonnmencpneifkhlmhmfhfiklgjmloi
+    favicon.cc // usage → download file, <link rel="icon" href="favicon.ico"> or if it does no work add .ico?v=2
+    flaticon.com
+    giphy.com
+    https://dribbble.com/
+    sneakpeekit.com
+    balsamiq.cloud
+
+
+    circle:
+    https://codepen.io/ZachSaucier/pen/DrbOEp
+    https://developer.mozilla.org/en-US/docs/Web/SVG/Element/animateMotion
+    https://www.useragentman.com/blog/2013/03/03/animating-circular-paths-using-css3-transitions/
+    https://usefulangle.com/post/32/moving-an-element-in-circular-path-with-css
+
+    colors rgb and Hexadecimal
     attributes - kas tai yra?
-    elemento, clases, ir id herarchija, gali perrasyti kas ka.
+    elemento, clases, ir id herarchija, gali perrasyti kas ka. (order matters)
       class - .class - Name
       Id -    #idName                 
 
@@ -178,13 +242,34 @@ code pen: https://codepen.io/danrim/pen/LYRbvZG
   inline and block elements:
   width min max
   height min max
-  box-sizing
-  units REM EM % VH px
+  box-sizing: border-box;
+  display: inline, block, inline-block, none,/ visability:hidden
+  units REM EM % VH px / 1 em = 16px = 100% / 1 rem =
+  rgba(0,209,112,0.5) /  opacity: 0.5
   selectoriai
   absolute - pavyzdziai
-  relative - pavyzdziai
+  relative - pavyzdziai odes not effect other html elements
+  static
+  fixed
+  sticky
+  transition
+  transform
+  transform:translate(100px,50px);
+  transition-duration: 5s;
+  margin:0 auto;
+  background-image:url("");
+  background-size:cover;
+   
   // kada naudoti grid ir kada naudoti flex?
   flex box // https://www.youtube.com/watch?v=qZv-rNx0jEA
+
+center the object
+display:flex;
+align-items:center;
+justify-content:center;
+height:100vh;
+
+
   grid
   media query:
     Extra small devices (phones, 600px and down)
@@ -197,6 +282,7 @@ code pen: https://codepen.io/danrim/pen/LYRbvZG
   general fonts
   Serif - news papers, books, clasic style
   Sans-Serif  - web digital stuff, some logos, profesional elegant look like a bank
+  https://www.cssfontstack.com/
   BOOTSTRAP
   Exercises:
     NAV https://codepen.io/danrim/pen/XWjdqzg
@@ -207,6 +293,11 @@ code pen: https://codepen.io/danrim/pen/LYRbvZG
     http://www.flexboxdefense.com/
     https://flexboxfroggy.com/
     https://www.freecodecamp.org/news/flexbox-the-ultimate-css-flex-cheatsheet/
+
+discord colt https://discord.com/channels/423464391791476747/439166822391218186
+discord angela
+    handling images:
+
 
 3.) git
 3.) Js
