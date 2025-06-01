@@ -1,0 +1,2133 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>SparkleClean Services</title>
+
+        <style>
+            html {
+                scroll-behavior: smooth;
+            }
+
+            /*for landing banner*/
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+            body {
+                font-family: "Segoe UI", sans-serif;
+            }
+
+            .landing-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background: linear-gradient(135deg, #00c6ff, #0072ff);
+                color: white;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                z-index: 9999;
+                text-align: center;
+                padding: 30px;
+            }
+
+            .landing-overlay h1 {
+                font-size: 2.5rem;
+                margin-bottom: 20px;
+            }
+
+            .button-group {
+                display: flex;
+                gap: 30px;
+                justify-content: center;
+                flex-wrap: wrap;
+                margin-bottom: 30px;
+            }
+
+            .button-box {
+                background-color: rgba(255, 255, 255, 0.1);
+                padding: 20px;
+                border-radius: 12px;
+                width: 250px;
+                text-align: center;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+
+            .button-box:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+            }
+
+            .button-box p {
+                font-size: 1rem;
+                margin-bottom: 12px;
+            }
+
+            .landing-overlay button {
+                padding: 12px 28px;
+                font-size: 16px;
+                border: none;
+                background: white;
+                color: #0072ff;
+                border-radius: 8px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                transform: scale(1);
+            }
+
+            .landing-overlay button:hover {
+                background: #f0f0f0;
+                transform: scale(1.05);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            }
+
+            .enter-site-button {
+                margin-top: 10px;
+            }
+
+            .main-content {
+                display: none;
+                padding: 40px;
+                text-align: center;
+            }
+
+            .main-content h2 {
+                font-size: 2rem;
+                margin-bottom: 15px;
+            }
+
+            .main-content p {
+                font-size: 1rem;
+                max-width: 600px;
+                margin: 0 auto;
+                color: #444;
+            }
+
+            #calculator,
+            #form {
+                padding: 60px 20px;
+                background: #f9f9f9;
+                border-top: 2px solid #ddd;
+            }
+
+            #calculator h2,
+            #form h2 {
+                color: #0072ff;
+            }
+
+            @media (max-width: 600px) {
+                .button-box {
+                    width: 90%;
+                }
+            }
+
+            /*original style beginning*/
+
+            body {
+                margin: 0;
+                background-color: var(--background-color);
+                color: var(--text-color);
+                transition: background-color 0.3s, color 0.3s;
+            }
+
+            /*start of calculator styling*/
+
+            section.calculatorSection {
+                display: flex;
+                justify-content: center; /* horizontal center */
+                align-items: center; /* vertical center */
+                min-height: 60vh; /* full height of the viewport */
+                background: linear-gradient(to right, #e0f7fa, #e1bee7);
+            }
+
+            .container {
+                background-color: #ffffff;
+                padding: 30px 40px;
+                border-radius: 15px;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+                max-width: 600px;
+                width: 100%;
+                animation: fadeIn 0.8s ease-in-out;
+                /*text-align: center;*/
+            }
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            h2 {
+                text-align: center;
+                margin-bottom: 20px;
+                color: #4a148c;
+            }
+
+            label {
+                margin-top: 15px;
+                display: block;
+                color: #333;
+            }
+
+            input[type="number"] {
+                width: 100%;
+                padding: 10px;
+                border: 2px solid #ccc;
+                border-radius: 8px;
+                font-size: 16px;
+                box-sizing: border-box;
+                transition: border-color 0.3s;
+            }
+
+            input[type="number"]:focus {
+                border-color: #7b1fa2;
+                outline: none;
+            }
+
+            .checkbox-group {
+                margin: 20px 0;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .checkbox-group label {
+                flex: 1 1 calc(33.333% - 10px); /* 3 columns */
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 15px;
+            }
+
+            @media (max-width: 500px) {
+                .checkbox-group label {
+                    flex: 1 1 calc(50% - 10px); /* 2 columns on small screens */
+                }
+            }
+
+            section.calculatorSection button {
+                width: 100%;
+                padding: 12px;
+                background-color: #7b1fa2;
+                color: #fff;
+                border: none;
+                border-radius: 8px;
+                font-size: 16px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            section.calculatorSection button:hover {
+                background-color: #4a148c;
+            }
+
+            #result {
+                margin-top: 20px;
+                font-size: 18px;
+                font-weight: bold;
+                text-align: center;
+                color: #2e7d32;
+                animation: fadeIn 0.5s ease-in-out;
+                opacity: 0;
+                transition: opacity 0.5s;
+            }
+
+            /*end of styling for calculator section*/
+
+            :root {
+                --primary-color: #009688;
+                --background-color: #fff;
+                --text-color: #000;
+            }
+            .dark-mode {
+                --background-color: #121212;
+                --text-color: #fff;
+            }
+            header {
+                background: var(--primary-color);
+                color: white;
+                padding: 1rem 1.5rem;
+                position: sticky;
+                top: 0;
+                z-index: 1000;
+            }
+            nav {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                max-width: 1200px;
+                margin: 0 auto;
+                position: relative;
+            }
+            .logo {
+                font-size: 1.5rem;
+                font-weight: bold;
+            }
+            .nav-toggle {
+                display: none;
+                background: none;
+                border: none;
+                cursor: pointer;
+                flex-direction: column;
+                justify-content: space-between;
+                height: 24px;
+                width: 30px;
+            }
+            .nav-toggle span {
+                display: block;
+                height: 4px;
+                background: white;
+                border-radius: 2px;
+                transition: 0.5s;
+            }
+            .nav-toggle.open span:nth-child(1) {
+                transform: translateY(10px) rotate(45deg);
+            }
+            .nav-toggle.open span:nth-child(2) {
+                opacity: 0;
+            }
+            .nav-toggle.open span:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+            .nav-links {
+                display: flex;
+                list-style: none;
+                gap: 1.5rem;
+                justify-content: center;
+                flex-grow: 1;
+            }
+            .nav-links li a {
+                color: white;
+                text-decoration: none;
+                font-weight: 500;
+                transition: color 0.3s;
+            }
+            .nav-links li a:hover {
+                color: #c8f7f4;
+                text-decoration: underline;
+            }
+            .language-selector,
+            .mode-toggle {
+                background: none;
+                color: white;
+                font-size: 1rem;
+                border: none;
+                cursor: pointer;
+                padding: 0.5rem;
+            }
+            .mode-toggle {
+                font-size: 1.5rem;
+            }
+            @media (max-width: 768px) {
+                .nav-links {
+                    position: absolute;
+                    top: 60px;
+                    right: 0;
+                    background-color: #009688;
+                    flex-direction: column;
+                    width: 100%;
+                    padding: 1rem 0;
+                    gap: 0;
+                    display: none;
+                }
+                .nav-links.active {
+                    display: flex;
+                }
+                .nav-links li {
+                    text-align: center;
+                    padding: 1rem 0;
+                }
+                .nav-toggle {
+                    display: flex;
+                }
+            }
+            .banner {
+                background: linear-gradient(rgba(0, 150, 136, 0.85), rgba(0, 150, 136, 0.85)),
+                    url("https://source.unsplash.com/1600x500/?cleaning-banner") no-repeat center center/cover;
+                color: white;
+                text-align: center;
+                padding: 80px 20px;
+            }
+            .banner h1 {
+                font-size: 2.5rem;
+                margin: 0;
+            }
+            .banner p {
+                font-size: 1.2rem;
+                margin: 10px 0;
+            }
+            .banner .extra-text {
+                font-size: 1rem;
+                max-width: 600px;
+                margin: 0 auto;
+                line-height: 1.6;
+            }
+            section {
+                padding: 60px 20px;
+                max-width: 1200px;
+                margin: auto;
+            }
+            h2 {
+                margin-bottom: 20px;
+                text-align: center;
+            }
+            .service-cards {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1.5rem;
+                justify-content: center;
+            }
+            .card {
+                background: #fff;
+                border-radius: 15px;
+                padding: 1rem;
+                max-width: 300px;
+                text-align: center;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+            .card img {
+                border-radius: 10px;
+                max-width: 100%;
+            }
+            .contact form {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                max-width: 600px;
+                margin: 0 auto 1rem;
+                background: #f9f9f9;
+                padding: 1rem;
+                border-radius: 15px;
+            }
+            .contact input,
+            .contact textarea {
+                padding: 0.5rem;
+                border-radius: 8px;
+                border: 1px solid #ccc;
+                min-width: 280px;
+                max-width: 100%;
+                resize: vertical;
+            }
+            .contact textarea {
+                min-height: 150px;
+            }
+            .contact button {
+                background-color: #009688;
+                color: white;
+                border: none;
+                padding: 0.5rem 1rem;
+                border-radius: 8px;
+                cursor: pointer;
+            }
+            .contact button:hover {
+                background-color: #45a049;
+                transform: scale(1.05);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            }
+            .notification {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) scale(0.95);
+                background-color: #d4edda;
+                color: #155724;
+                border: 1px solid #c3e6cb;
+                padding: 20px 28px;
+                border-radius: 10px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+                opacity: 0;
+                transition: opacity 0.4s ease, transform 0.4s ease;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                z-index: 9999;
+                pointer-events: none;
+                min-width: 300px;
+            }
+            .notification.show {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+                pointer-events: auto;
+            }
+            .ok-button {
+                margin-top: 12px;
+                background-color: #28a745;
+                color: white;
+                border: none;
+                padding: 8px 16px;
+                border-radius: 6px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+            .ok-button:hover {
+                background-color: #218838;
+            }
+            footer {
+                background: #f4f4f4;
+                text-align: center;
+                padding: 1rem;
+            }
+            img {
+                max-width: 100%;
+                height: auto;
+            }
+            #footerCredit {
+                font-size: 0.85em;
+                margin-top: 5px;
+                color: #777;
+            }
+
+            /*calendar date selection*/
+
+            h4 {
+                color: #333;
+                text-align: center;
+            }
+
+            .calendar-inputs {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                justify-content: space-between;
+                margin-top: 16px;
+            }
+
+            .date-group {
+                display: flex;
+                flex-direction: column;
+                flex: 1 1 48%;
+            }
+
+            label {
+                font-size: 13px;
+                color: #444;
+                margin-bottom: 5px;
+            }
+
+            input[type="date"] {
+                padding: 8px;
+                font-size: 14px;
+                border-radius: 6px;
+                border: 1px solid #ccc;
+                background-color: #fff;
+                cursor: pointer;
+            }
+
+            input[type="date"]::-webkit-calendar-picker-indicator {
+                scale: 0.85;
+            }
+
+            .output {
+                margin-top: 18px;
+                font-size: 15px;
+                text-align: center;
+            }
+
+            .success {
+                color: #2e7d32;
+            }
+
+            .error {
+                color: #d32f2f;
+            }
+
+            @media (max-width: 500px) {
+                .calendar-inputs {
+                    flex-direction: column;
+                }
+
+                .date-group {
+                    width: 100%;
+                }
+            }
+
+            /*Gallery style*/
+            .gallery {
+                display: flex;
+                gap: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .gallery-card {
+                background: #fff;
+                border-radius: 12px;
+                overflow: hidden;
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(2, 1fr);
+                width: 300px;
+                height: 300px;
+                cursor: pointer;
+            }
+
+            .gallery-card img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.3s;
+            }
+
+            .gallery-card img:hover {
+                transform: scale(1.05);
+            }
+
+            /* Lightbox Styles */
+            .lightbox {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.85);
+                display: none;
+                align-items: center;
+                justify-content: center;
+                z-index: 1000;
+                flex-direction: column;
+                animation: fadeIn 0.3s ease-in-out;
+            }
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                }
+                to {
+                    opacity: 1;
+                }
+            }
+
+            .lightbox img {
+                max-width: 90%;
+                max-height: 80%;
+                border-radius: 12px;
+                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+                transition: all 0.3s ease;
+            }
+
+            .lightbox .controls {
+                margin-top: 20px;
+                display: flex;
+                justify-content: center;
+                gap: 40px;
+            }
+
+            .lightbox button {
+                background: #fff;
+                border: none;
+                padding: 10px 20px;
+                font-size: 18px;
+                cursor: pointer;
+                border-radius: 6px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            }
+
+            .close-btn {
+                position: absolute;
+                top: 20px;
+                right: 30px;
+                font-size: 30px;
+                color: #fff;
+                cursor: pointer;
+            }
+
+            /*Gallery syle end*/
+
+            /* Testimonials Starts */
+            .testimonials-header {
+                text-align: center;
+                margin-bottom: 50px;
+            }
+
+            .testimonials-header h2 {
+                font-size: 2.5rem;
+                color: #007bff; /* A nice blue for the heading */
+                margin-bottom: 10px;
+                font-weight: 700;
+            }
+
+            .testimonials-header p {
+                font-size: 1.1rem;
+                color: #6c757d;
+                max-width: 700px;
+                margin: 0 auto;
+            }
+
+            /* Carousel Container */
+            .carousel-wrapper {
+                max-width: 1200px;
+                margin: 0 auto;
+                position: relative; /* For positioning arrows */
+                padding: 0 50px; /* Space for arrows */
+            }
+
+            .testimonials-container {
+                display: flex; /* Arrange cards in a single line */
+                overflow-x: auto; /* Enable horizontal scrolling */
+                scroll-snap-type: x mandatory; /* Snap to cards when scrolling */
+                -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+                scroll-behavior: smooth; /* Smooth scrolling when navigating with arrows */
+                scrollbar-width: none; /* Hide scrollbar for Firefox */
+                -ms-overflow-style: none; /* Hide scrollbar for IE/Edge */
+            }
+
+            /* Hide scrollbar for Webkit browsers (Chrome, Safari) */
+            .testimonials-container::-webkit-scrollbar {
+                display: none;
+            }
+
+            /* Testimonial Card Styling */
+            .testimonial-card {
+                flex-shrink: 0; /* Prevent cards from shrinking */
+                width: calc(100% / 1); /* Default: 1 card per view on small screens */
+                max-width: 400px; /* Max width for individual cards */
+                background-color: #fff;
+                border-radius: 16px; /* Rounded corners */
+                padding: 30px;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Soft shadow */
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                height: 100%; /* Ensure cards in a row have same height */
+                margin-right: 30px; /* Space between cards */
+                scroll-snap-align: start; /* Snap to the start of each card */
+                transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effect */
+            }
+
+            .testimonial-card:last-child {
+                margin-right: 0; /* No margin on the last card */
+            }
+
+            .testimonial-card:hover {
+                transform: translateY(-5px); /* Slight lift on hover */
+                box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+            }
+
+            .testimonial-card .quote {
+                font-size: 1.1rem;
+                color: #495057;
+                margin-bottom: 20px;
+                font-style: italic; /* Make quotes stand out */
+            }
+
+            .testimonial-card .stars {
+                margin-bottom: 15px;
+                display: flex; /* Align stars in a row */
+                gap: 5px; /* Space between stars */
+            }
+
+            .stars svg {
+                width: 20px; /* Size of the star icons */
+                height: 20px;
+                fill: #ffc107; /* Gold color for filled stars */
+            }
+
+            .stars .empty-star {
+                fill: #e0e0e0; /* Lighter color for empty stars */
+            }
+
+            .testimonial-author {
+                display: flex;
+                align-items: center;
+                margin-top: auto; /* Pushes author info to the bottom */
+                padding-top: 15px; /* Space above author info */
+                border-top: 1px solid #eee; /* Separator line */
+            }
+
+            .testimonial-author img {
+                width: 70px;
+                height: 70px;
+                border-radius: 50%; /* Circular image */
+                object-fit: cover;
+                margin-right: 15px;
+                border: 3px solid #007bff; /* Border around image */
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Small shadow for image */
+            }
+
+            .testimonial-author .info strong {
+                display: block;
+                font-size: 1.15rem;
+                color: #212529;
+                font-weight: 600;
+            }
+
+            .testimonial-author .info small {
+                display: block;
+                font-size: 0.95rem;
+                color: #6c757d;
+            }
+
+            /* Navigation Arrows */
+            .carousel-arrow {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                background-color: rgba(0, 123, 255, 0.8); /* Blue with transparency */
+                color: white;
+                border: none;
+                border-radius: 50%;
+                width: 45px;
+                height: 45px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                font-size: 1.5rem;
+                z-index: 10;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+                transition: background-color 0.3s ease, transform 0.3s ease;
+            }
+
+            .carousel-arrow:hover {
+                background-color: #0056b3; /* Darker blue on hover */
+                transform: translateY(-50%) scale(1.05);
+            }
+
+            .carousel-arrow.left {
+                left: 0;
+            }
+
+            .carousel-arrow.right {
+                right: 0;
+            }
+
+            /* Responsive adjustments for cards per view */
+            @media (min-width: 768px) {
+                .testimonial-card {
+                    width: calc(100% / 2 - 15px); /* 2 cards per view, accounting for gap */
+                }
+            }
+
+            @media (min-width: 992px) {
+                .testimonial-card {
+                    width: calc(100% / 3 - 20px); /* 3 cards per view, accounting for gap */
+                }
+            }
+            /*testimonials Ends*/
+        </style>
+    </head>
+    <body>
+        <!-- Landing Page -->
+        <div class="landing-overlay" id="landingPage">
+            <h1>Welcome to SparkleClean</h1>
+
+            <div class="button-group">
+                <div class="button-box">
+                    <p>Calculate cleaning service prices by yourself</p>
+                    <button onclick="navigateTo('calculatorSection')">Calculate Price</button>
+                </div>
+                <div class="button-box">
+                    <p>For long-term cooperation contact privately</p>
+                    <button onclick="navigateTo('about')">Cooperate</button>
+                </div>
+            </div>
+
+            <button class="enter-site-button" onclick="enterWebsite(event)">Enter Website</button>
+        </div>
+
+        <header>
+            <nav>
+                <div class="logo" id="logo" onclick="scrollToTop()">SparkleClean</div>
+                <ul class="nav-links" id="navLinks">
+                    <li><a id="homeNavTitle" onclick="scrollToTop()" onclick="closeMenu()">Home</a></li>
+                    <li><a id="servicesNavTitle" href="#services" onclick="closeMenu()">Services</a></li>
+                    <li><a id="aboutNavTitle" href="#about" onclick="closeMenu()">About</a></li>
+                    <li><a id="contactNavTitle" href="#contact" onclick="closeMenu()">Contacts</a></li>
+                </ul>
+                <div>
+                    <select id="lang-select" class="language-select">
+                        <option value="lt">LT</option>
+                        <option value="en">EN</option>
+                        <option value="ru">RU</option>
+                    </select>
+
+                    <button class="mode-toggle" onclick="toggleDarkMode()">🌙</button>
+                </div>
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+                    <span></span><span></span><span></span>
+                </button>
+            </nav>
+        </header>
+
+        <section class="banner">
+            <h1 id="bannerTitle">Welcome to SparkleClean</h1>
+            <p id="bannerSubtitle">Expert Cleaning for Your Home & Office</p>
+            <p class="extra-text" id="bannerText">
+                At SparkleClean, we believe that a clean environment leads to a healthier, happier life...
+            </p>
+        </section>
+
+        <!-- <section id="home" class="hero">
+    <h2 id="heroTitle">Professional Cleaning Services</h2>
+    <p id="heroSubtitle">Your space, our sparkle.</p>
+    <img src="https://source.unsplash.com/1600x600/?cleaning" alt="Cleaning" style="border-radius: 15px;" />
+  </section> -->
+
+        <section class="calculatorSection" id="calculatorSection">
+            <div class="container">
+                <h2 id="cleaningServicePriceCalculaor">Cleaning Service Price Calculator</h2>
+
+                <div class="calendar-container">
+                    <h4 id="selectCleaningDates">Select Cleaning Date(s)</h4>
+                    <div class="calendar-inputs">
+                        <div class="date-group">
+                            <label for="startDate" id="startDateLabel">Start Date:</label>
+                            <input type="date" id="startDate" onkeydown="return false" />
+                        </div>
+
+                        <div class="date-group">
+                            <label for="endDate" id="endDateLabel">End Date:</label>
+                            <input type="date" id="endDate" onkeydown="return false" />
+                        </div>
+                    </div>
+                    <div id="output" class="output"></div>
+                </div>
+                <label for="area" id="enterAreaLabel">Enter area (m²):</label>
+                <input type="number" id="area" min="1" max="9999" step="1" placeholder="e.g. 50" required />
+                <p id="chooseYourCleaningServicesLabel">Choose Your Cleaning Services.</p>
+                <div class="checkbox-group">
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_1" /><span id="cleaningSixToFive"
+                            >Cleaning from 06:00-17:00 h</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_2" /><span id="cleaningFiveToTen"
+                            >Cleaning from 17:00-22:00 h</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="cleaningTenToSix"
+                            >Cleaning from 22:00–06:00</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="distanceFifteenKm"
+                            >Distance from city center 15 km</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="distanceThirtyKm"
+                            >Distance from city center 30 km</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span
+                            id="distanceOverThirtyKm"
+                            >Distance from city center more than 30 km</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span
+                            id="flexibleCleaningHours"
+                            >Flexible cleaning hours</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="cleaningOnlyToday"
+                            >Cleaning only today</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span
+                            id="cleaningDateTimeArranged"
+                            >Cleaning date and time to be arranged</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="floorVacuuming"
+                            >Is floor vacuuming needed?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="floorWashing"
+                            >Is floor washing needed?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="wallCleaning"
+                            >Is wall cleaning needed?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="wallWashing"
+                            >Is wall washing needed?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="objectUnfurnished"
+                            >Is object unfurnished?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="objectFurnished"
+                            >Is object furnished?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="cabinetsCleaning"
+                            >Are the cabinets cleaning needed?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span
+                            id="cabinetsEmptyInside"
+                            >Are the insides of the cabinets empty?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="trashRemoval"
+                            >Is trash removal needed?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span
+                            id="windowCleaningInside"
+                            >Is window cleaning needed (only from the inside)?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span
+                            id="windowCleaningOutside"
+                            >Is window cleaning needed from the outside (only for windows that open)?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span
+                            id="refrigeratorCleaning"
+                            >Is refrigerator cleaning needed?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="ovenCleaning"
+                            >Is oven cleaning needed?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="microwaveCleaning"
+                            >Is microwave cleaning needed?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span
+                            id="gasHeatingStoveCleaning"
+                            >Is gas heating stove cleaning needed?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span
+                            id="electricHeatingStoveCleaning"
+                            >Is electric heating stove cleaning needed?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span
+                            id="cookerHoodsCleaning"
+                            >Is cooker hoods cleaning needed?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span
+                            id="upholsteredFurnitureVacuuming"
+                            >Is upholstered furniture vacuuming needed?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="deepCleaning"
+                            >Is deep cleaning needed?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="manualDishwashing"
+                            >Is dishwashing (manual) needed?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="toiletCleaning"
+                            >Is toilet cleaning needed?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="bathtubCleaning"
+                            >Is bathtub cleaning needed?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="showerCleaning"
+                            >Is shower cleaning needed?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span
+                            id="clientCleaningProducts"
+                            >Client cleaning products</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span
+                            id="serviceProvidersCleaningProducts"
+                            >Service providers' cleaning products</span
+                        ></label
+                    >
+                </div>
+
+                <button onclick="calculatePrice()" id="calculatePriceBtn">Calculate Price</button>
+
+                <div id="result"></div>
+            </div>
+        </section>
+
+        <section id="services">
+            <h2 id="servicesTitle">Our Services</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <img src="https://source.unsplash.com/300x200/?house-cleaning" alt="House Cleaning" />
+                    <h3 id="service1Title">Residential Cleaning</h3>
+                    <p id="service1Desc">Thorough and reliable home cleaning services tailored to your schedule.</p>
+                </div>
+                <div class="card">
+                    <img src="https://source.unsplash.com/300x200/?office-cleaning" alt="Office Cleaning" />
+                    <h3 id="service2Title">Office Cleaning</h3>
+                    <p id="service2Desc">Boost employee productivity with a spotless and sanitized work environment.</p>
+                </div>
+                <div class="card">
+                    <img src="https://source.unsplash.com/300x200/?window-cleaning" alt="Window Cleaning" />
+                    <h3 id="service3Title">Window Cleaning</h3>
+                    <p id="service3Desc">Crystal clear windows for your home or business inside and out.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="about">
+            <h2 id="aboutTitle">About Us</h2>
+            <p id="aboutText">
+                SparkleClean is a family-owned cleaning company dedicated to quality and customer satisfaction.
+            </p>
+        </section>
+
+        <section id="contact" class="contact">
+            <h2 id="contactTitle">Contact Us</h2>
+            <form id="contactForm">
+                <input type="text" name="name" id="contactName" placeholder="Your Name" required />
+                <input type="text" name="subject" id="subject" placeholder="Your subject" required />
+                <input type="email" name="email" id="contactEmail" placeholder="Your Email" required />
+                <textarea name="message" id="contactMessage" rows="5" placeholder="Your Message" required></textarea>
+                <button type="submit" id="contactButton">Send Message</button>
+                <p id="status"></p>
+            </form>
+        </section>
+
+        <div id="notification" class="notification">
+            <span id="notificationMessage">Message sent successfully!</span>
+            <button class="ok-button" onclick="hideNotification()">OK</button>
+        </div>
+
+        <!-- Gallery section start-->
+        <div class="gallery" id="gallery"></div>
+
+        <div class="lightbox" id="lightbox">
+            <span class="close-btn" onclick="closeLightbox()">×</span>
+            <img id="lightbox-img" src="" alt="Lightbox Image" />
+            <div class="controls">
+                <button onclick="prevImage()">←</button>
+                <button onclick="nextImage()">→</button>
+            </div>
+        </div>
+
+        <!-- Gallery section end -->
+
+        <!-- Testimonials Start -->
+        <section class="testimonials-section">
+            <div class="testimonials-header">
+                <h2>What Our Clients Say</h2>
+                <p>
+                    Don't just take our word for it. Read testimonials from our satisfied customers who have experienced
+                    the difference.
+                </p>
+            </div>
+
+            <div class="carousel-wrapper">
+                <div class="testimonials-container" id="testimonialsContainer">
+                    <div class="testimonial-card">
+                        <div class="content">
+                            <div class="stars">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                            </div>
+                            <p class="quote">
+                                "The service was exceptional! I was truly impressed by the attention to detail and
+                                personalized approach. Highly recommend for anyone seeking top-tier quality."
+                            </p>
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="https://placehold.co/70x70/FF5733/FFFFFF?text=A" alt="Client A" />
+                            <div class="info">
+                                <strong>Sarah Chen</strong>
+                                <small>Marketing Specialist</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="content">
+                            <div class="stars">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2v15.27z"
+                                        class="empty-star"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2v15.27z"
+                                        class="empty-star"
+                                    />
+                                </svg>
+                            </div>
+                            <p class="quote">
+                                "A truly professional and efficient team. They delivered exactly what was promised, on
+                                time and within budget. We are very happy with the results."
+                            </p>
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="https://placehold.co/70x70/33FF57/FFFFFF?text=B" alt="Client B" />
+                            <div class="info">
+                                <strong>Mark Davis</strong>
+                                <small>Software Engineer</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="content">
+                            <div class="stars">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2v15.27z"
+                                        class="empty-star"
+                                    />
+                                </svg>
+                            </div>
+                            <p class="quote">
+                                "Fantastic results and a pleasure to work with. They truly understand our vision and
+                                brought it to life seamlessly. Highly recommended!"
+                            </p>
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="https://placehold.co/70x70/5733FF/FFFFFF?text=C" alt="Client C" />
+                            <div class="info">
+                                <strong>Linda Green</strong>
+                                <small>Creative Director</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="content">
+                            <div class="stars">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                            </div>
+                            <p class="quote">
+                                "An absolute pleasure to work with. Their team is incredibly knowledgeable and
+                                supportive. We are thrilled with the outcome of our project."
+                            </p>
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="https://placehold.co/70x70/FFC107/FFFFFF?text=D" alt="Client D" />
+                            <div class="info">
+                                <strong>Robert Brown</strong>
+                                <small>Business Consultant</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="content">
+                            <div class="stars">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2v15.27z"
+                                        class="empty-star"
+                                    />
+                                </svg>
+                            </div>
+                            <p class="quote">
+                                "Their innovative solutions have truly transformed our workflow. The team is responsive,
+                                professional, and genuinely cares about client success."
+                            </p>
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="https://placehold.co/70x70/17A2B8/FFFFFF?text=E" alt="Client E" />
+                            <div class="info">
+                                <strong>Jessica White</strong>
+                                <small>Operations Manager</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="content">
+                            <div class="stars">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                            </div>
+                            <p class="quote">
+                                "From concept to completion, the experience was flawless. Their commitment to excellence
+                                shines through in every aspect of their work. Highly recommended!"
+                            </p>
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="https://placehold.co/70x70/28A745/FFFFFF?text=F" alt="Client F" />
+                            <div class="info">
+                                <strong>Michael Lee</strong>
+                                <small>Product Designer</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="carousel-arrow left" id="prevBtn">&#10094;</button>
+                <button class="carousel-arrow right" id="nextBtn">&#10095;</button>
+            </div>
+        </section>
+
+        <!-- Testimonials Ends -->
+
+        <footer>
+            <p id="footerText">&copy; 2025 SparkleClean. All rights reserved.</p>
+            <p id="footerCredit">Website created by Rimantas Danilevičius</p>
+        </footer>
+
+        <script>
+            const VISIT_KEY = "sparkleCleanVisit";
+            const SEVEN_DAYS_MS = /*7 * 24 * 60 * 60 * 1000; */ 1 * 60 * 1000;
+
+            function enterWebsite(e) {
+                e?.stopPropagation();
+                document.getElementById("landingPage").style.display = "none";
+                document.getElementById("logo").style.display = "block";
+                localStorage.setItem(VISIT_KEY, Date.now().toString());
+            }
+
+            function navigateTo(sectionId) {
+                enterWebsite();
+                setTimeout(() => {
+                    document.getElementById(sectionId).scrollIntoView({ behavior: "smooth" });
+                }, 50);
+            }
+
+            document.getElementById("landingPage").addEventListener("click", () => enterWebsite());
+
+            document.querySelectorAll(".landing-overlay button").forEach((btn) => {
+                btn.addEventListener("click", (e) => e.stopPropagation());
+            });
+
+            // Show landing only if it's a new visit or 7+ days passed
+            window.addEventListener("DOMContentLoaded", () => {
+                const lastVisit = localStorage.getItem(VISIT_KEY);
+                const now = Date.now();
+
+                if (lastVisit && now - parseInt(lastVisit, 2) < SEVEN_DAYS_MS) {
+                    enterWebsite(); // skip landing
+                }
+            });
+
+            function scrollToTop() {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            }
+
+            const navToggle = document.getElementById("navToggle");
+            const navLinks = document.getElementById("navLinks");
+            navToggle.addEventListener("click", () => {
+                navToggle.classList.toggle("open");
+                navLinks.classList.toggle("active");
+                navToggle.setAttribute("aria-expanded", navToggle.classList.contains("open"));
+            });
+
+            function closeMenu() {
+                navToggle.classList.remove("open");
+                navLinks.classList.remove("active");
+                navToggle.setAttribute("aria-expanded", "false");
+            }
+
+            function toggleDarkMode() {
+                document.body.classList.toggle("dark-mode");
+                document.querySelector(".mode-toggle").textContent = document.body.classList.contains("dark-mode")
+                    ? "☀️"
+                    : "🌙";
+            }
+
+            const translations = {
+                en: {
+                    // Price calculation section
+                    homeNavTitle: "Home",
+                    servicesNavTitle: "Services",
+                    aboutNavTitle: "About",
+                    contactNavTitle: "Contacts",
+                    bannerTitle: "Welcome to SparkleClean",
+                    bannerSubtitle: "Expert Cleaning for Your Home & Office",
+                    bannerText:
+                        "At SparkleClean, we believe that a clean environment leads to a healthier, happier life...",
+                    heroTitle: "Professional Cleaning Services",
+                    heroSubtitle: "Your space, our sparkle.",
+                    cleaningServicePriceCalculaor: "Cleaning Service Price Calculator",
+                    selectCleaningDates: "Select Cleaning Date(s)",
+                    startDateLabel: "Start Date:",
+                    endDateLabel: "End Date:",
+                    enterAreaLabel: "Enter area (m²)",
+                    area: "e.g. 50",
+                    chooseYourCleaningServicesLabel: "Choose Your Cleaning Services.",
+                    cleaningSixToFive: "Cleaning from 06:00-17:00h",
+                    cleaningFiveToTen: "Cleaning from 17:00-22:00",
+                    cleaningTenToSix: "Cleaning from 22:00-06:00",
+                    distanceFifteenKm: "Distance from city center 15 km",
+                    distanceThirtyKm: "Distance from city center 30 km",
+                    distanceOverThirtyKm: "Distance from city center more than 30 km",
+                    flexibleCleaningHours: "Flexible cleaning hours",
+                    cleaningOnlyToday: "Cleaning only today",
+                    cleaningDateTimeArranged: "Cleaning date and time to be arranged",
+                    floorVacuuming: "Is floor vacuuming needed?",
+                    floorWashing: "Is floor washing needed?",
+                    wallCleaning: "Is wall cleaning needed?",
+                    wallWashing: "Is wall washing needed?",
+                    objectUnfurnished: "Is object unfurnished?",
+                    objectFurnished: "Is object furnished?",
+                    cabinetsCleaning: "Are the cabinets cleaning needed?",
+                    cabinetsEmptyInside: "Are the insides of the cabinets empty?",
+                    trashRemoval: "Is trash removal needed?",
+                    windowCleaningInside: "Is window cleaning needed (only from the inside)?",
+                    windowCleaningOutside: "Is window cleaning needed from the outside (only for windows that open)?",
+                    refrigeratorCleaning: "Is refrigerator cleaning needed?",
+                    ovenCleaning: "Is oven cleaning needed?",
+                    microwaveCleaning: "Is microwave cleaning needed?",
+                    gasHeatingStoveCleaning: "Is gas heating stove cleaning needed?",
+                    electricHeatingStoveCleaning: "Is electric heating stove cleaning needed?",
+                    cookerHoodsCleaning: "Is cooker hoods cleaning needed?",
+                    upholsteredFurnitureVacuuming: "Is upholstered furniture vacuuming needed?",
+                    deepCleaning: "Is deep cleaning needed?",
+                    manualDishwashing: "Is dishwashing (manual) needed?",
+                    toiletCleaning: "Is toilet cleaning needed?",
+                    bathtubCleaning: "Is bathtub cleaning needed?",
+                    showerCleaning: "Is shower cleaning needed?",
+                    clientCleaningProducts: "Clients' cleaning products",
+                    serviceProvidersCleaningProducts: "Service providers' cleaning products",
+                    calculatePriceBtn: "Calculate Price",
+
+                    servicesTitle: "Our Services",
+                    service1Title: "Residential Cleaning",
+                    service1Desc: "Thorough and reliable home cleaning services tailored to your schedule.",
+                    service2Title: "Office Cleaning",
+                    service2Desc: "Boost employee productivity with a spotless and sanitized work environment.",
+                    service3Title: "Window Cleaning",
+                    service3Desc: "Crystal clear windows for your home or business inside and out.",
+                    aboutTitle: "About Us",
+                    aboutText:
+                        "SparkleClean is a family-owned cleaning company dedicated to quality and customer satisfaction.",
+                    contactTitle: "Contact Us",
+                    contactButton: "Send Message",
+                    contactName: "Your Name",
+                    subject: "Your subject",
+                    contactEmail: "Your Email",
+                    contactMessage: "Your Message",
+                    footerText: "© 2025 SparkleClean. All rights reserved.",
+                },
+                ru: {
+                    homeNavTitle: "Основной",
+                    servicesNavTitle: "Услуги",
+                    aboutNavTitle: "О Нас",
+                    contactNavTitle: "Контакты",
+                    bannerTitle: "Добро пожаловать в SparkleClean",
+                    bannerSubtitle: "Профессиональная уборка для дома и офиса",
+                    bannerText: "Мы в SparkleClean верим, что чистота — залог здоровья и счастья...",
+                    heroTitle: "Профессиональные услуги уборки",
+                    heroSubtitle: "Ваше пространство — наш блеск.",
+                    cleaningServicePriceCalculaor: "Калькулятор цен на услуги уборки",
+                    selectCleaningDates: "Выберите дату(ы) уборки",
+                    startDateLabel: "Дата начала:",
+                    endDateLabel: "Дата окончания:",
+                    enterAreaLabel: "Введите площадь (м²)",
+                    area: "напр. 50",
+                    chooseYourCleaningServicesLabel: "Выберите услуги по уборке.",
+                    cleaningSixToFive: "Уборка с 06:00 до 17:00",
+                    cleaningFiveToTen: "Уборка с 17:00 до 22:00",
+                    cleaningTenToSix: "Уборка с 22:00 до 06:00",
+                    distanceFifteenKm: "Расстояние от центра города до 15 км",
+                    distanceThirtyKm: "Расстояние от центра города до 30 км",
+                    distanceOverThirtyKm: "Расстояние от центра города более 30 км",
+                    flexibleCleaningHours: "Гибкое время уборки",
+                    cleaningOnlyToday: "Уборка только сегодня",
+                    cleaningDateTimeArranged: "Дата и время уборки будут согласованы",
+                    floorVacuuming: "Нужно ли пылесосить полы?",
+                    floorWashing: "Нужно ли мыть полы?",
+                    wallCleaning: "Нужно ли чистить стены?",
+                    wallWashing: "Нужно ли мыть стены?",
+                    objectUnfurnished: "Объект без мебели?",
+                    objectFurnished: "Объект с мебелью?",
+                    cabinetsCleaning: "Нужно ли чистить шкафы?",
+                    cabinetsEmptyInside: "Шкафы пустые внутри?",
+                    trashRemoval: "Нужно ли вынести мусор?",
+                    windowCleaningInside: "Нужно ли мыть окна изнутри?",
+                    windowCleaningOutside: "Нужно ли мыть окна снаружи (только открывающиеся)?",
+                    refrigeratorCleaning: "Нужно ли почистить холодильник?",
+                    ovenCleaning: "Нужно ли почистить духовку?",
+                    microwaveCleaning: "Нужно ли почистить микроволновку?",
+                    gasHeatingStoveCleaning: "Нужно ли почистить газовую плиту?",
+                    electricHeatingStoveCleaning: "Нужно ли почистить электрическую плиту?",
+                    cookerHoodsCleaning: "Нужно ли почистить вытяжку?",
+                    upholsteredFurnitureVacuuming: "Нужно ли пылесосить мягкую мебель?",
+                    deepCleaning: "Требуется ли генеральная уборка?",
+                    manualDishwashing: "Нужно ли мыть посуду вручную?",
+                    toiletCleaning: "Нужно ли почистить туалет?",
+                    bathtubCleaning: "Нужно ли почистить ванну?",
+                    showerCleaning: "Нужно ли почистить душ?",
+                    clientCleaningProducts: "Чистящие средства заказчика",
+                    serviceProvidersCleaningProducts: "Чистящие средства поставщиков услуг",
+                    calculatePriceBtn: "Рассчитать цену",
+
+                    servicesTitle: "Наши Услуги",
+                    service1Title: "Уборка жилых помещений",
+                    service1Desc: "Тщательная и надежная уборка дома по вашему расписанию.",
+                    service2Title: "Уборка офисов",
+                    service2Desc: "Создайте продуктивную атмосферу в чистом офисе.",
+                    service3Title: "Мытьё окон",
+                    service3Desc: "Идеально чистые окна внутри и снаружи.",
+                    aboutTitle: "О Нас",
+                    aboutText: "SparkleClean — семейная компания с более чем 10-летним опытом уборки.",
+                    contactTitle: "Связаться с нами",
+                    contactButton: "Отправить сообщение",
+                    contactName: "Ваше имя",
+                    subject: "Тема",
+                    contactEmail: "Ваш email",
+                    contactMessage: "Ваше сообщение",
+                    footerText: "© 2025 SparkleClean. Все права защищены.",
+                },
+                lt: {
+                    homeNavTitle: "Pagrindinis",
+                    servicesNavTitle: "Paslaugos",
+                    aboutNavTitle: "Apie",
+                    contactNavTitle: "Kontaktai",
+                    bannerTitle: "Sveiki atvykę į SparkleClean",
+                    bannerSubtitle: "Profesionalus valymas jūsų namams ir biurui",
+                    bannerText:
+                        "SparkleClean tikime, kad švari aplinka prisideda prie sveikesnio ir laimingesnio gyvenimo...",
+                    heroTitle: "Profesionalios valymo paslaugos",
+                    heroSubtitle: "Jūsų erdvė – mūsų spindesys.",
+                    cleaningServicePriceCalculaor: "Valymo paslaugų kainos skaičiuoklė",
+                    selectCleaningDates: "Pasirinkite valymo datą (-as)",
+                    startDateLabel: "Pradžios data:",
+                    endDateLabel: "Pabaigos data:",
+                    enterAreaLabel: "Įveskite plotą (m²)",
+                    area: "pvz. 50",
+                    chooseYourCleaningServicesLabel: "Pasirinkite valymo paslaugas.",
+                    cleaningSixToFive: "Valymas nuo 06:00 iki 17:00 val.",
+                    cleaningFiveToTen: "Valymas nuo 17:00 iki 22:00 val.",
+                    cleaningTenToSix: "Valymas nuo 22:00 iki 06:00 val.",
+                    distanceFifteenKm: "Atstumas nuo miesto centro 15 km",
+                    distanceThirtyKm: "Atstumas nuo miesto centro 30 km",
+                    distanceOverThirtyKm: "Atstumas nuo miesto centro daugiau nei 30 km",
+                    flexibleCleaningHours: "Lankstus valymo laikas",
+                    cleaningOnlyToday: "Valymas tik šiandien",
+                    cleaningDateTimeArranged: "Valymo data ir laikas bus suderinti",
+                    floorVacuuming: "Ar reikia siurbti grindis?",
+                    floorWashing: "Ar reikia plauti grindis?",
+                    wallCleaning: "Ar reikia valyti sienas?",
+                    wallWashing: "Ar reikia plauti sienas?",
+                    objectUnfurnished: "Ar objektas be baldų?",
+                    objectFurnished: "Ar objektas su baldais?",
+                    cabinetsCleaning: "Ar reikia valyti spinteles?",
+                    cabinetsEmptyInside: "Ar spintelių vidus tuščias?",
+                    trashRemoval: "Ar reikia išnešti šiukšles?",
+                    windowCleaningInside: "Ar reikia valyti langus iš vidaus?",
+                    windowCleaningOutside: "Ar reikia valyti langus iš išorės (tik atsidarančius)?",
+                    refrigeratorCleaning: "Ar reikia išvalyti šaldytuvą?",
+                    ovenCleaning: "Ar reikia išvalyti orkaitę?",
+                    microwaveCleaning: "Ar reikia išvalyti mikrobangų krosnelę?",
+                    gasHeatingStoveCleaning: "Ar reikia išvalyti dujinę viryklę?",
+                    electricHeatingStoveCleaning: "Ar reikia išvalyti elektrinę viryklę?",
+                    cookerHoodsCleaning: "Ar reikia išvalyti gartraukius?",
+                    upholsteredFurnitureVacuuming: "Ar reikia siurbti minkštus baldus?",
+                    deepCleaning: "Ar reikalingas giluminis valymas?",
+                    manualDishwashing: "Ar reikia plauti indus rankomis?",
+                    toiletCleaning: "Ar reikia išvalyti tualetą?",
+                    bathtubCleaning: "Ar reikia išvalyti vonią?",
+                    showerCleaning: "Ar reikia išvalyti dušą?",
+                    clientCleaningProducts: "Kliento valymo priemonės",
+                    serviceProvidersCleaningProducts: "Valymo paslaugų tiekėjo valymo priemonės",
+                    calculatePriceBtn: "Skaičiuoti kainą",
+
+                    servicesTitle: "Mūsų paslaugos",
+                    service1Title: "Namų valymas",
+                    service1Desc: "Kruopštus ir patikimas namų valymas, pritaikytas pagal jūsų grafiką.",
+                    service2Title: "Biurų valymas",
+                    service2Desc: "Pagerinkite darbuotojų produktyvumą švarioje darbo aplinkoje.",
+                    service3Title: "Langų valymas",
+                    service3Desc: "Skaidrūs langai namuose ar versle – iš vidaus ir išorės.",
+                    aboutTitle: "Apie mus",
+                    aboutText: "SparkleClean yra šeimos verslas, orientuotas į kokybę ir klientų pasitenkinimą.",
+                    contactTitle: "Susisiekite su mumis",
+                    contactButton: "Siųsti žinutę",
+                    contactName: "Jūsų vardas",
+                    subject: "Tema",
+                    contactEmail: "Jūsų el. paštas",
+                    contactMessage: "Jūsų žinutė",
+                    footerText: "© 2025 SparkleClean. Visos teisės saugomos.",
+                },
+            };
+
+            function toggleLanguage() {
+                const lang = document.getElementById("lang-select").value;
+                const dict = translations[lang];
+
+                for (const key in dict) {
+                    const el = document.getElementById(key);
+                    if (el) {
+                        if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
+                            el.placeholder = dict[key];
+                        } else if (el.tagName === "BUTTON") {
+                            el.textContent = dict[key];
+                        } else {
+                            el.innerHTML = dict[key];
+                        }
+                    }
+                }
+            }
+
+            document.getElementById("lang-select").addEventListener("change", toggleLanguage);
+
+            /**/
+            function setLanguage(lang) {
+                const elements = translations[lang];
+                if (!elements) return;
+
+                // Calculator section
+                document.getElementById("calculatePriceBtn").textContent = elements.calculatePriceBtn;
+                document.getElementById("serviceProvidersCleaningProducts").textContent =
+                    elements.serviceProvidersCleaningProducts;
+                document.getElementById("clientCleaningProducts").textContent = elements.clientCleaningProducts;
+                document.getElementById("showerCleaning").textContent = elements.showerCleaning;
+                document.getElementById("bathtubCleaning").textContent = elements.bathtubCleaning;
+                document.getElementById("toiletCleaning").textContent = elements.toiletCleaning;
+                document.getElementById("manualDishwashing").textContent = elements.manualDishwashing;
+                document.getElementById("deepCleaning").textContent = elements.deepCleaning;
+                document.getElementById("upholsteredFurnitureVacuuming").textContent =
+                    elements.upholsteredFurnitureVacuuming;
+                document.getElementById("cookerHoodsCleaning").textContent = elements.cookerHoodsCleaning;
+                document.getElementById("electricHeatingStoveCleaning").textContent =
+                    elements.electricHeatingStoveCleaning;
+                document.getElementById("gasHeatingStoveCleaning").textContent = elements.gasHeatingStoveCleaning;
+                document.getElementById("microwaveCleaning").textContent = elements.microwaveCleaning;
+                document.getElementById("ovenCleaning").textContent = elements.ovenCleaning;
+                document.getElementById("refrigeratorCleaning").textContent = elements.refrigeratorCleaning;
+                document.getElementById("windowCleaningOutside").textContent = elements.windowCleaningOutside;
+                document.getElementById("windowCleaningInside").textContent = elements.windowCleaningInside;
+                document.getElementById("trashRemoval").textContent = elements.trashRemoval;
+                document.getElementById("cabinetsEmptyInside").textContent = elements.cabinetsEmptyInside;
+                document.getElementById("cabinetsCleaning").textContent = elements.cabinetsCleaning;
+                document.getElementById("objectFurnished").textContent = elements.objectFurnished;
+                document.getElementById("objectUnfurnished").textContent = elements.objectUnfurnished;
+                document.getElementById("wallWashing").textContent = elements.wallWashing;
+                document.getElementById("wallCleaning").textContent = elements.wallCleaning;
+                document.getElementById("floorWashing").textContent = elements.floorWashing;
+                document.getElementById("floorVacuuming").textContent = elements.floorVacuuming;
+                document.getElementById("cleaningDateTimeArranged").textContent = elements.cleaningDateTimeArranged;
+                document.getElementById("cleaningOnlyToday").textContent = elements.cleaningOnlyToday;
+                document.getElementById("flexibleCleaningHours").textContent = elements.flexibleCleaningHours;
+                document.getElementById("distanceOverThirtyKm").textContent = elements.distanceOverThirtyKm;
+                document.getElementById("distanceThirtyKm").textContent = elements.distanceThirtyKm;
+                document.getElementById("distanceFifteenKm").textContent = elements.distanceFifteenKm;
+                document.getElementById("cleaningTenToSix").textContent = elements.cleaningTenToSix;
+                document.getElementById("cleaningFiveToTen").textContent = elements.cleaningFiveToTen;
+                document.getElementById("cleaningSixToFive").textContent = elements.cleaningSixToFive;
+                document.getElementById("chooseYourCleaningServicesLabel").textContent =
+                    elements.chooseYourCleaningServicesLabel;
+                document.getElementById("area").placeholder = elements.area;
+                document.getElementById("enterAreaLabel").textContent = elements.enterAreaLabel;
+                document.getElementById("cleaningServicePriceCalculaor").textContent =
+                    elements.cleaningServicePriceCalculaor;
+                document.getElementById("selectCleaningDates").textContent = elements.selectCleaningDates;
+                document.getElementById("startDateLabel").textContent = elements.startDateLabel;
+                document.getElementById("endDateLabel").textContent = elements.endDateLabel;
+                document.getElementById("homeNavTitle").textContent = elements.homeNavTitle;
+                document.getElementById("servicesNavTitle").textContent = elements.servicesNavTitle;
+                document.getElementById("aboutNavTitle").textContent = elements.aboutNavTitle;
+                document.getElementById("contactNavTitle").textContent = elements.contactNavTitle;
+                document.getElementById("bannerTitle").textContent = elements.bannerTitle;
+                document.getElementById("bannerSubtitle").textContent = elements.bannerSubtitle;
+                document.getElementById("bannerText").textContent = elements.bannerText;
+                document.getElementById("heroTitle").textContent = elements.heroTitle;
+                document.getElementById("heroSubtitle").textContent = elements.heroSubtitle;
+
+                document.getElementById("servicesTitle").textContent = elements.servicesTitle;
+                document.getElementById("service1Title").textContent = elements.service1Title;
+                document.getElementById("service1Desc").textContent = elements.service1Desc;
+                document.getElementById("service2Title").textContent = elements.service2Title;
+                document.getElementById("service2Desc").textContent = elements.service2Desc;
+                document.getElementById("service3Title").textContent = elements.service3Title;
+                document.getElementById("service3Desc").textContent = elements.service3Desc;
+                document.getElementById("aboutTitle").textContent = elements.aboutTitle;
+                document.getElementById("aboutText").textContent = elements.aboutText;
+                document.getElementById("contactTitle").textContent = elements.contactTitle;
+                document.getElementById("contactButton").textContent = elements.contactButton;
+                document.getElementById("contactName").placeholder = elements.contactName;
+                document.getElementById("subject").placeholder = elements.subject;
+                document.getElementById("contactEmail").placeholder = elements.contactEmail;
+                document.getElementById("contactMessage").placeholder = elements.contactMessage;
+                document.getElementById("footerText").textContent = elements.footerText;
+            }
+
+            function toggleLanguage() {
+                const langSelect = document.getElementById("lang-select");
+                const selectedLang = langSelect.value;
+                setLanguage(selectedLang);
+                localStorage.setItem("language", selectedLang);
+            }
+
+            // Set stored language on page load
+            document.addEventListener("DOMContentLoaded", () => {
+                const savedLang = localStorage.getItem("language") || "lt";
+                document.getElementById("lang-select").value = savedLang;
+                setLanguage(savedLang);
+
+                // Event listener for changing language
+                document.getElementById("lang-select").addEventListener("change", toggleLanguage);
+            });
+
+            //calendar selection
+            const startDateInput = document.getElementById("startDate");
+            const endDateInput = document.getElementById("endDate");
+            const output = document.getElementById("output");
+
+            const today = new Date().toISOString().split("T")[0];
+            startDateInput.min = today;
+            endDateInput.min = today;
+
+            startDateInput.addEventListener("change", updateDates);
+            endDateInput.addEventListener("change", updateDates);
+
+            function updateDates() {
+                const start = startDateInput.value;
+                const end = endDateInput.value || start;
+
+                if (!start) {
+                    output.textContent = "Start date is required.";
+                    output.className = "output error";
+                    return;
+                }
+
+                const startDate = new Date(start);
+                const endDate = new Date(end);
+
+                if (endDate < startDate) {
+                    output.textContent = "End date cannot be before start date.";
+                    output.className = "output error";
+                    return;
+                }
+
+                output.className = "output success";
+                output.textContent = start === end ? `Selected Date: ${start}` : `Selected Range: ${start} to ${end}`;
+
+                // Store values
+                window.selectedStartDate = start;
+                window.selectedEndDate = end;
+                console.log("Stored Start Date:", window.selectedStartDate);
+                console.log("Stored End Date:", window.selectedEndDate);
+            }
+
+            /*calculation section*/
+            // Set your fixed prices for each extra service here
+            const extraServicePrices = {
+                0: 30, // Deep Cleaning
+                1: 20, // Window Cleaning
+                2: 25, // Carpet Shampoo
+            };
+
+            function calculatePrice() {
+                const areaInput = document.getElementById("area");
+                const area = parseInt(areaInput.value, 10);
+                const resultDiv = document.getElementById("result");
+
+                resultDiv.style.opacity = "0";
+
+                if (isNaN(area) || area < 1 || area > 9999) {
+                    resultDiv.textContent = "Please enter a valid area between 1 and 9999 (whole numbers only).";
+                    resultDiv.style.color = "#d32f2f";
+                    resultDiv.style.opacity = "1";
+                    return;
+                }
+
+                let totalPrice = 85; // Base price
+
+                if (area > 45) {
+                    totalPrice += (area - 45) * 1;
+                }
+
+                const extras = document.querySelectorAll(".extra");
+                extras.forEach((checkbox, index) => {
+                    if (checkbox.checked) {
+                        const extraPrice = extraServicePrices[index] || 0;
+                        totalPrice += extraPrice;
+                    }
+                });
+
+                resultDiv.style.color = "#2e7d32";
+                resultDiv.textContent = `Total Price: €${totalPrice.toFixed(2)} su PVM`;
+                resultDiv.style.opacity = "1";
+            }
+
+            function showNotification(message) {
+                const notif = document.getElementById("notification");
+                document.getElementById("notificationMessage").textContent = message;
+                notif.classList.add("show");
+            }
+
+            function hideNotification() {
+                document.getElementById("notification").classList.remove("show");
+            }
+
+            document.getElementById("contactForm").addEventListener("submit", function (e) {
+                e.preventDefault();
+                const name = document.getElementById("contactName").value.trim();
+                const email = document.getElementById("contactEmail").value.trim();
+                const message = document.getElementById("contactMessage").value.trim();
+
+                if (!name || !email || !message) {
+                    showNotification("Please fill out all fields.");
+                    return;
+                }
+
+                // Simulated form submission
+                setTimeout(() => {
+                    document.getElementById("contactForm").reset();
+                    showNotification("Thank you! Your message has been sent.");
+                }, 500);
+            });
+
+            // gallery Start
+            const imageGroups = [
+                [
+                    "https://images.unsplash.com/photo-1607746882042-944635dfe10e",
+                    "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
+                    "https://images.unsplash.com/photo-1523987355523-c7b5b9c097f8",
+                    "https://images.unsplash.com/photo-1483794344563-d27a8d18014e",
+                    "https://images.unsplash.com/photo-1519681393784-d120267933ba",
+                ],
+                [
+                    "https://images.unsplash.com/photo-1494526585095-c41746248156",
+                    "https://images.unsplash.com/photo-1504384308090-c894fdcc538d",
+                    "https://images.unsplash.com/photo-1467269204594-9661b134dd2b",
+                    "https://images.unsplash.com/photo-1519125323398-675f0ddb6308",
+                    "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e",
+                ],
+                [
+                    "https://images.unsplash.com/photo-1504198266285-165a06b0a5bb",
+                    "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99",
+                    "https://images.unsplash.com/photo-1556761175-129418cb2dfe",
+                    "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
+                    "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7",
+                ],
+            ];
+
+            const gallery = document.getElementById("gallery");
+            let currentGroup = 0;
+            let currentIndex = 0;
+
+            imageGroups.forEach((group, groupIndex) => {
+                const card = document.createElement("div");
+                card.className = "gallery-card";
+
+                group.slice(0, 4).forEach((src, imgIndex) => {
+                    const img = document.createElement("img");
+                    img.src = src + "?w=400&auto=format&fit=crop";
+                    img.alt = `Gallery image ${groupIndex}-${imgIndex}`;
+                    img.onclick = () => openLightbox(groupIndex, imgIndex);
+                    card.appendChild(img);
+                });
+
+                gallery.appendChild(card);
+            });
+
+            function openLightbox(groupIdx, imgIdx) {
+                currentGroup = groupIdx;
+                currentIndex = imgIdx;
+                document.getElementById("lightbox").style.display = "flex";
+                updateLightboxImage();
+            }
+
+            function updateLightboxImage() {
+                const img = imageGroups[currentGroup][currentIndex];
+                document.getElementById("lightbox-img").src = img + "?w=1000&auto=format&fit=crop";
+            }
+
+            function closeLightbox() {
+                document.getElementById("lightbox").style.display = "none";
+            }
+
+            function nextImage() {
+                currentIndex = (currentIndex + 1) % imageGroups[currentGroup].length;
+                updateLightboxImage();
+            }
+
+            function prevImage() {
+                currentIndex = (currentIndex - 1 + imageGroups[currentGroup].length) % imageGroups[currentGroup].length;
+                updateLightboxImage();
+            }
+
+            // gallery End
+
+            // testimonial Starts
+            const container = document.getElementById("testimonialsContainer");
+            const prevBtn = document.getElementById("prevBtn");
+            const nextBtn = document.getElementById("nextBtn");
+            const cards = document.querySelectorAll(".testimonial-card");
+
+            let scrollInterval;
+            const scrollSpeed = 6000; // Auto-slide interval in milliseconds
+
+            // Function to get the number of visible cards based on screen width
+            function getVisibleCardsCount() {
+                const width = window.innerWidth;
+                if (width >= 992) {
+                    return 3; // Large screens: 3 cards
+                } else if (width >= 768) {
+                    return 2; // Medium screens: 2 cards
+                } else {
+                    return 1; // Small screens: 1 card
+                }
+            }
+
+            // Function to calculate the scroll amount for one "slide"
+            function getScrollAmount() {
+                const visibleCards = getVisibleCardsCount();
+                if (cards.length === 0) return 0;
+
+                const cardWidth = cards[0].offsetWidth; // Width of a single card
+                const cardMarginRight = parseFloat(getComputedStyle(cards[0]).marginRight); // Margin of a single card
+
+                // Calculate the total width of one slide (visible cards + their margins)
+                return (cardWidth + cardMarginRight) * visibleCards;
+            }
+
+            // Function to scroll the container
+            function scrollCarousel(direction) {
+                const scrollAmount = getScrollAmount();
+                if (direction === "next") {
+                    container.scrollLeft += scrollAmount;
+                    // If we reach the end, loop back to the beginning
+                    if (container.scrollLeft + container.clientWidth >= container.scrollWidth - 1) {
+                        // -1 for slight tolerance
+                        container.scrollLeft = 0;
+                    }
+                } else {
+                    container.scrollLeft -= scrollAmount;
+                    // If we go before the beginning, loop to the end
+                    if (container.scrollLeft <= 0) {
+                        container.scrollLeft = container.scrollWidth;
+                    }
+                }
+            }
+
+            // Auto-slide functionality
+            function startAutoSlide() {
+                scrollInterval = setInterval(() => {
+                    scrollCarousel("next");
+                }, scrollSpeed);
+            }
+
+            function stopAutoSlide() {
+                clearInterval(scrollInterval);
+            }
+
+            // Event Listeners for Arrows
+            prevBtn.addEventListener("click", () => {
+                stopAutoSlide(); // Stop auto-slide on manual navigation
+                scrollCarousel("prev");
+                startAutoSlide(); // Restart auto-slide after a brief pause (optional, but good UX)
+            });
+
+            nextBtn.addEventListener("click", () => {
+                stopAutoSlide(); // Stop auto-slide on manual navigation
+                scrollCarousel("next");
+                startAutoSlide(); // Restart auto-slide
+            });
+
+            // Hover to stop auto-slide
+            container.addEventListener("mouseenter", stopAutoSlide);
+            container.addEventListener("mouseleave", startAutoSlide);
+
+            // Initialize auto-slide when the page loads
+            document.addEventListener("DOMContentLoaded", () => {
+                startAutoSlide();
+            });
+
+            // Recalculate scroll amount on window resize to maintain responsiveness
+            window.addEventListener("resize", () => {
+                // This will ensure the scroll amount is correct if the number of visible cards changes
+                // No explicit scroll needed, just ensures future scrolls are correct.
+            });
+
+            // testimonial ends
+
+            // EmailJS SDK
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+        <script>
+            emailjs.init("MAiRqwA7sphnhWdUz"); // 🔁 Replace with your EmailJS User ID
+
+            const form = document.getElementById("contactForm");
+            const status = document.getElementById("status");
+
+            form.addEventListener("submit", function (e) {
+                e.preventDefault();
+                emailjs
+                    .sendForm("gmail_cleaning_service", "template_lbvkwco", this) // 🔁 Replace these
+                    .then(
+                        () => {
+                            //status.innerText = "Message sent successfully!";
+                            form.reset();
+                        },
+                        (error) => {
+                            status.innerText = "Failed to send: " + error.text;
+                        }
+                    );
+            });
+        </script>
+    </body>
+</html>
