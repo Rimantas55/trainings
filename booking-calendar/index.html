@@ -195,6 +195,46 @@
     .btn-violet { background-color: var(--violet); }
     .btn-green-dark { background-color: var(--green-dark); }
     .btn-yellow { background-color: var(--yellow); }
+
+    /* New styles for date range inputs */
+    .date-range-controls {
+        margin-top: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem;
+        align-items: center;
+        padding: 0.5rem;
+        border-radius: 8px;
+        background-color: white;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    }
+
+    .date-range-controls label {
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: var(--text);
+    }
+
+    .date-range-controls input[type="date"] {
+        padding: 0.4rem;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        color: var(--text);
+        flex-grow: 1; /* Allow inputs to grow */
+        max-width: 150px; /* Max width for inputs */
+    }
+
+    .date-range-controls button {
+        padding: 0.4rem 0.8rem;
+        border: none;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        color: white;
+        cursor: pointer;
+        background-color: var(--blue); /* Using existing blue for apply button */
+    }
   </style>
 </head>
 <body>
@@ -209,6 +249,13 @@
       <button class="btn-green">Show Available Dates and Times</button>
       <button class="btn-grey" id="reset-left">Reset Selection</button>
     </div>
+    <div class="date-range-controls">
+        <label for="start-date-left">From:</label>
+        <input type="date" id="start-date-left">
+        <label for="end-date-left">To:</label>
+        <input type="date" id="end-date-left">
+        <button id="apply-range-left">Apply Range</button>
+    </div>
   </div>
   <div class="side">
     <div class="title">Service Providers</div>
@@ -222,11 +269,18 @@
       <button class="btn-green-dark">Accept</button>
       <button class="btn-yellow">Busy</button>
     </div>
+    <div class="date-range-controls">
+        <label for="start-date-right">From:</label>
+        <input type="date" id="start-date-right">
+        <label for="end-date-right">To:</label>
+        <input type="date" id="end-date-right">
+        <button id="apply-range-right">Apply Range</button>
+    </div>
   </div>
 </div>
 
 <script>
-  // Utility function to format dates
+  // Utility function to format dates as YYYY-MM-DD
   function getFormattedDate(date) {
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -235,11 +289,17 @@
   }
 
   class Calendar {
-    constructor(containerId) {
+    constructor(containerId, startDateInputId, endDateInputId, applyButtonId) {
       this.container = document.getElementById(containerId);
+      this.startDateInput = document.getElementById(startDateInputId);
+      this.endDateInput = document.getElementById(endDateInputId);
+      this.applyButton = document.getElementById(applyButtonId);
+
       this.currentDate = new Date(); // Each calendar has its own date
       this.selectedDates = new Set(); // Each calendar has its own set of selected dates
+
       this.render(); // Initial render
+      this.addRangeInputListeners(); // Add listeners for the new range inputs
     }
 
     render() {
@@ -291,6 +351,7 @@
 
         const cellDate = new Date(year, month, day);
         const cellDayOfWeek = (cellDate.getDay() + 6) % 7; // 0=Mon, 1=Tue, ..., 5=Sat, 6=Sun
+        // Set hours to 00:00:00 to compare dates consistently without time component issues
         const isPast = cellDate.setHours(0, 0, 0, 0) < now.setHours(0, 0, 0, 0);
         const formattedCellDate = getFormattedDate(cellDate);
 
@@ -338,7 +399,6 @@
           fillerDayCount = 42 - totalDaysDisplayed;
       }
 
-
       for (let day = 1; day <= fillerDayCount; day++) {
           const el = document.createElement('div');
           el.className = 'day next-month-day';
@@ -353,7 +413,7 @@
           }
 
           el.addEventListener('click', () => {
-              this.currentDate = nextMonthDate; // Set the calendar's current date to the clicked next month day
+              this.currentDate = new Date(nextMonthDate); // Set the calendar's current date to the clicked next month day (new Date to avoid mutation)
               // Toggle selection for the clicked day in the next month for THIS calendar
               if (this.selectedDates.has(formattedNextMonthDate)) {
                 this.selectedDates.delete(formattedNextMonthDate);
@@ -384,17 +444,15 @@
     }
 
     addEventListeners() {
-      // Remove any existing listeners first to prevent duplicates
+      // Remove any existing listeners first to prevent duplicates by cloning nodes
       const prevButton = this.container.querySelector('.prev');
       const nextButton = this.container.querySelector('.next');
 
-      // Clone nodes to remove all existing event listeners cleanly
       const newPrevButton = prevButton.cloneNode(true);
       const newNextButton = nextButton.cloneNode(true);
 
       prevButton.parentNode.replaceChild(newPrevButton, prevButton);
       nextButton.parentNode.replaceChild(newNextButton, nextButton);
-
 
       // Re-attach event listeners to the new buttons
       newPrevButton.addEventListener('click', () => {
@@ -413,20 +471,71 @@
       });
     }
 
+    addRangeInputListeners() {
+      if (this.applyButton) {
+        this.applyButton.addEventListener('click', () => this.handleApplyRange());
+      }
+    }
+
+    handleApplyRange() {
+      const startDateStr = this.startDateInput.value;
+      const endDateStr = this.endDateInput.value;
+
+      if (!startDateStr || !endDateStr) {
+        alert('Please select both start and end dates for the range.');
+        return;
+      }
+
+      // Append 'T00:00:00' to ensure dates are parsed consistently at the start of the day
+      const startDate = new Date(startDateStr + 'T00:00:00');
+      const endDate = new Date(endDateStr + 'T00:00:00');
+
+      if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+        alert('Invalid date format detected. Please use YYYY-MM-DD.');
+        return;
+      }
+
+      if (endDate < startDate) {
+        alert('End date cannot be before start date.');
+        return;
+      }
+
+      this.applyDateRange(startDate, endDate);
+    }
+
+    applyDateRange(startDate, endDate) {
+      this.selectedDates.clear(); // Clear existing selections
+
+      let loopDate = new Date(startDate);
+      // Loop through each day from start to end, inclusive
+      while (loopDate <= endDate) {
+        this.selectedDates.add(getFormattedDate(loopDate));
+        loopDate.setDate(loopDate.getDate() + 1); // Increment day
+      }
+
+      // Set the calendar view to the start month of the selected range
+      this.currentDate = new Date(startDate.getFullYear(), startDate.getMonth(), 1);
+      this.render(); // Re-render the calendar to show the new selections and new month
+    }
+
     resetSelection() {
       this.selectedDates.clear();
       this.render();
+      // Also clear the date input fields
+      if (this.startDateInput) this.startDateInput.value = '';
+      if (this.endDateInput) this.endDateInput.value = '';
     }
   }
 
-  // Initialize calendars
-  const leftCalendar = new Calendar('calendar-left');
-  const rightCalendar = new Calendar('calendar-right');
+  // Initialize calendars with their respective input IDs
+  const leftCalendar = new Calendar('calendar-left', 'start-date-left', 'end-date-left', 'apply-range-left');
+  const rightCalendar = new Calendar('calendar-right', 'start-date-right', 'end-date-right', 'apply-range-right');
 
   // Add event listener for the "Reset Selection" button for the left calendar
   document.getElementById('reset-left').addEventListener('click', () => {
     leftCalendar.resetSelection();
   });
+  // You can add a similar reset button for the right calendar if needed.
 
 </script>
 
