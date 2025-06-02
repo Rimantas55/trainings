@@ -285,7 +285,7 @@
                     <button class="btn-violet">Cancel</button>
                     <button class="btn-green-dark">Accept</button>
                     <button class="btn-yellow">Busy</button>
-                    <button class="btn-grey">Reset Selection</button>
+                    <button class="btn-grey" id="reset-right">Reset Selection</button>
                 </div>
                 <div class="date-range-controls">
                     <label for="start-date-right">From:</label>
@@ -314,11 +314,12 @@
             }
 
             class Calendar {
-                constructor(containerId, startDateInputId, endDateInputId, applyButtonId) {
+                constructor(containerId, startDateInputId, endDateInputId, applyButtonId, resetButtonId) {
                     this.container = document.getElementById(containerId);
                     this.startDateInput = document.getElementById(startDateInputId);
                     this.endDateInput = document.getElementById(endDateInputId);
                     this.applyButton = document.getElementById(applyButtonId);
+                    this.resetButton = document.getElementById(resetButtonId); // New: Get the reset button
 
                     // Initialize currentDate using UTC components of 'now' for consistent internal state
                     const now = new Date();
@@ -334,6 +335,7 @@
                     this.render(); // Initial render
                     this.addRangeInputListeners(); // Add listeners for the new range inputs
                     this.addDelegatedDayClickListeners(); // Add delegated listener for day clicks
+                    this.addResetButtonListener(); // New: Add listener for the reset button
                     this.setMinDatesForInputs(); // Set initial min dates for date inputs
                 }
 
@@ -606,6 +608,13 @@
                     }
                 }
 
+                addResetButtonListener() {
+                    // New: Add event listener for the reset button
+                    if (this.resetButton) {
+                        this.resetButton.addEventListener("click", () => this.resetSelection());
+                    }
+                }
+
                 handleDateInputChange() {
                     const startDateStr = this.startDateInput.value;
                     const endDateStr = this.endDateInput.value;
@@ -714,87 +723,73 @@
                     }
 
                     this.applyDateRange(startDate, endDate);
-                    this.firstClickedDate = null; // Clear any pending first clicks from interactive selection
                 }
 
+                /**
+                 * Applies a date range selection to the calendar.
+                 * @param {Date} startDate The start Date object (UTC).
+                 * @param {Date} endDate The end Date object (UTC).
+                 * @param {boolean} skipRender If true, only updates selectedDates and inputs, doesn't re-render calendar grid immediately.
+                 */
                 applyDateRange(startDate, endDate, skipRender = false) {
-                    this.selectedDates.clear(); // Clear existing selections
-
-                    let loopDate = new Date(startDate); // Start with a copy of the UTC startDate
-                    // Loop through each day from start to end, inclusive
+                    this.selectedDates.clear();
+                    let loopDate = new Date(startDate); // Start from the beginning of the range
                     while (loopDate.getTime() <= endDate.getTime()) {
-                        // Compare using getTime() for Date objects
                         this.selectedDates.add(getFormattedDate(loopDate));
-                        loopDate.setUTCDate(loopDate.getUTCDate() + 1); // Increment day using UTC methods
+                        loopDate.setUTCDate(loopDate.getUTCDate() + 1); // Move to the next day
                     }
 
-                    // Set the calendar view to the start month of the selected range (using UTC components)
-                    const newCurrentDate = new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth(), 1));
-                    // Only re-render if the month actually changes or if not explicitly skipped
-                    if (!skipRender || this.currentDate.getTime() !== newCurrentDate.getTime()) {
-                        this.currentDate = newCurrentDate;
-                        this.render(); // Re-render the calendar to show the new selections and new month
-                    } else {
-                        // If skipping render, but selection changed, ensure visual update for selected days
-                        this.updateDayElementsSelection();
-                        this.updateDateInputs(); // Make sure inputs are updated even if render skipped
-                    }
-                }
+                    // Set the current month to the start date's month for better UX
+                    this.currentDate = new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth(), 1));
 
-                updateDayElementsSelection() {
-                    // This function updates the 'selected' class on day elements without full re-render
-                    const dayElements = this.container.querySelectorAll(".day");
-                    dayElements.forEach((dayEl) => {
-                        const formattedDate = dayEl.dataset.date;
-                        if (this.selectedDates.has(formattedDate)) {
-                            dayEl.classList.add("selected");
-                        } else {
-                            dayEl.classList.remove("selected");
-                        }
-                    });
+                    this.updateDateInputs();
+                    if (!skipRender) {
+                        this.render(); // Re-render the calendar to show the new selection
+                    }
                 }
 
                 updateDateInputs() {
-                    if (this.selectedDates.size > 0) {
-                        const sortedDates = Array.from(this.selectedDates).sort();
-                        this.startDateInput.value = sortedDates[0];
-                        this.endDateInput.value = sortedDates[sortedDates.length - 1];
-                        // When startDate is set, update endDate's min to be at least startDate
-                        this.endDateInput.min = this.startDateInput.value;
+                    const sortedSelectedDates = Array.from(this.selectedDates).sort();
+                    if (sortedSelectedDates.length > 0) {
+                        this.startDateInput.value = sortedSelectedDates[0];
+                        this.endDateInput.value = sortedSelectedDates[sortedSelectedDates.length - 1];
                     } else {
                         this.startDateInput.value = "";
                         this.endDateInput.value = "";
-                        // If no dates are selected, reset endDate's min to today
-                        this.endDateInput.min = this.todayFormatted;
                     }
                 }
 
+                /**
+                 * Resets the calendar's selection, clearing all selected dates and input fields.
+                 */
                 resetSelection() {
                     this.selectedDates.clear();
-                    this.firstClickedDate = null; // Reset first click for range selection
-                    this.render();
-                    // Also clear the date input fields
-                    if (this.startDateInput) this.startDateInput.value = "";
-                    if (this.endDateInput) this.endDateInput.value = "";
-                    // Reset min dates to today after clearing
-                    this.setMinDatesForInputs();
+                    this.firstClickedDate = null;
+                    this.startDateInput.value = "";
+                    this.endDateInput.value = "";
+                    this.currentDate = new Date(
+                        Date.UTC(new Date().getFullYear(), new Date().getMonth(), 1)
+                    ); // Reset to current month
+                    this.setMinDatesForInputs(); // Re-set min dates for inputs
+                    this.render(); // Re-render the calendar to reflect the reset state
                 }
             }
 
-            // Initialize calendars with their respective input IDs
-            const leftCalendar = new Calendar("calendar-left", "start-date-left", "end-date-left", "apply-range-left");
-            const rightCalendar = new Calendar(
+            // Initialize both calendars
+            const calendarLeft = new Calendar(
+                "calendar-left",
+                "start-date-left",
+                "end-date-left",
+                "apply-range-left",
+                "reset-left"
+            );
+            const calendarRight = new Calendar(
                 "calendar-right",
                 "start-date-right",
                 "end-date-right",
-                "apply-range-right"
+                "apply-range-right",
+                "reset-right" // Pass the new ID for the right calendar's reset button
             );
-
-            // Add event listener for the "Reset Selection" button for the left calendar
-            document.getElementById("reset-left").addEventListener("click", () => {
-                leftCalendar.resetSelection();
-            });
-            // You can add a similar reset button for the right calendar if needed.
         </script>
     </body>
 </html>
