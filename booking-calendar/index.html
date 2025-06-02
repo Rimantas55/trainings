@@ -326,9 +326,19 @@
                     this.selectedDates = new Set(); // Each calendar has its own set of selected dates (formatted YYYY-MM-DD strings)
                     this.firstClickedDate = null; // Stores the Date object of the first click for range selection
 
+                    this.todayFormatted = getFormattedDate(
+                        new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()))
+                    );
+
                     this.render(); // Initial render
                     this.addRangeInputListeners(); // Add listeners for the new range inputs
                     this.addDelegatedDayClickListeners(); // Add delegated listener for day clicks
+                    this.setMinDatesForInputs(); // Set initial min dates for date inputs
+                }
+
+                setMinDatesForInputs() {
+                    this.startDateInput.min = this.todayFormatted;
+                    this.endDateInput.min = this.todayFormatted;
                 }
 
                 render() {
@@ -543,6 +553,14 @@
                  */
                 handleDayClick(formattedDate) {
                     const clickedDate = parseDateString(formattedDate);
+                    const now = new Date();
+                    const nowUTC = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+
+                    if (clickedDate.getTime() < nowUTC.getTime()) {
+                        // Should already be disabled, but a safety check for clicks.
+                        alert("Cannot select a past date.");
+                        return;
+                    }
 
                     if (!this.firstClickedDate) {
                         // This is the very first click or after a reset. Select this date as the start of a range.
@@ -588,10 +606,19 @@
                 }
 
                 handleDateInputChange() {
-                    // This function ensures the calendar's internal state (selectedDates)
-                    // reflects the input fields when they are manually changed.
                     const startDateStr = this.startDateInput.value;
                     const endDateStr = this.endDateInput.value;
+
+                    const now = new Date();
+                    const nowUTC = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate())); // Today's date in UTC
+
+                    // Update endDateInput's min attribute based on startDateInput's value
+                    if (startDateStr) {
+                        this.endDateInput.min = startDateStr;
+                    } else {
+                        // If start date is cleared, min for end date reverts to today
+                        this.endDateInput.min = this.todayFormatted;
+                    }
 
                     if (startDateStr && endDateStr) {
                         const startDate = parseDateString(startDateStr);
@@ -602,8 +629,15 @@
                             return;
                         }
 
+                        // Check if either date is in the past
+                        if (startDate.getTime() < nowUTC.getTime() || endDate.getTime() < nowUTC.getTime()) {
+                            alert("Cannot select a past date. Selection reset.");
+                            this.resetSelection();
+                            return;
+                        }
+
                         if (endDate.getTime() < startDate.getTime()) {
-                            // Invalid range, clear selection as per cargo.lt behavior
+                            // Compare using getTime() for Date objects
                             alert("End date cannot be before start date. Selection reset.");
                             this.resetSelection();
                             return;
@@ -615,6 +649,11 @@
                         // If only one date is set, consider it a single selection
                         if (startDateStr) {
                             const startDate = parseDateString(startDateStr);
+                            if (startDate.getTime() < nowUTC.getTime()) {
+                                alert("Cannot select a past date. Selection reset.");
+                                this.resetSelection();
+                                return;
+                            }
                             this.selectedDates.clear();
                             this.selectedDates.add(getFormattedDate(startDate));
                             this.firstClickedDate = startDate;
@@ -624,6 +663,11 @@
                             this.render();
                         } else if (endDateStr) {
                             const endDate = parseDateString(endDateStr);
+                            if (endDate.getTime() < nowUTC.getTime()) {
+                                alert("Cannot select a past date. Selection reset.");
+                                this.resetSelection();
+                                return;
+                            }
                             this.selectedDates.clear();
                             this.selectedDates.add(getFormattedDate(endDate));
                             this.firstClickedDate = endDate; // If only end date is set, it becomes the single selected date
@@ -646,8 +690,18 @@
                     const startDate = parseDateString(startDateStr);
                     const endDate = parseDateString(endDateStr);
 
+                    const now = new Date();
+                    const nowUTC = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate())); // Today's date in UTC
+
                     if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
                         alert("Invalid date format detected. Please use YYYY-MM-DD.");
+                        return;
+                    }
+
+                    // Check if either date is in the past
+                    if (startDate.getTime() < nowUTC.getTime() || endDate.getTime() < nowUTC.getTime()) {
+                        alert("Cannot select a past date. Selection reset.");
+                        this.resetSelection();
                         return;
                     }
 
@@ -704,9 +758,13 @@
                         const sortedDates = Array.from(this.selectedDates).sort();
                         this.startDateInput.value = sortedDates[0];
                         this.endDateInput.value = sortedDates[sortedDates.length - 1];
+                        // When startDate is set, update endDate's min to be at least startDate
+                        this.endDateInput.min = this.startDateInput.value;
                     } else {
                         this.startDateInput.value = "";
                         this.endDateInput.value = "";
+                        // If no dates are selected, reset endDate's min to today
+                        this.endDateInput.min = this.todayFormatted;
                     }
                 }
 
@@ -717,6 +775,8 @@
                     // Also clear the date input fields
                     if (this.startDateInput) this.startDateInput.value = "";
                     if (this.endDateInput) this.endDateInput.value = "";
+                    // Reset min dates to today after clearing
+                    this.setMinDatesForInputs();
                 }
             }
 
