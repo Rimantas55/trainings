@@ -345,13 +345,16 @@
                 <div class="title">Service Providers</div>
                 <div class="calendar" id="calendar-right"></div>
                 <div class="buttons">
-                    <button class="btn-green">Enable</button>
-                    <button class="btn-grey">Disable</button>
+                    <button class="btn-green">Enable Day</button>
+                    <button class="btn-green">Enable Time</button>
+                    <button class="btn-grey">Disable Day</button>
+                    <button class="btn-grey">Disable Time</button>
+                    <button class="btn-yellow">Enable Busy Day</button>
+                    <button class="btn-yellow">Disable Busy Time</button>
                     <button class="btn-blue">Edit</button>
                     <button class="btn-red">Delete</button>
                     <button class="btn-violet">Cancel</button>
                     <button class="btn-green-dark">Accept</button>
-                    <button class="btn-yellow">Busy</button>
                     <button class="btn-grey" id="reset-right">Reset Selection</button>
                     <button class="btn-grey" id="deselect-time-right">Deselect time</button>
                 </div>
@@ -762,7 +765,9 @@
                             this.selectedDates.clear();
                             this.selectedDates.add(startDateStr);
                             this.firstClickedDate = null; // Clear firstClickedDate for single selection
-                            this.currentDate = new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth(), 1)); // Move to the selected month
+                            this.currentDate = new Date(
+                                Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth(), 1)
+                            ); // Move to the selected month
                             this.render();
                         } else if (endDateStr) {
                             // If only end date is set, treat it as a single selection
@@ -893,22 +898,15 @@
                         html += `<div class="time-slots-grid">`;
 
                         // Example time slots - replace with dynamic data as needed
-                        const times = [
-                            "09:00",
-                            "10:00",
-                            "11:00",
-                            "12:00",
-                            "13:00",
-                            "14:00",
-                            "15:00",
-                            "16:00",
-                            "17:00",
-                        ];
+                        const times = ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"];
 
                         times.forEach((time) => {
-                            const isSelected = this.selectedTimeSlots.has(dateString) &&
+                            const isSelected =
+                                this.selectedTimeSlots.has(dateString) &&
                                 this.selectedTimeSlots.get(dateString).has(time);
-                            html += `<div class="time-slot ${isSelected ? 'selected-time' : ''}" data-date="${dateString}" data-time="${time}">${time}</div>`;
+                            html += `<div class="time-slot ${
+                                isSelected ? "selected-time" : ""
+                            }" data-date="${dateString}" data-time="${time}">${time}</div>`;
                         });
                         html += `</div></div>`;
                     });
