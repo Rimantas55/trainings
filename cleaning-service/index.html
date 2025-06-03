@@ -1082,6 +1082,16 @@
                             >Service providers' cleaning products</span
                         ></label
                     >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="invoiceNeeded"
+                            >An invoice is needed</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="invoiceNotNeeded"
+                            >An invoice is not needed</span
+                        ></label
+                    >
                 </div>
 
                 <button onclick="calculatePrice()" id="calculatePriceBtn">Calculate Price</button>
@@ -1549,6 +1559,8 @@
                     showerCleaning: "Is shower cleaning needed?",
                     clientCleaningProducts: "Clients' cleaning products",
                     serviceProvidersCleaningProducts: "Service providers' cleaning products",
+                    invoiceNeeded: "An invoice is needed",
+                    invoiceNotNeeded: "An invoice is not needed",
                     calculatePriceBtn: "Calculate Price",
 
                     servicesTitle: "Our Services",
@@ -1620,6 +1632,8 @@
                     showerCleaning: "Нужно ли почистить душ?",
                     clientCleaningProducts: "Чистящие средства заказчика",
                     serviceProvidersCleaningProducts: "Чистящие средства поставщиков услуг",
+                    invoiceNeeded: "Нужен счёт-фактура",
+                    invoiceNotNeeded: "Счёт-фактура не нужен",
                     calculatePriceBtn: "Рассчитать цену",
 
                     servicesTitle: "Наши Услуги",
@@ -1691,6 +1705,8 @@
                     showerCleaning: "Ar reikia išvalyti dušą?",
                     clientCleaningProducts: "Kliento valymo priemonės",
                     serviceProvidersCleaningProducts: "Valymo paslaugų tiekėjo valymo priemonės",
+                    invoiceNeeded: "Reikia sąsaitos faktūros",
+                    invoiceNotNeeded: "Nereikia sąsaitos faktūros",
                     calculatePriceBtn: "Skaičiuoti kainą",
 
                     servicesTitle: "Mūsų paslaugos",
@@ -1739,6 +1755,8 @@
 
                 // Calculator section
                 document.getElementById("calculatePriceBtn").textContent = elements.calculatePriceBtn;
+                document.getElementById("invoiceNeeded").textContent = elements.invoiceNeeded;
+                document.getElementById("invoiceNotNeeded").textContent = elements.invoiceNotNeeded;
                 document.getElementById("serviceProvidersCleaningProducts").textContent =
                     elements.serviceProvidersCleaningProducts;
                 document.getElementById("clientCleaningProducts").textContent = elements.clientCleaningProducts;
