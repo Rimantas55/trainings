@@ -330,7 +330,7 @@
                     <button class="btn-blue">Book Reservation</button>
                     <button class="btn-green">Show Available Dates and Times</button>
                     <button class="btn-grey" id="reset-left">Reset Selection</button>
-                    <button class="btn-grey">Deselect time</button>
+                    <button class="btn-grey" id="deselect-time-left">Deselect time</button>
                 </div>
                 <div class="date-range-controls">
                     <label for="start-date-left">From:</label>
@@ -353,7 +353,7 @@
                     <button class="btn-green-dark">Accept</button>
                     <button class="btn-yellow">Busy</button>
                     <button class="btn-grey" id="reset-right">Reset Selection</button>
-                    <button class="btn-grey">Deselect time</button>
+                    <button class="btn-grey" id="deselect-time-right">Deselect time</button>
                 </div>
                 <div class="date-range-controls">
                     <label for="start-date-right">From:</label>
@@ -389,6 +389,7 @@
                     endDateInputId,
                     applyButtonId,
                     resetButtonId,
+                    deselectTimeButtonId, // New parameter for deselect time button
                     timeSlotsContainerId
                 ) {
                     this.container = document.getElementById(containerId);
@@ -396,6 +397,7 @@
                     this.endDateInput = document.getElementById(endDateInputId);
                     this.applyButton = document.getElementById(applyButtonId);
                     this.resetButton = document.getElementById(resetButtonId);
+                    this.deselectTimeButton = document.getElementById(deselectTimeButtonId); // Get the deselect time button
                     this.timeSlotsContainer = document.getElementById(timeSlotsContainerId);
 
                     // Initialize currentDate using UTC components of 'now' for consistent internal state
@@ -414,6 +416,7 @@
                     this.addRangeInputListeners(); // Add listeners for the new range inputs
                     this.addDelegatedDayClickListeners(); // Add delegated listener for day clicks
                     this.addResetButtonListener(); // Add listener for the reset button
+                    this.addDeselectTimeButtonListener(); // Add listener for the deselect time button
                     this.setMinDatesForInputs(); // Set initial min dates for date inputs
                     this.renderTimeSlots(); // Initial render of time slots container (empty)
                 }
@@ -437,17 +440,17 @@
                     let startDay = (firstDay.getUTCDay() + 6) % 7; // Adjust to make Monday the first day (0-6 -> Mon-Sun)
 
                     this.container.innerHTML = `
-                <div class="calendar-header">
-                    <button class="prev">&lt;</button>
-                    <div>${this.currentDate.toLocaleString("default", {
-                        month: "long",
-                        year: "numeric",
-                        timeZone: "UTC",
-                    })}</div>
-                    <button class="next">&gt;</button>
-                </div>
-                <div class="calendar-grid"></div>
-            `;
+                        <div class="calendar-header">
+                            <button class="prev">&lt;</button>
+                            <div>${this.currentDate.toLocaleString("default", {
+                                month: "long",
+                                year: "numeric",
+                                timeZone: "UTC",
+                            })}</div>
+                            <button class="next">&gt;</button>
+                        </div>
+                        <div class="calendar-grid"></div>
+                    `;
 
                     const grid = this.container.querySelector(".calendar-grid");
                     const dayNames = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
@@ -695,6 +698,18 @@
                     }
                 }
 
+                // New method to handle deselecting all time slots
+                addDeselectTimeButtonListener() {
+                    if (this.deselectTimeButton) {
+                        this.deselectTimeButton.addEventListener("click", () => this.deselectTimeSlots());
+                    }
+                }
+
+                deselectTimeSlots() {
+                    this.selectedTimeSlots.clear(); // Clear all selected time slots
+                    this.renderTimeSlots(); // Re-render the time slots display
+                }
+
                 handleDateInputChange() {
                     const startDateStr = this.startDateInput.value;
                     const endDateStr = this.endDateInput.value;
@@ -745,13 +760,12 @@
                                 return;
                             }
                             this.selectedDates.clear();
-                            this.selectedDates.add(getFormattedDate(startDate));
-                            this.firstClickedDate = startDate;
-                            this.currentDate = new Date(
-                                Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth(), 1)
-                            );
+                            this.selectedDates.add(startDateStr);
+                            this.firstClickedDate = null; // Clear firstClickedDate for single selection
+                            this.currentDate = new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth(), 1)); // Move to the selected month
                             this.render();
                         } else if (endDateStr) {
+                            // If only end date is set, treat it as a single selection
                             const endDate = parseDateString(endDateStr);
                             if (endDate.getTime() < nowUTC.getTime()) {
                                 alert("Cannot select a past date. Selection reset.");
@@ -759,9 +773,9 @@
                                 return;
                             }
                             this.selectedDates.clear();
-                            this.selectedDates.add(getFormattedDate(endDate));
-                            this.firstClickedDate = endDate; // If only end date is set, it becomes the single selected date
-                            this.currentDate = new Date(Date.UTC(endDate.getUTCFullYear(), endDate.getUTCMonth(), 1));
+                            this.selectedDates.add(endDateStr);
+                            this.firstClickedDate = null; // Clear firstClickedDate for single selection
+                            this.currentDate = new Date(Date.UTC(endDate.getUTCFullYear(), endDate.getUTCMonth(), 1)); // Move to the selected month
                             this.render();
                         }
                     }
@@ -771,26 +785,25 @@
                     const startDateStr = this.startDateInput.value;
                     const endDateStr = this.endDateInput.value;
 
+                    const now = new Date();
+                    const nowUTC = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+
                     if (!startDateStr || !endDateStr) {
-                        alert("Please select both start and end dates for the range.");
+                        alert("Please select both start and end dates to apply a range.");
                         return;
                     }
 
-                    // Use parseDateString to ensure consistent Date object creation (UTC)
                     const startDate = parseDateString(startDateStr);
                     const endDate = parseDateString(endDateStr);
 
-                    const now = new Date();
-                    const nowUTC = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate())); // Today's date in UTC
-
                     if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
-                        alert("Invalid date format detected. Please use YYYY-MM-DD.");
+                        alert("Invalid date format. Please use YYYY-MM-DD.");
                         return;
                     }
 
                     // Check if either date is in the past
                     if (startDate.getTime() < nowUTC.getTime() || endDate.getTime() < nowUTC.getTime()) {
-                        alert("Cannot select a past date. Selection reset.");
+                        alert("Cannot select a past date.");
                         this.resetSelection();
                         return;
                     }
@@ -804,43 +817,32 @@
                     this.applyDateRange(startDate, endDate);
                 }
 
-                /**
-                 * Applies a date range selection to the calendar.
-                 * @param {Date} startDate The start Date object (UTC).
-                 * @param {Date} endDate The end Date object (UTC).
-                 * @param {boolean} skipRender If true, skips re-rendering the calendar grid (useful when called from input change and the month is already correct).
-                 */
-                applyDateRange(startDate, endDate, skipRender = false) {
+                applyDateRange(startDate, endDate, suppressRender = false) {
                     this.selectedDates.clear();
                     let loopDate = new Date(startDate);
                     while (loopDate.getTime() <= endDate.getTime()) {
                         this.selectedDates.add(getFormattedDate(loopDate));
                         loopDate.setUTCDate(loopDate.getUTCDate() + 1);
                     }
-                    this.firstClickedDate = null; // Clear first clicked date after range selection
-
-                    // Only change month if necessary and not skipping render
-                    const currentMonthStartUTC = new Date(
-                        Date.UTC(this.currentDate.getUTCFullYear(), this.currentDate.getUTCMonth(), 1)
-                    );
-                    const newMonthStartUTC = new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth(), 1));
-
-                    if (!skipRender || currentMonthStartUTC.getTime() !== newMonthStartUTC.getTime()) {
-                        this.currentDate = newMonthStartUTC;
+                    this.firstClickedDate = null; // Clear firstClickedDate after range selection
+                    // Set calendar to display the start month of the selected range
+                    this.currentDate = new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth(), 1));
+                    if (!suppressRender) {
                         this.render();
                     } else {
-                        // If skipping render but need to update visual selection, manually update classes
-                        this.updateDayClasses();
+                        // If render is suppressed, ensure the visual selection is updated
+                        this.updateCalendarDayClasses();
                         this.renderTimeSlots();
                     }
                 }
 
-                updateDayClasses() {
+                updateCalendarDayClasses() {
                     this.container.querySelectorAll(".day").forEach((dayEl) => {
-                        dayEl.classList.remove("selected");
-                        const date = dayEl.dataset.date;
-                        if (this.selectedDates.has(date)) {
+                        const formattedDate = dayEl.dataset.date;
+                        if (this.selectedDates.has(formattedDate)) {
                             dayEl.classList.add("selected");
+                        } else {
+                            dayEl.classList.remove("selected");
                         }
                     });
                 }
@@ -858,113 +860,101 @@
 
                 resetSelection() {
                     this.selectedDates.clear();
-                    this.selectedTimeSlots.clear();
+                    this.selectedTimeSlots.clear(); // Also clear selected time slots on date reset
                     this.firstClickedDate = null;
+                    const now = new Date();
+                    this.currentDate = new Date(Date.UTC(now.getFullYear(), now.getMonth(), 1)); // Reset to current month
+                    this.render(); // Re-render to clear selection and update inputs
                     this.startDateInput.value = "";
                     this.endDateInput.value = "";
-                    this.currentDate = new Date(Date.UTC(new Date().getFullYear(), new Date().getMonth(), 1)); // Go back to current month
-                    this.render();
-                    this.renderTimeSlots(); // Clear displayed time slots
                 }
 
-                generateTimeSlots() {
-                    const slots = [];
-                    for (let h = 0; h < 24; h++) {
-                        for (let m = 0; m < 60; m += 30) {
-                            const hour = h.toString().padStart(2, "0");
-                            const minute = m.toString().padStart(2, "0");
-                            slots.push(`${hour}:${minute}`);
-                        }
-                    }
-                    return slots;
-                }
-
+                // Generates and renders time slots based on the currently selected dates.
                 renderTimeSlots() {
-                    this.timeSlotsContainer.innerHTML = ""; // Clear previous time slots
+                    let html = "<h3>Selected Dates & Times</h3>";
+
                     if (this.selectedDates.size === 0) {
-                        this.timeSlotsContainer.innerHTML = "<h3>Select a date or range to view available times.</h3>";
+                        this.timeSlotsContainer.innerHTML = html + "<p>No dates selected yet.</p>";
                         return;
                     }
-
-                    this.timeSlotsContainer.innerHTML = "<h3>Select Time Slots</h3>";
-                    const allTimeSlots = this.generateTimeSlots();
 
                     // Sort selected dates to display them in chronological order
                     const sortedDates = Array.from(this.selectedDates).sort();
 
                     sortedDates.forEach((dateString) => {
-                        const dayGroup = document.createElement("div");
-                        dayGroup.classList.add("day-time-slot-group");
-
-                        const dateTitle = document.createElement("h4");
-                        const dateObj = parseDateString(dateString);
-                        dateTitle.textContent = dateObj.toLocaleDateString("en-US", {
+                        html += `<div class="day-time-slot-group">`;
+                        html += `<h4>${new Date(dateString).toLocaleDateString("en-US", {
                             weekday: "short",
+                            year: "numeric",
                             month: "short",
                             day: "numeric",
                             timeZone: "UTC",
+                        })}</h4>`;
+                        html += `<div class="time-slots-grid">`;
+
+                        // Example time slots - replace with dynamic data as needed
+                        const times = [
+                            "09:00",
+                            "10:00",
+                            "11:00",
+                            "12:00",
+                            "13:00",
+                            "14:00",
+                            "15:00",
+                            "16:00",
+                            "17:00",
+                        ];
+
+                        times.forEach((time) => {
+                            const isSelected = this.selectedTimeSlots.has(dateString) &&
+                                this.selectedTimeSlots.get(dateString).has(time);
+                            html += `<div class="time-slot ${isSelected ? 'selected-time' : ''}" data-date="${dateString}" data-time="${time}">${time}</div>`;
                         });
-                        dayGroup.appendChild(dateTitle);
+                        html += `</div></div>`;
+                    });
 
-                        const slotsGrid = document.createElement("div");
-                        slotsGrid.classList.add("time-slots-grid");
+                    this.timeSlotsContainer.innerHTML = html;
+                    this.addTimeSlotClickListeners(); // Add listeners after rendering
+                }
 
-                        allTimeSlots.forEach((timeSlot) => {
-                            const slotEl = document.createElement("div");
-                            slotEl.classList.add("time-slot");
-                            slotEl.textContent = timeSlot;
-                            slotEl.dataset.date = dateString;
-                            slotEl.dataset.time = timeSlot;
-
-                            // Check if this time slot is already selected for this date
-                            if (
-                                this.selectedTimeSlots.has(dateString) &&
-                                this.selectedTimeSlots.get(dateString).has(timeSlot)
-                            ) {
-                                slotEl.classList.add("selected-time");
-                            }
-
-                            slotEl.addEventListener("click", () => {
-                                this.handleTimeSlotClick(dateString, timeSlot, slotEl);
-                            });
-                            slotsGrid.appendChild(slotEl);
+                // Attaches click listeners to each time slot.
+                addTimeSlotClickListeners() {
+                    this.timeSlotsContainer.querySelectorAll(".time-slot").forEach((slot) => {
+                        slot.addEventListener("click", (event) => {
+                            const dateString = event.target.dataset.date;
+                            const timeString = event.target.dataset.time;
+                            this.toggleTimeSlotSelection(dateString, timeString);
                         });
-                        dayGroup.appendChild(slotsGrid);
-                        this.timeSlotsContainer.appendChild(dayGroup);
                     });
                 }
 
-                handleTimeSlotClick(dateString, timeSlot, element) {
+                // Toggles the selection state of a time slot.
+                toggleTimeSlotSelection(dateString, timeString) {
                     if (!this.selectedTimeSlots.has(dateString)) {
                         this.selectedTimeSlots.set(dateString, new Set());
                     }
 
-                    const slotsForDate = this.selectedTimeSlots.get(dateString);
-
-                    if (slotsForDate.has(timeSlot)) {
-                        slotsForDate.delete(timeSlot);
-                        element.classList.remove("selected-time");
+                    const timeSet = this.selectedTimeSlots.get(dateString);
+                    if (timeSet.has(timeString)) {
+                        timeSet.delete(timeString);
+                        if (timeSet.size === 0) {
+                            this.selectedTimeSlots.delete(dateString); // Remove date if no times selected for it
+                        }
                     } else {
-                        slotsForDate.add(timeSlot);
-                        element.classList.add("selected-time");
+                        timeSet.add(timeString);
                     }
-
-                    // If no time slots are selected for a date, remove that date entry from the map
-                    if (slotsForDate.size === 0) {
-                        this.selectedTimeSlots.delete(dateString);
-                    }
-
-                    console.log("Selected Times:", this.selectedTimeSlots);
+                    this.renderTimeSlots(); // Re-render to update UI
                 }
             }
 
-            // Initialize both calendars
+            // Initialize calendars
             const calendarLeft = new Calendar(
                 "calendar-left",
                 "start-date-left",
                 "end-date-left",
                 "apply-range-left",
                 "reset-left",
+                "deselect-time-left",
                 "time-slots-left"
             );
             const calendarRight = new Calendar(
@@ -973,6 +963,7 @@
                 "end-date-right",
                 "apply-range-right",
                 "reset-right",
+                "deselect-time-right",
                 "time-slots-right"
             );
         </script>
