@@ -253,6 +253,71 @@
                 cursor: pointer;
                 background-color: var(--blue); /* Using existing blue for apply button */
             }
+
+            /* Styles for time slots */
+            .time-slots-container {
+                margin-top: 1rem;
+                padding: 1rem;
+                background: white;
+                border-radius: 12px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+                max-width: 400px;
+                margin-left: auto;
+                margin-right: auto;
+                text-align: left;
+            }
+
+            .time-slots-container h3 {
+                text-align: center;
+                margin-bottom: 1rem;
+                color: var(--primary);
+            }
+
+            .time-slots-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+                gap: 0.5rem;
+            }
+
+            .time-slot {
+                padding: 0.5rem;
+                border: 1px solid var(--primary);
+                border-radius: 6px;
+                text-align: center;
+                cursor: pointer;
+                background-color: var(--background);
+                color: var(--text);
+                font-weight: 500;
+            }
+
+            .time-slot:hover {
+                background-color: var(--primary);
+                color: white;
+            }
+
+            .time-slot.selected-time {
+                background-color: var(--selected);
+                color: white;
+                border-color: var(--selected);
+            }
+
+            .day-time-slot-group {
+                margin-bottom: 1rem;
+                border-top: 1px solid #eee;
+                padding-top: 0.5rem;
+            }
+
+            .day-time-slot-group:first-child {
+                border-top: none;
+                padding-top: 0;
+            }
+
+            .day-time-slot-group h4 {
+                margin-top: 0.5rem;
+                margin-bottom: 0.8rem;
+                color: var(--blue);
+                text-align: left;
+            }
         </style>
     </head>
     <body>
@@ -265,6 +330,7 @@
                     <button class="btn-blue">Book Reservation</button>
                     <button class="btn-green">Show Available Dates and Times</button>
                     <button class="btn-grey" id="reset-left">Reset Selection</button>
+                    <button class="btn-grey">Deselect time</button>
                 </div>
                 <div class="date-range-controls">
                     <label for="start-date-left">From:</label>
@@ -273,6 +339,7 @@
                     <input type="date" id="end-date-left" />
                     <button id="apply-range-left">Apply Range</button>
                 </div>
+                <div class="time-slots-container" id="time-slots-left"></div>
             </div>
             <div class="side">
                 <div class="title">Service Providers</div>
@@ -286,6 +353,7 @@
                     <button class="btn-green-dark">Accept</button>
                     <button class="btn-yellow">Busy</button>
                     <button class="btn-grey" id="reset-right">Reset Selection</button>
+                    <button class="btn-grey">Deselect time</button>
                 </div>
                 <div class="date-range-controls">
                     <label for="start-date-right">From:</label>
@@ -294,6 +362,7 @@
                     <input type="date" id="end-date-right" />
                     <button id="apply-range-right">Apply Range</button>
                 </div>
+                <div class="time-slots-container" id="time-slots-right"></div>
             </div>
         </div>
 
@@ -314,18 +383,27 @@
             }
 
             class Calendar {
-                constructor(containerId, startDateInputId, endDateInputId, applyButtonId, resetButtonId) {
+                constructor(
+                    containerId,
+                    startDateInputId,
+                    endDateInputId,
+                    applyButtonId,
+                    resetButtonId,
+                    timeSlotsContainerId
+                ) {
                     this.container = document.getElementById(containerId);
                     this.startDateInput = document.getElementById(startDateInputId);
                     this.endDateInput = document.getElementById(endDateInputId);
                     this.applyButton = document.getElementById(applyButtonId);
-                    this.resetButton = document.getElementById(resetButtonId); // New: Get the reset button
+                    this.resetButton = document.getElementById(resetButtonId);
+                    this.timeSlotsContainer = document.getElementById(timeSlotsContainerId);
 
                     // Initialize currentDate using UTC components of 'now' for consistent internal state
                     const now = new Date();
                     this.currentDate = new Date(Date.UTC(now.getFullYear(), now.getMonth(), 1));
 
                     this.selectedDates = new Set(); // Each calendar has its own set of selected dates (formatted YYYY-MM-DD strings)
+                    this.selectedTimeSlots = new Map(); // Map: 'YYYY-MM-DD' -> Set<timeString>
                     this.firstClickedDate = null; // Stores the Date object of the first click for range selection
 
                     this.todayFormatted = getFormattedDate(
@@ -335,8 +413,9 @@
                     this.render(); // Initial render
                     this.addRangeInputListeners(); // Add listeners for the new range inputs
                     this.addDelegatedDayClickListeners(); // Add delegated listener for day clicks
-                    this.addResetButtonListener(); // New: Add listener for the reset button
+                    this.addResetButtonListener(); // Add listener for the reset button
                     this.setMinDatesForInputs(); // Set initial min dates for date inputs
+                    this.renderTimeSlots(); // Initial render of time slots container (empty)
                 }
 
                 setMinDatesForInputs() {
@@ -480,6 +559,7 @@
                     }
 
                     this.updateDateInputs(); // Update the input fields after rendering
+                    this.renderTimeSlots(); // Re-render time slots based on updated selected dates
                 }
 
                 addEventListeners() {
@@ -609,7 +689,7 @@
                 }
 
                 addResetButtonListener() {
-                    // New: Add event listener for the reset button
+                    // Add event listener for the reset button
                     if (this.resetButton) {
                         this.resetButton.addEventListener("click", () => this.resetSelection());
                     }
@@ -716,9 +796,8 @@
                     }
 
                     if (endDate.getTime() < startDate.getTime()) {
-                        // Compare using getTime() for Date objects
-                        alert("End date cannot be before start date. Selection reset.");
-                        this.resetSelection(); // Reset if an invalid range is applied via inputs
+                        alert("End date cannot be before start date.");
+                        this.resetSelection();
                         return;
                     }
 
@@ -729,23 +808,41 @@
                  * Applies a date range selection to the calendar.
                  * @param {Date} startDate The start Date object (UTC).
                  * @param {Date} endDate The end Date object (UTC).
-                 * @param {boolean} skipRender If true, only updates selectedDates and inputs, doesn't re-render calendar grid immediately.
+                 * @param {boolean} skipRender If true, skips re-rendering the calendar grid (useful when called from input change and the month is already correct).
                  */
                 applyDateRange(startDate, endDate, skipRender = false) {
                     this.selectedDates.clear();
-                    let loopDate = new Date(startDate); // Start from the beginning of the range
+                    let loopDate = new Date(startDate);
                     while (loopDate.getTime() <= endDate.getTime()) {
                         this.selectedDates.add(getFormattedDate(loopDate));
-                        loopDate.setUTCDate(loopDate.getUTCDate() + 1); // Move to the next day
+                        loopDate.setUTCDate(loopDate.getUTCDate() + 1);
                     }
+                    this.firstClickedDate = null; // Clear first clicked date after range selection
 
-                    // Set the current month to the start date's month for better UX
-                    this.currentDate = new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth(), 1));
+                    // Only change month if necessary and not skipping render
+                    const currentMonthStartUTC = new Date(
+                        Date.UTC(this.currentDate.getUTCFullYear(), this.currentDate.getUTCMonth(), 1)
+                    );
+                    const newMonthStartUTC = new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth(), 1));
 
-                    this.updateDateInputs();
-                    if (!skipRender) {
-                        this.render(); // Re-render the calendar to show the new selection
+                    if (!skipRender || currentMonthStartUTC.getTime() !== newMonthStartUTC.getTime()) {
+                        this.currentDate = newMonthStartUTC;
+                        this.render();
+                    } else {
+                        // If skipping render but need to update visual selection, manually update classes
+                        this.updateDayClasses();
+                        this.renderTimeSlots();
                     }
+                }
+
+                updateDayClasses() {
+                    this.container.querySelectorAll(".day").forEach((dayEl) => {
+                        dayEl.classList.remove("selected");
+                        const date = dayEl.dataset.date;
+                        if (this.selectedDates.has(date)) {
+                            dayEl.classList.add("selected");
+                        }
+                    });
                 }
 
                 updateDateInputs() {
@@ -759,19 +856,105 @@
                     }
                 }
 
-                /**
-                 * Resets the calendar's selection, clearing all selected dates and input fields.
-                 */
                 resetSelection() {
                     this.selectedDates.clear();
+                    this.selectedTimeSlots.clear();
                     this.firstClickedDate = null;
                     this.startDateInput.value = "";
                     this.endDateInput.value = "";
-                    this.currentDate = new Date(
-                        Date.UTC(new Date().getFullYear(), new Date().getMonth(), 1)
-                    ); // Reset to current month
-                    this.setMinDatesForInputs(); // Re-set min dates for inputs
-                    this.render(); // Re-render the calendar to reflect the reset state
+                    this.currentDate = new Date(Date.UTC(new Date().getFullYear(), new Date().getMonth(), 1)); // Go back to current month
+                    this.render();
+                    this.renderTimeSlots(); // Clear displayed time slots
+                }
+
+                generateTimeSlots() {
+                    const slots = [];
+                    for (let h = 0; h < 24; h++) {
+                        for (let m = 0; m < 60; m += 30) {
+                            const hour = h.toString().padStart(2, "0");
+                            const minute = m.toString().padStart(2, "0");
+                            slots.push(`${hour}:${minute}`);
+                        }
+                    }
+                    return slots;
+                }
+
+                renderTimeSlots() {
+                    this.timeSlotsContainer.innerHTML = ""; // Clear previous time slots
+                    if (this.selectedDates.size === 0) {
+                        this.timeSlotsContainer.innerHTML = "<h3>Select a date or range to view available times.</h3>";
+                        return;
+                    }
+
+                    this.timeSlotsContainer.innerHTML = "<h3>Select Time Slots</h3>";
+                    const allTimeSlots = this.generateTimeSlots();
+
+                    // Sort selected dates to display them in chronological order
+                    const sortedDates = Array.from(this.selectedDates).sort();
+
+                    sortedDates.forEach((dateString) => {
+                        const dayGroup = document.createElement("div");
+                        dayGroup.classList.add("day-time-slot-group");
+
+                        const dateTitle = document.createElement("h4");
+                        const dateObj = parseDateString(dateString);
+                        dateTitle.textContent = dateObj.toLocaleDateString("en-US", {
+                            weekday: "short",
+                            month: "short",
+                            day: "numeric",
+                            timeZone: "UTC",
+                        });
+                        dayGroup.appendChild(dateTitle);
+
+                        const slotsGrid = document.createElement("div");
+                        slotsGrid.classList.add("time-slots-grid");
+
+                        allTimeSlots.forEach((timeSlot) => {
+                            const slotEl = document.createElement("div");
+                            slotEl.classList.add("time-slot");
+                            slotEl.textContent = timeSlot;
+                            slotEl.dataset.date = dateString;
+                            slotEl.dataset.time = timeSlot;
+
+                            // Check if this time slot is already selected for this date
+                            if (
+                                this.selectedTimeSlots.has(dateString) &&
+                                this.selectedTimeSlots.get(dateString).has(timeSlot)
+                            ) {
+                                slotEl.classList.add("selected-time");
+                            }
+
+                            slotEl.addEventListener("click", () => {
+                                this.handleTimeSlotClick(dateString, timeSlot, slotEl);
+                            });
+                            slotsGrid.appendChild(slotEl);
+                        });
+                        dayGroup.appendChild(slotsGrid);
+                        this.timeSlotsContainer.appendChild(dayGroup);
+                    });
+                }
+
+                handleTimeSlotClick(dateString, timeSlot, element) {
+                    if (!this.selectedTimeSlots.has(dateString)) {
+                        this.selectedTimeSlots.set(dateString, new Set());
+                    }
+
+                    const slotsForDate = this.selectedTimeSlots.get(dateString);
+
+                    if (slotsForDate.has(timeSlot)) {
+                        slotsForDate.delete(timeSlot);
+                        element.classList.remove("selected-time");
+                    } else {
+                        slotsForDate.add(timeSlot);
+                        element.classList.add("selected-time");
+                    }
+
+                    // If no time slots are selected for a date, remove that date entry from the map
+                    if (slotsForDate.size === 0) {
+                        this.selectedTimeSlots.delete(dateString);
+                    }
+
+                    console.log("Selected Times:", this.selectedTimeSlots);
                 }
             }
 
@@ -781,14 +964,16 @@
                 "start-date-left",
                 "end-date-left",
                 "apply-range-left",
-                "reset-left"
+                "reset-left",
+                "time-slots-left"
             );
             const calendarRight = new Calendar(
                 "calendar-right",
                 "start-date-right",
                 "end-date-right",
                 "apply-range-right",
-                "reset-right" // Pass the new ID for the right calendar's reset button
+                "reset-right",
+                "time-slots-right"
             );
         </script>
     </body>
