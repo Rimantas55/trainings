@@ -133,7 +133,8 @@
             }
 
             .selected {
-                background: var(--selected);
+                border-style: solid;
+                border-color: var(--selected);
                 color: white;
             }
 
@@ -145,7 +146,7 @@
             /* Ensure selected and disabled states override the red weekend number */
             .day.selected.weekend-day-number,
             .day.selected {
-                color: white; /* Selected days always white text */
+                color: var(--text); /* Selected days always white text */
             }
 
             .day.disabled,
@@ -172,7 +173,8 @@
             }
 
             .weekend.selected {
-                background-color: var(--selected);
+                border-style: solid;
+                border-color: var(--selected);
                 color: white;
             }
 
@@ -198,7 +200,8 @@
             /* Prioritize selected over marked */
             .day.green-marked.selected,
             .day.yellow-marked.selected {
-                background: var(--violet); /* Violet when green/yellow marked day is selected */
+                border-style: solid;
+                border-color: var(--selected);
                 color: white;
             }
 
@@ -1054,8 +1057,12 @@
                     document.getElementById("enable-time-right").addEventListener("click", () => this.enableTime());
                     document.getElementById("disable-day-right").addEventListener("click", () => this.disableDay());
                     document.getElementById("disable-time-right").addEventListener("click", () => this.disableTime());
-                    document.getElementById("enable-busy-day-right").addEventListener("click", () => this.enableBusyDay());
-                    document.getElementById("enable-busy-time-right").addEventListener("click", () => this.enableBusyTime());
+                    document
+                        .getElementById("enable-busy-day-right")
+                        .addEventListener("click", () => this.enableBusyDay());
+                    document
+                        .getElementById("enable-busy-time-right")
+                        .addEventListener("click", () => this.enableBusyTime());
                 }
 
                 enableDay() {
@@ -1063,7 +1070,7 @@
                         alert("Please select at least one day to enable.");
                         return;
                     }
-                    this.selectedDates.forEach(date => {
+                    this.selectedDates.forEach((date) => {
                         this.greenMarkedDates.add(date);
                         this.yellowMarkedDates.delete(date); // Ensure it's not yellow
                     });
@@ -1075,7 +1082,7 @@
                         alert("Please select at least one day to disable.");
                         return;
                     }
-                    this.selectedDates.forEach(date => {
+                    this.selectedDates.forEach((date) => {
                         this.greenMarkedDates.delete(date);
                         this.yellowMarkedDates.delete(date);
                     });
@@ -1087,7 +1094,7 @@
                         alert("Please select at least one day to mark as busy.");
                         return;
                     }
-                    this.selectedDates.forEach(date => {
+                    this.selectedDates.forEach((date) => {
                         this.yellowMarkedDates.add(date);
                         this.greenMarkedDates.delete(date); // Ensure it's not green
                     });
@@ -1104,12 +1111,12 @@
                             this.greenMarkedTimeSlots.set(date, new Set());
                         }
                         if (this.yellowMarkedTimeSlots.has(date)) {
-                            times.forEach(time => this.yellowMarkedTimeSlots.get(date).delete(time)); // Remove from yellow
+                            times.forEach((time) => this.yellowMarkedTimeSlots.get(date).delete(time)); // Remove from yellow
                             if (this.yellowMarkedTimeSlots.get(date).size === 0) {
                                 this.yellowMarkedTimeSlots.delete(date);
                             }
                         }
-                        times.forEach(time => this.greenMarkedTimeSlots.get(date).add(time));
+                        times.forEach((time) => this.greenMarkedTimeSlots.get(date).add(time));
                     });
                     this.renderTimeSlots();
                 }
@@ -1121,13 +1128,13 @@
                     }
                     this.selectedTimeSlots.forEach((times, date) => {
                         if (this.greenMarkedTimeSlots.has(date)) {
-                            times.forEach(time => this.greenMarkedTimeSlots.get(date).delete(time));
+                            times.forEach((time) => this.greenMarkedTimeSlots.get(date).delete(time));
                             if (this.greenMarkedTimeSlots.get(date).size === 0) {
                                 this.greenMarkedTimeSlots.delete(date);
                             }
                         }
                         if (this.yellowMarkedTimeSlots.has(date)) {
-                            times.forEach(time => this.yellowMarkedTimeSlots.get(date).delete(time));
+                            times.forEach((time) => this.yellowMarkedTimeSlots.get(date).delete(time));
                             if (this.yellowMarkedTimeSlots.get(date).size === 0) {
                                 this.yellowMarkedTimeSlots.delete(date);
                             }
@@ -1146,12 +1153,12 @@
                             this.yellowMarkedTimeSlots.set(date, new Set());
                         }
                         if (this.greenMarkedTimeSlots.has(date)) {
-                            times.forEach(time => this.greenMarkedTimeSlots.get(date).delete(time)); // Remove from green
+                            times.forEach((time) => this.greenMarkedTimeSlots.get(date).delete(time)); // Remove from green
                             if (this.greenMarkedTimeSlots.get(date).size === 0) {
                                 this.greenMarkedTimeSlots.delete(date);
                             }
                         }
-                        times.forEach(time => this.yellowMarkedTimeSlots.get(date).add(time));
+                        times.forEach((time) => this.yellowMarkedTimeSlots.get(date).add(time));
                     });
                     this.renderTimeSlots();
                 }
