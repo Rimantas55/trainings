@@ -122,7 +122,7 @@
                 font-weight: 500;
             }
 
-            .day:hover:not(.disabled):not(.selected) {
+            .day:hover:not(.disabled):not(.selected):not(.green-marked):not(.yellow-marked) {
                 background: #e5e7eb;
             }
 
@@ -162,7 +162,7 @@
                 background-color: var(--weekend-bg);
             }
 
-            .weekend:hover:not(.disabled):not(.selected) {
+            .weekend:hover:not(.disabled):not(.selected):not(.green-marked):not(.yellow-marked) {
                 background-color: #fbd5d5;
             }
 
@@ -173,6 +173,32 @@
 
             .weekend.selected {
                 background-color: var(--selected);
+                color: white;
+            }
+
+            /* New styles for marked days */
+            .day.green-marked {
+                background-color: var(--green);
+                color: white;
+            }
+
+            .day.green-marked:hover:not(.selected) {
+                background-color: var(--green-dark);
+            }
+
+            .day.yellow-marked {
+                background-color: var(--yellow);
+                color: white;
+            }
+
+            .day.yellow-marked:hover:not(.selected) {
+                background-color: #d97706; /* Darker yellow on hover */
+            }
+
+            /* Prioritize selected over marked */
+            .day.green-marked.selected,
+            .day.yellow-marked.selected {
+                background: var(--violet); /* Violet when green/yellow marked day is selected */
                 color: white;
             }
 
@@ -290,7 +316,7 @@
                 font-weight: 500;
             }
 
-            .time-slot:hover {
+            .time-slot:hover:not(.selected-time):not(.green-marked-time):not(.yellow-marked-time) {
                 background-color: var(--primary);
                 color: white;
             }
@@ -299,6 +325,35 @@
                 background-color: var(--selected);
                 color: white;
                 border-color: var(--selected);
+            }
+
+            /* New styles for marked time slots */
+            .time-slot.green-marked-time {
+                background-color: var(--green);
+                color: white;
+                border-color: var(--green);
+            }
+            .time-slot.green-marked-time:hover:not(.selected-time) {
+                background-color: var(--green-dark);
+                border-color: var(--green-dark);
+            }
+
+            .time-slot.yellow-marked-time {
+                background-color: var(--yellow);
+                color: white;
+                border-color: var(--yellow);
+            }
+            .time-slot.yellow-marked-time:hover:not(.selected-time) {
+                background-color: #d97706; /* Darker yellow on hover */
+                border-color: #d97706;
+            }
+
+            /* Prioritize selected over marked time slots */
+            .time-slot.green-marked-time.selected-time,
+            .time-slot.yellow-marked-time.selected-time {
+                background-color: var(--selected); /* Selected time slots always violet */
+                border-color: var(--selected);
+                color: white;
             }
 
             .day-time-slot-group {
@@ -345,12 +400,12 @@
                 <div class="title">Service Providers</div>
                 <div class="calendar" id="calendar-right"></div>
                 <div class="buttons">
-                    <button class="btn-green">Enable Day</button>
-                    <button class="btn-green">Enable Time</button>
-                    <button class="btn-grey">Disable Day</button>
-                    <button class="btn-grey">Disable Time</button>
-                    <button class="btn-yellow">Enable Busy Day</button>
-                    <button class="btn-yellow">Disable Busy Time</button>
+                    <button class="btn-green" id="enable-day-right">Enable Day</button>
+                    <button class="btn-green" id="enable-time-right">Enable Time</button>
+                    <button class="btn-grey" id="disable-day-right">Disable Day</button>
+                    <button class="btn-grey" id="disable-time-right">Disable Time</button>
+                    <button class="btn-yellow" id="enable-busy-day-right">Enable Busy Day</button>
+                    <button class="btn-yellow" id="enable-busy-time-right">Enable Busy Time</button>
                     <button class="btn-blue">Edit</button>
                     <button class="btn-red">Delete</button>
                     <button class="btn-violet">Cancel</button>
@@ -393,7 +448,8 @@
                     applyButtonId,
                     resetButtonId,
                     deselectTimeButtonId, // New parameter for deselect time button
-                    timeSlotsContainerId
+                    timeSlotsContainerId,
+                    isServiceProviderCalendar = false // New parameter to differentiate calendars
                 ) {
                     this.container = document.getElementById(containerId);
                     this.startDateInput = document.getElementById(startDateInputId);
@@ -402,6 +458,7 @@
                     this.resetButton = document.getElementById(resetButtonId);
                     this.deselectTimeButton = document.getElementById(deselectTimeButtonId); // Get the deselect time button
                     this.timeSlotsContainer = document.getElementById(timeSlotsContainerId);
+                    this.isServiceProviderCalendar = isServiceProviderCalendar;
 
                     // Initialize currentDate using UTC components of 'now' for consistent internal state
                     const now = new Date();
@@ -410,6 +467,12 @@
                     this.selectedDates = new Set(); // Each calendar has its own set of selected dates (formatted YYYY-MM-DD strings)
                     this.selectedTimeSlots = new Map(); // Map: 'YYYY-MM-DD' -> Set<timeString>
                     this.firstClickedDate = null; // Stores the Date object of the first click for range selection
+
+                    // New sets and maps for marking days/times
+                    this.greenMarkedDates = new Set();
+                    this.yellowMarkedDates = new Set();
+                    this.greenMarkedTimeSlots = new Map(); // 'YYYY-MM-DD' -> Set<timeString>
+                    this.yellowMarkedTimeSlots = new Map(); // 'YYYY-MM-DD' -> Set<timeString>
 
                     this.todayFormatted = getFormattedDate(
                         new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()))
@@ -422,6 +485,10 @@
                     this.addDeselectTimeButtonListener(); // Add listener for the deselect time button
                     this.setMinDatesForInputs(); // Set initial min dates for date inputs
                     this.renderTimeSlots(); // Initial render of time slots container (empty)
+
+                    if (this.isServiceProviderCalendar) {
+                        this.addServiceProviderButtonListeners();
+                    }
                 }
 
                 setMinDatesForInputs() {
@@ -505,7 +572,14 @@
                             el.classList.add("today");
                         }
 
-                        // Check if this day is selected for THIS calendar
+                        // Apply green-marked or yellow-marked class if applicable
+                        if (this.greenMarkedDates.has(formattedCellDate)) {
+                            el.classList.add("green-marked");
+                        } else if (this.yellowMarkedDates.has(formattedCellDate)) {
+                            el.classList.add("yellow-marked");
+                        }
+
+                        // Check if this day is selected for THIS calendar (selected always overrides marked colors)
                         if (this.selectedDates.has(formattedCellDate)) {
                             el.classList.add("selected");
                         }
@@ -541,7 +615,14 @@
                             el.classList.add("weekend", "weekend-day-number"); // Add weekend-day-number for red text
                         }
 
-                        // Check if this next month day is selected for THIS calendar
+                        // Apply green-marked or yellow-marked class if applicable for next month days
+                        if (this.greenMarkedDates.has(formattedNextMonthDate)) {
+                            el.classList.add("green-marked");
+                        } else if (this.yellowMarkedDates.has(formattedNextMonthDate)) {
+                            el.classList.add("yellow-marked");
+                        }
+
+                        // Check if this next month day is selected for THIS calendar (selected always overrides marked colors)
                         if (this.selectedDates.has(formattedNextMonthDate)) {
                             el.classList.add("selected");
                         }
@@ -844,10 +925,19 @@
                 updateCalendarDayClasses() {
                     this.container.querySelectorAll(".day").forEach((dayEl) => {
                         const formattedDate = dayEl.dataset.date;
+                        // First remove all selection/marking classes
+                        dayEl.classList.remove("selected", "green-marked", "yellow-marked");
+
+                        // Apply green-marked or yellow-marked if applicable
+                        if (this.greenMarkedDates.has(formattedDate)) {
+                            dayEl.classList.add("green-marked");
+                        } else if (this.yellowMarkedDates.has(formattedDate)) {
+                            dayEl.classList.add("yellow-marked");
+                        }
+
+                        // Apply selected class (this will override marked colors visually due to CSS order/specificity)
                         if (this.selectedDates.has(formattedDate)) {
                             dayEl.classList.add("selected");
-                        } else {
-                            dayEl.classList.remove("selected");
                         }
                     });
                 }
@@ -904,9 +994,23 @@
                             const isSelected =
                                 this.selectedTimeSlots.has(dateString) &&
                                 this.selectedTimeSlots.get(dateString).has(time);
-                            html += `<div class="time-slot ${
-                                isSelected ? "selected-time" : ""
-                            }" data-date="${dateString}" data-time="${time}">${time}</div>`;
+                            const isGreenMarked =
+                                this.greenMarkedTimeSlots.has(dateString) &&
+                                this.greenMarkedTimeSlots.get(dateString).has(time);
+                            const isYellowMarked =
+                                this.yellowMarkedTimeSlots.has(dateString) &&
+                                this.yellowMarkedTimeSlots.get(dateString).has(time);
+
+                            let classes = "";
+                            if (isSelected) {
+                                classes = "selected-time"; // Selected always takes precedence
+                            } else if (isGreenMarked) {
+                                classes = "green-marked-time";
+                            } else if (isYellowMarked) {
+                                classes = "yellow-marked-time";
+                            }
+
+                            html += `<div class="time-slot ${classes}" data-date="${dateString}" data-time="${time}">${time}</div>`;
                         });
                         html += `</div></div>`;
                     });
@@ -943,6 +1047,114 @@
                     }
                     this.renderTimeSlots(); // Re-render to update UI
                 }
+
+                // Service Provider specific actions
+                addServiceProviderButtonListeners() {
+                    document.getElementById("enable-day-right").addEventListener("click", () => this.enableDay());
+                    document.getElementById("enable-time-right").addEventListener("click", () => this.enableTime());
+                    document.getElementById("disable-day-right").addEventListener("click", () => this.disableDay());
+                    document.getElementById("disable-time-right").addEventListener("click", () => this.disableTime());
+                    document.getElementById("enable-busy-day-right").addEventListener("click", () => this.enableBusyDay());
+                    document.getElementById("enable-busy-time-right").addEventListener("click", () => this.enableBusyTime());
+                }
+
+                enableDay() {
+                    if (this.selectedDates.size === 0) {
+                        alert("Please select at least one day to enable.");
+                        return;
+                    }
+                    this.selectedDates.forEach(date => {
+                        this.greenMarkedDates.add(date);
+                        this.yellowMarkedDates.delete(date); // Ensure it's not yellow
+                    });
+                    this.render();
+                }
+
+                disableDay() {
+                    if (this.selectedDates.size === 0) {
+                        alert("Please select at least one day to disable.");
+                        return;
+                    }
+                    this.selectedDates.forEach(date => {
+                        this.greenMarkedDates.delete(date);
+                        this.yellowMarkedDates.delete(date);
+                    });
+                    this.render();
+                }
+
+                enableBusyDay() {
+                    if (this.selectedDates.size === 0) {
+                        alert("Please select at least one day to mark as busy.");
+                        return;
+                    }
+                    this.selectedDates.forEach(date => {
+                        this.yellowMarkedDates.add(date);
+                        this.greenMarkedDates.delete(date); // Ensure it's not green
+                    });
+                    this.render();
+                }
+
+                enableTime() {
+                    if (this.selectedTimeSlots.size === 0) {
+                        alert("Please select at least one time slot to enable.");
+                        return;
+                    }
+                    this.selectedTimeSlots.forEach((times, date) => {
+                        if (!this.greenMarkedTimeSlots.has(date)) {
+                            this.greenMarkedTimeSlots.set(date, new Set());
+                        }
+                        if (this.yellowMarkedTimeSlots.has(date)) {
+                            times.forEach(time => this.yellowMarkedTimeSlots.get(date).delete(time)); // Remove from yellow
+                            if (this.yellowMarkedTimeSlots.get(date).size === 0) {
+                                this.yellowMarkedTimeSlots.delete(date);
+                            }
+                        }
+                        times.forEach(time => this.greenMarkedTimeSlots.get(date).add(time));
+                    });
+                    this.renderTimeSlots();
+                }
+
+                disableTime() {
+                    if (this.selectedTimeSlots.size === 0) {
+                        alert("Please select at least one time slot to disable.");
+                        return;
+                    }
+                    this.selectedTimeSlots.forEach((times, date) => {
+                        if (this.greenMarkedTimeSlots.has(date)) {
+                            times.forEach(time => this.greenMarkedTimeSlots.get(date).delete(time));
+                            if (this.greenMarkedTimeSlots.get(date).size === 0) {
+                                this.greenMarkedTimeSlots.delete(date);
+                            }
+                        }
+                        if (this.yellowMarkedTimeSlots.has(date)) {
+                            times.forEach(time => this.yellowMarkedTimeSlots.get(date).delete(time));
+                            if (this.yellowMarkedTimeSlots.get(date).size === 0) {
+                                this.yellowMarkedTimeSlots.delete(date);
+                            }
+                        }
+                    });
+                    this.renderTimeSlots();
+                }
+
+                enableBusyTime() {
+                    if (this.selectedTimeSlots.size === 0) {
+                        alert("Please select at least one time slot to mark as busy.");
+                        return;
+                    }
+                    this.selectedTimeSlots.forEach((times, date) => {
+                        if (!this.yellowMarkedTimeSlots.has(date)) {
+                            this.yellowMarkedTimeSlots.set(date, new Set());
+                        }
+                        if (this.greenMarkedTimeSlots.has(date)) {
+                            times.forEach(time => this.greenMarkedTimeSlots.get(date).delete(time)); // Remove from green
+                            if (this.greenMarkedTimeSlots.get(date).size === 0) {
+                                this.greenMarkedTimeSlots.delete(date);
+                            }
+                        }
+                        times.forEach(time => this.yellowMarkedTimeSlots.get(date).add(time));
+                    });
+                    this.renderTimeSlots();
+                }
             }
 
             // Initialize calendars
@@ -953,7 +1165,8 @@
                 "apply-range-left",
                 "reset-left",
                 "deselect-time-left",
-                "time-slots-left"
+                "time-slots-left",
+                false // Not a service provider calendar
             );
             const calendarRight = new Calendar(
                 "calendar-right",
@@ -962,7 +1175,8 @@
                 "apply-range-right",
                 "reset-right",
                 "deselect-time-right",
-                "time-slots-right"
+                "time-slots-right",
+                true // This is the service provider calendar
             );
         </script>
     </body>
