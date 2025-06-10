@@ -894,6 +894,10 @@
                         </div>
                     </div>
                     <div id="output" class="output"></div>
+                    <!--TODO calculation for below parameters-->
+                    <div>Kaina 1m2</div>
+                    <div>Kaina 1 val</div>
+                    <div>Preliuminarus sutvarkymo laikas</div>
                 </div>
                 <label for="area" id="enterAreaLabel">Enter area (m²):</label>
                 <input type="number" id="area" min="1" max="9999" step="1" placeholder="e.g. 50" required />
@@ -1092,6 +1096,11 @@
                             >An invoice is not needed</span
                         ></label
                     >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="cleanMirrors"
+                            >Mirrors</span
+                        ></label
+                    >
                 </div>
 
                 <button onclick="calculatePrice()" id="calculatePriceBtn">Calculate Price</button>
@@ -1104,19 +1113,34 @@
             <h2 id="servicesTitle">Our Services</h2>
             <div class="service-cards">
                 <div class="card">
-                    <img src="https://source.unsplash.com/300x200/?house-cleaning" alt="House Cleaning" />
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwztYzg62_dBQ2SSnH9siwODat6gAukKUpBQ&s" alt="House Cleaning" />
                     <h3 id="service1Title">Residential Cleaning</h3>
                     <p id="service1Desc">Thorough and reliable home cleaning services tailored to your schedule.</p>
                 </div>
                 <div class="card">
-                    <img src="https://source.unsplash.com/300x200/?office-cleaning" alt="Office Cleaning" />
+                    <img src="https://www.stratusclean.com/sites/default/files/2020-12/190510_Stratus_S11_1273.final_.jpg" alt="Office Cleaning" />
                     <h3 id="service2Title">Office Cleaning</h3>
                     <p id="service2Desc">Boost employee productivity with a spotless and sanitized work environment.</p>
                 </div>
                 <div class="card">
-                    <img src="https://source.unsplash.com/300x200/?window-cleaning" alt="Window Cleaning" />
+                    <img src="https://www.bondcleaningincanberra.com.au/wp-content/uploads/2019/12/windowcleaningservices-main_orig-1.jpg" alt="Window Cleaning" />
                     <h3 id="service3Title">Window Cleaning</h3>
                     <p id="service3Desc">Crystal clear windows for your home or business inside and out.</p>
+                </div>
+                <div class="card">
+                    <img src="https://d47b8c342f195720a9bf-abcdaee9f8d8752825c66eff59bb2838.ssl.cf1.rackcdn.com/cleaning-air-bnb.jpg" alt="Window Cleaning" />
+                    <h3 id="service3Title">Airbnb type cleaning</h3>
+                    <p id="service3Desc">Basic cleaning for Airbnb.</p>
+                </div>
+                <div class="card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhBkBjRpWFaGi5yRk4WZuSdh0ak8WtGjKMNQ&s" alt="Window Cleaning" />
+                    <h3 id="service3Title">Post-construction cleaning</h3>
+                    <p id="service3Desc">Cleaning after construction.</p>
+                </div>
+                <div class="card">
+                    <img src="https://finaltouchcleaningservices.co.uk/wp-content/uploads/2020/04/Communal-Stairwell-Cleaning.jpg" alt="Window Cleaning" />
+                    <h3 id="service3Title">Stairwell cleaning</h3>
+                    <p id="service3Desc">Clean stairs and corridor.</p>
                 </div>
             </div>
         </section>
