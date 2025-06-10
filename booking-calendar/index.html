@@ -352,10 +352,19 @@
             }
 
             /* Prioritize selected over marked time slots */
-            .time-slot.green-marked-time.selected-time,
+            .time-slot.green-marked-time.selected-time {
+                border-style: solid;
+                border-width: 3px; /* 3px thickness */
+                border-color: var(--violet); /* Violet border */
+                background-color: var(--green); /* Retain green background */
+                color: white;
+            }
+
             .time-slot.yellow-marked-time.selected-time {
-                background-color: var(--selected); /* Selected time slots always violet */
-                border-color: var(--selected);
+                border-style: solid;
+                border-width: 3px; /* 3px thickness */
+                border-color: var(--violet); /* Violet border */
+                background-color: var(--yellow); /* Retain yellow background */
                 color: white;
             }
 
@@ -1006,14 +1015,16 @@
 
                             let classes = "";
                             if (isSelected) {
-                                classes = "selected-time"; // Selected always takes precedence
-                            } else if (isGreenMarked) {
-                                classes = "green-marked-time";
-                            } else if (isYellowMarked) {
-                                classes = "yellow-marked-time";
+                                classes = "selected-time"; // Selected always takes precedence for the base class
                             }
 
-                            html += `<div class="time-slot ${classes}" data-date="${dateString}" data-time="${time}">${time}</div>`;
+                            if (isGreenMarked) {
+                                classes += " green-marked-time";
+                            } else if (isYellowMarked) {
+                                classes += " yellow-marked-time";
+                            }
+
+                            html += `<div class="time-slot ${classes.trim()}" data-date="${dateString}" data-time="${time}">${time}</div>`;
                         });
                         html += `</div></div>`;
                     });
@@ -1085,8 +1096,12 @@
                     this.selectedDates.forEach((date) => {
                         this.greenMarkedDates.delete(date);
                         this.yellowMarkedDates.delete(date);
+                        // Also ensure time slots for this date are not marked
+                        this.greenMarkedTimeSlots.delete(date);
+                        this.yellowMarkedTimeSlots.delete(date);
                     });
                     this.render();
+                    this.renderTimeSlots(); // Update time slot display
                 }
 
                 enableBusyDay() {
@@ -1117,7 +1132,14 @@
                             }
                         }
                         times.forEach((time) => this.greenMarkedTimeSlots.get(date).add(time));
+
+                        // Mark the day as green if any time slots are green-marked for it
+                        if (this.greenMarkedTimeSlots.has(date) && this.greenMarkedTimeSlots.get(date).size > 0) {
+                            this.greenMarkedDates.add(date);
+                            this.yellowMarkedDates.delete(date); // Ensure day is not yellow if now green
+                        }
                     });
+                    this.render(); // Re-render calendar to update day colors
                     this.renderTimeSlots();
                 }
 
@@ -1127,19 +1149,33 @@
                         return;
                     }
                     this.selectedTimeSlots.forEach((times, date) => {
+                        // Create a temporary set of times to disable to avoid modifying 'times' during iteration
+                        const timesToDisable = new Set(times);
+
+                        // Remove from green marked times
                         if (this.greenMarkedTimeSlots.has(date)) {
-                            times.forEach((time) => this.greenMarkedTimeSlots.get(date).delete(time));
+                            timesToDisable.forEach((time) => this.greenMarkedTimeSlots.get(date).delete(time));
                             if (this.greenMarkedTimeSlots.get(date).size === 0) {
                                 this.greenMarkedTimeSlots.delete(date);
                             }
                         }
+                        // Remove from yellow marked times
                         if (this.yellowMarkedTimeSlots.has(date)) {
-                            times.forEach((time) => this.yellowMarkedTimeSlots.get(date).delete(time));
+                            timesToDisable.forEach((time) => this.yellowMarkedTimeSlots.get(date).delete(time));
                             if (this.yellowMarkedTimeSlots.get(date).size === 0) {
                                 this.yellowMarkedTimeSlots.delete(date);
                             }
                         }
+
+                        // Check if the day should no longer be marked green or yellow
+                        if (!this.greenMarkedTimeSlots.has(date) || this.greenMarkedTimeSlots.get(date).size === 0) {
+                            this.greenMarkedDates.delete(date);
+                        }
+                        if (!this.yellowMarkedTimeSlots.has(date) || this.yellowMarkedTimeSlots.get(date).size === 0) {
+                            this.yellowMarkedDates.delete(date);
+                        }
                     });
+                    this.render(); // Re-render calendar to update day colors
                     this.renderTimeSlots();
                 }
 
@@ -1159,7 +1195,14 @@
                             }
                         }
                         times.forEach((time) => this.yellowMarkedTimeSlots.get(date).add(time));
+
+                        // Mark the day as yellow if any time slots are yellow-marked for it
+                        if (this.yellowMarkedTimeSlots.has(date) && this.yellowMarkedTimeSlots.get(date).size > 0) {
+                            this.yellowMarkedDates.add(date);
+                            this.greenMarkedDates.delete(date); // Ensure day is not green if now yellow
+                        }
                     });
+                    this.render(); // Re-render calendar to update day colors
                     this.renderTimeSlots();
                 }
             }
