@@ -385,6 +385,60 @@
                 color: var(--blue);
                 text-align: left;
             }
+
+            /* New styles for the saved/available times table */
+            .saved-times-container,
+            .available-times-container {
+                margin-top: 1rem;
+                padding: 1rem;
+                background: white;
+                border-radius: 12px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+                max-width: 100%;
+                margin-left: auto;
+                margin-right: auto;
+                text-align: left;
+            }
+
+            .saved-times-container h3,
+            .available-times-container h3 {
+                text-align: center;
+                margin-bottom: 1rem;
+                color: var(--primary);
+            }
+
+            .saved-times-table,
+            .available-times-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 1rem;
+            }
+
+            .saved-times-table th,
+            .saved-times-table td,
+            .available-times-table th,
+            .available-times-table td {
+                border: 1px solid #e5e7eb;
+                padding: 0.6rem 0.8rem;
+                text-align: left;
+                font-size: 0.9rem;
+            }
+
+            .saved-times-table th,
+            .available-times-table th {
+                background-color: var(--primary);
+                color: white;
+                font-weight: 600;
+            }
+
+            .saved-times-table tr:nth-child(even),
+            .available-times-table tr:nth-child(even) {
+                background-color: #f9fafb;
+            }
+
+            .available-times-table td:first-child {
+                text-align: center;
+            }
         </style>
     </head>
     <body>
@@ -395,7 +449,7 @@
                 <div class="buttons">
                     <button class="btn-yellow">Calculate Price</button>
                     <button class="btn-blue">Book Reservation</button>
-                    <button class="btn-green">Show Available Dates and Times</button>
+                    <button class="btn-green" id="show-available-times-left">Show Available Dates and Times</button>
                     <button class="btn-grey" id="reset-left">Reset Selection</button>
                     <button class="btn-grey" id="deselect-time-left">Deselect time</button>
                 </div>
@@ -407,6 +461,7 @@
                     <button id="apply-range-left">Apply Range</button>
                 </div>
                 <div class="time-slots-container" id="time-slots-left"></div>
+                <div class="available-times-container" id="available-times-left"></div>
             </div>
             <div class="side">
                 <div class="title">Service Providers</div>
@@ -433,6 +488,7 @@
                     <button id="apply-range-right">Apply Range</button>
                 </div>
                 <div class="time-slots-container" id="time-slots-right"></div>
+                <div class="saved-times-container" id="saved-times-right"></div>
             </div>
         </div>
 
@@ -450,6 +506,52 @@
                 const [year, month, day] = dateString.split("-").map(Number);
                 // Create Date object using UTC constructor for consistency
                 return new Date(Date.UTC(year, month - 1, day));
+            }
+
+            // Utility function to group consecutive time slots into ranges
+            function groupTimeSlotsIntoRanges(timeSlots) {
+                if (timeSlots.length === 0) {
+                    return [];
+                }
+
+                const sortedTimes = Array.from(timeSlots).sort();
+                const ranges = [];
+                let currentRangeStart = sortedTimes[0];
+                let prevTime = sortedTimes[0];
+
+                for (let i = 1; i < sortedTimes.length; i++) {
+                    const currentTime = sortedTimes[i];
+                    // Check if currentTime is exactly 30 minutes after prevTime
+                    const prevHour = parseInt(prevTime.substring(0, 2));
+                    const prevMinute = parseInt(prevTime.substring(3, 5));
+                    const currentHour = parseInt(currentTime.substring(0, 2));
+                    const currentMinute = parseInt(currentTime.substring(3, 5));
+
+                    const prevTotalMinutes = prevHour * 60 + prevMinute;
+                    const currentTotalMinutes = currentHour * 60 + currentMinute;
+
+                    if (currentTotalMinutes - prevTotalMinutes === 30) {
+                        prevTime = currentTime;
+                    } else {
+                        // End of a consecutive range
+                        if (currentRangeStart === prevTime) {
+                            ranges.push(currentRangeStart);
+                        } else {
+                            ranges.push(`${currentRangeStart}-${prevTime}`);
+                        }
+                        currentRangeStart = currentTime;
+                        prevTime = currentTime;
+                    }
+                }
+
+                // Add the last range
+                if (currentRangeStart === prevTime) {
+                    ranges.push(currentRangeStart);
+                } else {
+                    ranges.push(`${currentRangeStart}-${prevTime}`);
+                }
+
+                return ranges;
             }
 
             class Calendar {
@@ -471,6 +573,8 @@
                     this.deselectTimeButton = document.getElementById(deselectTimeButtonId); // Get the deselect time button
                     this.timeSlotsContainer = document.getElementById(timeSlotsContainerId);
                     this.isServiceProviderCalendar = isServiceProviderCalendar;
+                    this.savedTimesContainer = null; // Will be initialized if service provider calendar
+                    this.availableTimesContainer = null; // Will be initialized if general calendar
 
                     // Initialize currentDate using UTC components of 'now' for consistent internal state
                     const now = new Date();
@@ -486,6 +590,9 @@
                     this.greenMarkedTimeSlots = new Map(); // 'YYYY-MM-DD' -> Set<timeString>
                     this.yellowMarkedTimeSlots = new Map(); // 'YYYY-MM-DD' -> Set<timeString>
 
+                    // New storage for enabled time slots (for Service Provider calendar)
+                    this.enabledTimeSlotsData = new Map(); // Map: 'YYYY-MM-DD' -> Set<timeString>
+
                     this.todayFormatted = getFormattedDate(
                         new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()))
                     );
@@ -500,6 +607,11 @@
 
                     if (this.isServiceProviderCalendar) {
                         this.addServiceProviderButtonListeners();
+                        this.savedTimesContainer = document.getElementById("saved-times-right");
+                        this.renderSavedTimesTable(); // Initial render of the saved times table
+                    } else {
+                        this.availableTimesContainer = document.getElementById("available-times-left");
+                        this.addGeneralButtonListeners(); // Add listeners for General calendar buttons
                     }
                 }
 
@@ -974,6 +1086,10 @@
                     this.render(); // Re-render to clear selection and update inputs
                     this.startDateInput.value = "";
                     this.endDateInput.value = "";
+                    // Clear the available times table if it exists
+                    if (this.availableTimesContainer) {
+                        this.availableTimesContainer.innerHTML = "";
+                    }
                 }
 
                 // Generates and renders time slots based on the currently selected dates.
@@ -1000,7 +1116,7 @@
                         html += `<div class="time-slots-grid">`;
 
                         // Example time slots - replace with dynamic data as needed
-                        const times = ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"];
+                        const times = ["09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00"];
 
                         times.forEach((time) => {
                             const isSelected =
@@ -1099,9 +1215,12 @@
                         // Also ensure time slots for this date are not marked
                         this.greenMarkedTimeSlots.delete(date);
                         this.yellowMarkedTimeSlots.delete(date);
+                        // Also remove from enabledTimeSlotsData
+                        this.enabledTimeSlotsData.delete(date);
                     });
                     this.render();
                     this.renderTimeSlots(); // Update time slot display
+                    this.renderSavedTimesTable(); // Update saved times table
                 }
 
                 enableBusyDay() {
@@ -1133,6 +1252,12 @@
                         }
                         times.forEach((time) => this.greenMarkedTimeSlots.get(date).add(time));
 
+                        // Add/Update to enabledTimeSlotsData for this calendar instance
+                        if (!this.enabledTimeSlotsData.has(date)) {
+                            this.enabledTimeSlotsData.set(date, new Set());
+                        }
+                        times.forEach((time) => this.enabledTimeSlotsData.get(date).add(time));
+
                         // Mark the day as green if any time slots are green-marked for it
                         if (this.greenMarkedTimeSlots.has(date) && this.greenMarkedTimeSlots.get(date).size > 0) {
                             this.greenMarkedDates.add(date);
@@ -1141,6 +1266,7 @@
                     });
                     this.render(); // Re-render calendar to update day colors
                     this.renderTimeSlots();
+                    this.renderSavedTimesTable(); // Update the saved times table
                 }
 
                 disableTime() {
@@ -1167,6 +1293,14 @@
                             }
                         }
 
+                        // Remove from enabledTimeSlotsData
+                        if (this.enabledTimeSlotsData.has(date)) {
+                            timesToDisable.forEach((time) => this.enabledTimeSlotsData.get(date).delete(time));
+                            if (this.enabledTimeSlotsData.get(date).size === 0) {
+                                this.enabledTimeSlotsData.delete(date);
+                            }
+                        }
+
                         // Check if the day should no longer be marked green or yellow
                         if (!this.greenMarkedTimeSlots.has(date) || this.greenMarkedTimeSlots.get(date).size === 0) {
                             this.greenMarkedDates.delete(date);
@@ -1177,6 +1311,7 @@
                     });
                     this.render(); // Re-render calendar to update day colors
                     this.renderTimeSlots();
+                    this.renderSavedTimesTable(); // Update the saved times table
                 }
 
                 enableBusyTime() {
@@ -1204,6 +1339,124 @@
                     });
                     this.render(); // Re-render calendar to update day colors
                     this.renderTimeSlots();
+                    this.renderSavedTimesTable(); // Update the saved times table
+                }
+
+                // New method to render the table of saved/enabled times for Service Providers
+                renderSavedTimesTable() {
+                    if (!this.savedTimesContainer) {
+                        return; // Only for Service Provider calendar
+                    }
+
+                    let html = "<h3>Enabled Dates & Time Ranges</h3>";
+
+                    if (this.enabledTimeSlotsData.size === 0) {
+                        this.savedTimesContainer.innerHTML = html + "<p>No enabled dates/times.</p>";
+                        return;
+                    }
+
+                    html += `<table class="saved-times-table">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Date</th>
+                                        <th>Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>`;
+
+                    let rowNum = 1;
+                    const sortedDates = Array.from(this.enabledTimeSlotsData.keys()).sort();
+
+                    sortedDates.forEach((dateString) => {
+                        const timesForDate = Array.from(this.enabledTimeSlotsData.get(dateString)).sort();
+                        const timeRanges = groupTimeSlotsIntoRanges(timesForDate);
+
+                        timeRanges.forEach((range) => {
+                            html += `<tr>
+                                        <td>${rowNum++}</td>
+                                        <td>${dateString}</td>
+                                        <td>${range}</td>
+                                    </tr>`;
+                        });
+                    });
+
+                    html += `</tbody></table>`;
+                    this.savedTimesContainer.innerHTML = html;
+                }
+
+                // General Calendar specific actions
+                addGeneralButtonListeners() {
+                    document.getElementById("show-available-times-left").addEventListener("click", () => this.showAvailableDatesAndTimes());
+                }
+
+                showAvailableDatesAndTimes() {
+                    // This function will fetch enabled times from the right calendar instance
+                    // Assuming `calendarRight` is accessible globally or passed in some way.
+                    // For simplicity, let's assume `calendarRight` is a global variable.
+                    if (!window.calendarRight || window.calendarRight.enabledTimeSlotsData.size === 0) {
+                        this.availableTimesContainer.innerHTML = "<h3>Available Dates & Times</h3><p>No available dates/times from Service Providers.</p>";
+                        return;
+                    }
+
+                    const availableData = window.calendarRight.enabledTimeSlotsData;
+                    let html = "<h3>Available Dates & Times</h3>";
+                    html += `<table class="available-times-table">
+                                <thead>
+                                    <tr>
+                                        <th>Select</th>
+                                        <th>No.</th>
+                                        <th>Date</th>
+                                        <th>Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>`;
+
+                    let rowNum = 1;
+                    const sortedDates = Array.from(availableData.keys()).sort();
+
+                    sortedDates.forEach((dateString) => {
+                        const timesForDate = Array.from(availableData.get(dateString)).sort(); // Individual times, not ranges for selection
+
+                        timesForDate.forEach((time) => {
+                            const uniqueId = `${dateString}-${time}`;
+                            const isSelected = this.selectedTimeSlots.has(dateString) && this.selectedTimeSlots.get(dateString).has(time);
+                            html += `<tr>
+                                        <td><input type="checkbox" data-date="${dateString}" data-time="${time}" ${isSelected ? 'checked' : ''}></td>
+                                        <td>${rowNum++}</td>
+                                        <td>${dateString}</td>
+                                        <td>${time}</td>
+                                    </tr>`;
+                        });
+                    });
+
+                    html += `</tbody></table>`;
+                    this.availableTimesContainer.innerHTML = html;
+
+                    // Add event listeners for checkboxes
+                    this.availableTimesContainer.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                        checkbox.addEventListener('change', (event) => {
+                            const date = event.target.dataset.date;
+                            const time = event.target.dataset.time;
+                            if (event.target.checked) {
+                                // Add to selected time slots for General calendar
+                                if (!this.selectedTimeSlots.has(date)) {
+                                    this.selectedTimeSlots.set(date, new Set());
+                                }
+                                this.selectedTimeSlots.get(date).add(time);
+                            } else {
+                                // Remove from selected time slots for General calendar
+                                if (this.selectedTimeSlots.has(date)) {
+                                    this.selectedTimeSlots.get(date).delete(time);
+                                    if (this.selectedTimeSlots.get(date).size === 0) {
+                                        this.selectedTimeSlots.delete(date);
+                                    }
+                                }
+                            }
+                            // Re-render the time slots display to reflect changes in selection
+                            this.renderTimeSlots();
+                        });
+                    });
                 }
             }
 
@@ -1228,6 +1481,9 @@
                 "time-slots-right",
                 true // This is the service provider calendar
             );
+
+            // Make calendarRight accessible globally for calendarLeft to reference
+            window.calendarRight = calendarRight;
         </script>
     </body>
 </html>
