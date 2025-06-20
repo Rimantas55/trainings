@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="lt">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+            name="description"
+            content="Profesionalios ir patikimos valymo paslaugos Vilniuje namams ir įmonėms. Gaukite lengvai ir nemokamai kainos pasiūlymą šiandien ir džiaukitės nepriekaištingais rezultatais!"
+        />
+        <meta
+            name="keywords"
+            content="valymo paslaugos Vilnius, namų valymas, biurų valymas, generalinis valymas, giluminis valymas, langų valymas, patikimos valymo paslaugos, geriausi valytojai Vilnius, eco valymas, butų valymas, administracinių patalpų valymas, langų valymas, laiptinių valymas"
+        />
+        <meta name="author" content="UAB Vip Clean" />
+        
+        <script src="..\script.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+        <script src="..\emailjs.js"></script>
+        
+
+        <link rel="stylesheet" href="../style.css" />
+        <link rel="canonical" href="https://example.com/index.html" />
+        <title>Vip Clean</title>
+    </head>
+    <body>
+        <!-- Landing Page -->
+        <div class="landing-overlay" id="landingPage">
+            <h1>Sveiki atvykę į VipClean</h1>
+
+            <div class="button-group">
+                <div class="button-box">
+                    <p>Skaičiuok kainą pats</p>
+                    <button onclick="navigateTo('calculatorSection')">Saičiuoti kainą</button>
+                </div>
+                <div class="button-box">
+                    <p>Ilgalaikiams pasiūlymams</p>
+                    <button onclick="navigateTo('about')">Bendradarbiaukim</button>
+                </div>
+            </div>
+
+            <button class="enter-site-button" onclick="enterWebsite(event)">Įeiti į pagrindinį puslapį</button>
+        </div>
+
+        <header>
+            <nav>
+                <div class="logo" id="logo" onclick="scrollToTop()">VipClean</div>
+                <ul class="nav-links" id="navLinks">
+                    <li><a id="homeNavTitle" onclick="scrollToTop()" onclick="closeMenu()">Pagrindinis</a></li>
+                    <li><a id="servicesNavTitle" href="#services" onclick="closeMenu()">Paslaugos</a></li>
+                    <li><a id="aboutNavTitle" href="#about" onclick="closeMenu()">Apie</a></li>
+                    <li><a id="contactNavTitle" href="#contact" onclick="closeMenu()">Kontatai</a></li>
+                </ul>
+                <div>
+                    <select id="lang-select" class="language-select">
+                        <option value="lt">LT</option>
+                        <option value="en">EN</option>
+                        <option value="ru">RU</option>
+                    </select>
+
+                </div>
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+                    <span></span><span></span><span></span>
+                </button>
+            </nav>
+        </header>
+
+        <section class="banner">
+            <h1 id="bannerTitle">Sveiki atvykę į VipClean</h1>
+            <p id="bannerSubtitle">Valymo ekspertai jūsų namams ir biurui</p>
+            <p class="extra-text" id="bannerText">
+                VipClean tiki, kad švari aplinka veda į sveikesnį, laimingesnį gyvenimą...
+            </p>
+        </section>
+
+        <!-- <section id="home" class="hero">
+    <h2 id="heroTitle">Professional Cleaning Services</h2>
+    <p id="heroSubtitle">Your space, our sparkle.</p>
+    <img src="https://source.unsplash.com/1600x600/?cleaning" alt="Cleaning" style="border-radius: 15px;" />
+  </section> -->
+
+        <section class="calculatorSection" id="calculatorSection">
+            <div class="container">
+                <h2 id="cleaningServicePriceCalculaor">Cleaning Service Price Calculator</h2>
+
+                <div class="calendar-container">
+                    <h4 id="selectCleaningDates">Select Cleaning Date(s)</h4>
+                    <div class="calendar-inputs">
+                        <div class="date-group">
+                            <label for="startDate" id="startDateLabel">Start Date:</label>
+                            <input type="date" id="startDate" onkeydown="return false" />
+                        </div>
+
+                        <div class="date-group">
+                            <label for="endDate" id="endDateLabel">End Date:</label>
+                            <input type="date" id="endDate" onkeydown="return false" />
+                        </div>
+                    </div>
+                    <div id="output" class="output"></div>
+                    <!--TODO calculation for below parameters-->
+                    <div>Kaina 1m2</div>
+                    <div>Kaina 1 val</div>
+                    <div>Preliuminarus sutvarkymo laikas</div>
+                </div>
+                <label for="area" id="enterAreaLabel">Enter area (m²):</label>
+                <input type="number" id="area" min="1" max="9999" step="1" placeholder="e.g. 50" required />
+                <p id="chooseYourCleaningServicesLabel">Choose Your Cleaning Services.</p>
+                <div class="checkbox-group">
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_1" /><span id="cleaningSixToFive"
+                            >Cleaning from 06:00-17:00 h</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_2" /><span id="cleaningFiveToTen"
+                            >Cleaning from 17:00-22:00 h</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="cleaningTenToSix"
+                            >Cleaning from 22:00–06:00</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="distanceFifteenKm"
+                            >Distance from city center 15 km</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="distanceThirtyKm"
+                            >Distance from city center 30 km</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span
+                            id="distanceOverThirtyKm"
+                            >Distance from city center more than 30 km</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span
+                            id="flexibleCleaningHours"
+                            >Flexible cleaning hours</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="cleaningOnlyToday"
+                            >Cleaning only today</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span
+                            id="cleaningDateTimeArranged"
+                            >Cleaning date and time to be arranged</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="floorVacuuming"
+                            >Is floor vacuuming needed?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="floorWashing"
+                            >Is floor washing needed?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="wallCleaning"
+                            >Is wall cleaning needed?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="wallWashing"
+                            >Is wall washing needed?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="objectUnfurnished"
+                            >Is object unfurnished?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="objectFurnished"
+                            >Is object furnished?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="cabinetsCleaning"
+                            >Are the cabinets cleaning needed?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span
+                            id="cabinetsEmptyInside"
+                            >Are the insides of the cabinets empty?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="trashRemoval"
+                            >Is trash removal needed?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span
+                            id="windowCleaningInside"
+                            >Is window cleaning needed (only from the inside)?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span
+                            id="windowCleaningOutside"
+                            >Is window cleaning needed from the outside (only for windows that open)?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span
+                            id="refrigeratorCleaning"
+                            >Is refrigerator cleaning needed?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="ovenCleaning"
+                            >Is oven cleaning needed?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="microwaveCleaning"
+                            >Is microwave cleaning needed?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span
+                            id="gasHeatingStoveCleaning"
+                            >Is gas heating stove cleaning needed?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span
+                            id="electricHeatingStoveCleaning"
+                            >Is electric heating stove cleaning needed?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span
+                            id="cookerHoodsCleaning"
+                            >Is cooker hoods cleaning needed?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span
+                            id="upholsteredFurnitureVacuuming"
+                            >Is upholstered furniture vacuuming needed?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="deepCleaning"
+                            >Is deep cleaning needed?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="manualDishwashing"
+                            >Is dishwashing (manual) needed?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="toiletCleaning"
+                            >Is toilet cleaning needed?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="bathtubCleaning"
+                            >Is bathtub cleaning needed?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="showerCleaning"
+                            >Is shower cleaning needed?</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span
+                            id="clientCleaningProducts"
+                            >Client cleaning products</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span
+                            id="serviceProvidersCleaningProducts"
+                            >Service providers' cleaning products</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="invoiceNeeded"
+                            >An invoice is needed</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="invoiceNotNeeded"
+                            >An invoice is not needed</span
+                        ></label
+                    >
+                    <label
+                        ><input type="checkbox" class="extra" data-price="FIXED_PRICE_3" /><span id="cleanMirrors"
+                            >Mirrors</span
+                        ></label
+                    >
+                </div>
+                
+
+                <button onclick="calculatePrice()" id="calculatePriceBtn">Calculate Price</button>
+
+                <div id="result"></div>
+            </div>
+            
+        </section>
+
+        <section id="services">
+            <h2 id="servicesTitle">Mūsų paslaugos</h2>
+            <div class="service-cards">
+                <a href="residential_cleaning.html">
+                    <div class="card">
+                        <img
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwztYzg62_dBQ2SSnH9siwODat6gAukKUpBQ&s"
+                            alt="House Cleaning"
+                        />
+                        <h3 id="service1Title">Namų valymas</h3>
+                        <p id="service1Desc">
+                            Siūlome profesionalias ir kruopščias namų valymo paslaugas butams ir namams. Valymas gali
+                            būti atliekamas reguliariai arba kaip vienkartinis giluminis valymas. Dirba vienas arba du
+                            valytojai.
+                        </p>
+                    </div>
+                </a>
+                <div class="card">
+                    <img
+                        src="https://www.stratusclean.com/sites/default/files/2020-12/190510_Stratus_S11_1273.final_.jpg"
+                        alt="Office Cleaning"
+                    />
+                    <h3 id="service2Title">Office Cleaning</h3>
+                    <p id="service2Desc">Boost employee productivity with a spotless and sanitized work environment.</p>
+                </div>
+                <div class="card">
+                    <img
+                        src="https://dirtydeedscleaningservices.com/wp-content/uploads/2024/06/wc.jpg"
+                        alt="Window Cleaning"
+                    />
+                    <h3 id="service3Title">Window Cleaning</h3>
+                    <p id="service3Desc">Crystal clear windows for your home or business inside and out.</p>
+                </div>
+                <div class="card">
+                    <img
+                        src="https://d47b8c342f195720a9bf-abcdaee9f8d8752825c66eff59bb2838.ssl.cf1.rackcdn.com/cleaning-air-bnb.jpg"
+                        alt="Window Cleaning"
+                    />
+                    <h3 id="service3Title">Airbnb type cleaning</h3>
+                    <p id="service3Desc">Basic cleaning for Airbnb.</p>
+                </div>
+                <div class="card">
+                    <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhBkBjRpWFaGi5yRk4WZuSdh0ak8WtGjKMNQ&s"
+                        alt="Window Cleaning"
+                    />
+                    <h3 id="service3Title">Post-construction cleaning</h3>
+                    <p id="service3Desc">Cleaning after construction.</p>
+                </div>
+                <div class="card">
+                    <img
+                        src="https://media.istockphoto.com/id/1256822143/photo/woman-washes-stairway-at-house-cleaning-service-concept.jpg?s=612x612&w=0&k=20&c=HBRkNfCQdpXFwH17cU1J8yZvcxqfKtUKDbpF2hsi-PY="
+                        alt="Window Cleaning"
+                    />
+                    <h3 id="service3Title">Stairwell cleaning</h3>
+                    <p id="service3Desc">Clean stairs and corridor.</p>
+                </div>
+            </div>
+            <div id="about"></div>
+        </section>
+
+        <section >
+            <h2 id="aboutTitle">About Us</h2>
+            <p id="aboutText">
+                SparkleClean is a family-owned cleaning company dedicated to quality and customer satisfaction.
+            </p>
+            <div id="contact"></div>
+        </section>
+        
+
+        <section  class="contact">
+            <h2 id="contactTitle">Contact Us</h2>
+            <form id="contactForm">
+                <input type="text" name="name" id="contactName" placeholder="Your Name" required />
+                <input type="text" name="subject" id="subject" placeholder="Your subject" required />
+                <input type="email" name="email" id="contactEmail" placeholder="Your Email" required />
+                <textarea name="message" id="contactMessage" rows="5" placeholder="Your Message" required></textarea>
+                <button type="submit" id="contactButton">Send Message</button>
+                <p id="status"></p>
+            </form>
+        </section>
+
+        <div id="notification" class="notification">
+            <span id="notificationMessage">Message sent successfully!</span>
+            <button class="ok-button" onclick="hideNotification()">OK</button>
+        </div>
+
+        <!-- Gallery section start-->
+        <div class="gallery" id="gallery"></div>
+
+        <div class="lightbox" id="lightbox">
+            <span class="close-btn" onclick="closeLightbox()">×</span>
+            <img id="lightbox-img" src="" alt="Lightbox Image" />
+            <div class="controls">
+                <button onclick="prevImage()">←</button>
+                <button onclick="nextImage()">→</button>
+            </div>
+        </div>
+
+        <!-- Gallery section end -->
+
+        <!-- Testimonials Start -->
+        <section class="testimonials-section">
+            <div class="testimonials-header">
+                <h2>What Our Clients Say</h2>
+                <p>
+                    Don't just take our word for it. Read testimonials from our satisfied customers who have experienced
+                    the difference.
+                </p>
+            </div>
+
+            <div class="carousel-wrapper">
+                <div class="testimonials-container" id="testimonialsContainer">
+                    <div class="testimonial-card">
+                        <div class="content">
+                            <div class="stars">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                            </div>
+                            <p class="quote">
+                                "The service was exceptional! I was truly impressed by the attention to detail and
+                                personalized approach. Highly recommend for anyone seeking top-tier quality."
+                            </p>
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="https://placehold.co/70x70/FF5733/FFFFFF?text=A" alt="Client A" />
+                            <div class="info">
+                                <strong>Sarah Chen</strong>
+                                <small>Marketing Specialist</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="content">
+                            <div class="stars">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2v15.27z"
+                                        class="empty-star"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2v15.27z"
+                                        class="empty-star"
+                                    />
+                                </svg>
+                            </div>
+                            <p class="quote">
+                                "A truly professional and efficient team. They delivered exactly what was promised, on
+                                time and within budget. We are very happy with the results."
+                            </p>
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="https://placehold.co/70x70/33FF57/FFFFFF?text=B" alt="Client B" />
+                            <div class="info">
+                                <strong>Mark Davis</strong>
+                                <small>Software Engineer</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="content">
+                            <div class="stars">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2v15.27z"
+                                        class="empty-star"
+                                    />
+                                </svg>
+                            </div>
+                            <p class="quote">
+                                "Fantastic results and a pleasure to work with. They truly understand our vision and
+                                brought it to life seamlessly. Highly recommended!"
+                            </p>
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="https://placehold.co/70x70/5733FF/FFFFFF?text=C" alt="Client C" />
+                            <div class="info">
+                                <strong>Linda Green</strong>
+                                <small>Creative Director</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="content">
+                            <div class="stars">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                            </div>
+                            <p class="quote">
+                                "An absolute pleasure to work with. Their team is incredibly knowledgeable and
+                                supportive. We are thrilled with the outcome of our project."
+                            </p>
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="https://placehold.co/70x70/FFC107/FFFFFF?text=D" alt="Client D" />
+                            <div class="info">
+                                <strong>Robert Brown</strong>
+                                <small>Business Consultant</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="content">
+                            <div class="stars">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2v15.27z"
+                                        class="empty-star"
+                                    />
+                                </svg>
+                            </div>
+                            <p class="quote">
+                                "Their innovative solutions have truly transformed our workflow. The team is responsive,
+                                professional, and genuinely cares about client success."
+                            </p>
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="https://placehold.co/70x70/17A2B8/FFFFFF?text=E" alt="Client E" />
+                            <div class="info">
+                                <strong>Jessica White</strong>
+                                <small>Operations Manager</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="content">
+                            <div class="stars">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                            </div>
+                            <p class="quote">
+                                "From concept to completion, the experience was flawless. Their commitment to excellence
+                                shines through in every aspect of their work. Highly recommended!"
+                            </p>
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="https://placehold.co/70x70/28A745/FFFFFF?text=F" alt="Client F" />
+                            <div class="info">
+                                <strong>Michael Lee</strong>
+                                <small>Product Designer</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="carousel-arrow left" id="prevBtn">&#10094;</button>
+                <button class="carousel-arrow right" id="nextBtn">&#10095;</button>
+            </div>
+        </section>
+
+        <!-- Testimonials Ends -->
+
+        <footer>
+            <p id="footerText">&copy; 2025 SparkleClean. All rights reserved.</p>
+            <p id="footerCredit">Website created by Rimantas Danilevičius</p>
+        </footer>
+    </body>
+</html>
