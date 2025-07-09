@@ -12,11 +12,10 @@
             content="valymo paslaugos Vilnius, namų valymas, biurų valymas, generalinis valymas, giluminis valymas, langų valymas, patikimos valymo paslaugos, geriausi valytojai Vilnius, eco valymas, butų valymas, administracinių patalpų valymas, langų valymas, laiptinių valymas"
         />
         <meta name="author" content="UAB Vip Clean" />
-        
+
         <script src="..\script.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
         <script src="..\emailjs.js"></script>
-        
 
         <link rel="stylesheet" href="../style.css" />
         <link rel="canonical" href="https://example.com/index.html" />
@@ -56,7 +55,6 @@
                         <option value="en">EN</option>
                         <option value="ru">RU</option>
                     </select>
-
                 </div>
                 <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
                     <span></span><span></span><span></span>
@@ -304,86 +302,93 @@
                         ></label
                     >
                 </div>
-                
 
                 <button onclick="calculatePrice()" id="calculatePriceBtn">Calculate Price</button>
 
                 <div id="result"></div>
             </div>
-            
         </section>
 
         <section id="services">
             <h2 id="servicesTitle">Mūsų paslaugos</h2>
             <div class="service-cards">
-                <a href="residential_cleaning.html">
-                    <div class="card">
-                        <img
-                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwztYzg62_dBQ2SSnH9siwODat6gAukKUpBQ&s"
-                            alt="House Cleaning"
-                        />
-                        <h3 id="service1Title">Namų valymas</h3>
-                        <p id="service1Desc">
-                            Siūlome profesionalias ir kruopščias namų valymo paslaugas butams ir namams. Valymas gali
-                            būti atliekamas reguliariai arba kaip vienkartinis giluminis valymas. Dirba vienas arba du
-                            valytojai.
-                        </p>
-                    </div>
-                </a>
+                <div class="card">
+                    <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwztYzg62_dBQ2SSnH9siwODat6gAukKUpBQ&s"
+                        alt="House Cleaning"
+                    />
+                    <h3 id="service1Title">Namų valymas</h3>
+                    <p id="service1Desc">
+                        Siūlome profesionalias ir kruopščias namų valymo paslaugas butams ir namams. Valymas gali būti
+                        atliekamas reguliariai arba kaip vienkartinis giluminis valymas. <br />
+                        <a href="residential_cleaning.html">Plačiau...</a>
+                    </p>
+                </div>
+
                 <div class="card">
                     <img
                         src="https://www.stratusclean.com/sites/default/files/2020-12/190510_Stratus_S11_1273.final_.jpg"
                         alt="Office Cleaning"
                     />
-                    <h3 id="service2Title">Office Cleaning</h3>
-                    <p id="service2Desc">Boost employee productivity with a spotless and sanitized work environment.</p>
+                    <h3 id="service2Title">Biurų administracinių patalpų valymas</h3>
+                    <p id="service2Desc">Profesionalios biurų ir administracinių patalpų valymo paslaugos Vilniuje. Užtikriname švarą ir tvarką jūsų verslo aplinkai. Susisiekite! <br/>
+                       <a href="office_cleaning.html">Plačiau...</a>
+                    </p>
                 </div>
                 <div class="card">
                     <img
                         src="https://dirtydeedscleaningservices.com/wp-content/uploads/2024/06/wc.jpg"
                         alt="Window Cleaning"
                     />
-                    <h3 id="service3Title">Window Cleaning</h3>
-                    <p id="service3Desc">Crystal clear windows for your home or business inside and out.</p>
+                    <h3 id="service3Title">Langų valymas</h3>
+                    <p id="service3Desc">Teikiame profesionalias langų valymo paslaugas Vilniaus mieste. Greitas, efektyvus, spindintis rezultatas garantuotas.<br/>
+                      <a href="windows_cleaning.html">Plačiau...</a>
+
+                    </p>
                 </div>
                 <div class="card">
                     <img
                         src="https://d47b8c342f195720a9bf-abcdaee9f8d8752825c66eff59bb2838.ssl.cf1.rackcdn.com/cleaning-air-bnb.jpg"
                         alt="Window Cleaning"
                     />
-                    <h3 id="service3Title">Airbnb type cleaning</h3>
-                    <p id="service3Desc">Basic cleaning for Airbnb.</p>
+                    <h3 id="service4Title">Airbnb valymas</h3>
+                    <p id="service3Desc">Profesionalus valymas po nuomos. Nepriekaištinga švara, patikimi valytojai. Išlaisvinkite savo laiką, mes pasirūpinsime viskuo. <br/>
+                        <a href="airbnb_cleaning.html">Plačiau...</a>
+                    </p>
                 </div>
                 <div class="card">
                     <img
                         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhBkBjRpWFaGi5yRk4WZuSdh0ak8WtGjKMNQ&s"
                         alt="Window Cleaning"
                     />
-                    <h3 id="service3Title">Post-construction cleaning</h3>
-                    <p id="service3Desc">Cleaning after construction.</p>
+                    <h3 id="service5Title">Po statybinis valymas</h3>
+                    <p id="service3Desc">Kruopščiai sutvarkome patalpas po remonto ar statybų tvarkingam patalpų įsirengimui. <br/> 
+                    <a href="post_construction_cleaning.html">Plačiau...</a>
+                    </p>
                 </div>
                 <div class="card">
                     <img
                         src="https://media.istockphoto.com/id/1256822143/photo/woman-washes-stairway-at-house-cleaning-service-concept.jpg?s=612x612&w=0&k=20&c=HBRkNfCQdpXFwH17cU1J8yZvcxqfKtUKDbpF2hsi-PY="
                         alt="Window Cleaning"
                     />
-                    <h3 id="service3Title">Stairwell cleaning</h3>
-                    <p id="service3Desc">Clean stairs and corridor.</p>
+                    <h3 id="service6Title">Laiptinių valymas</h3>
+                    <p id="service3Desc">Tvaringai valome gyvenamųjų namų laiptines.<br/>
+                    <a href="residential_cleaning.html">Plačiau...</a>
+                    </p>
                 </div>
             </div>
             <div id="about"></div>
         </section>
 
-        <section >
+        <section>
             <h2 id="aboutTitle">About Us</h2>
             <p id="aboutText">
                 SparkleClean is a family-owned cleaning company dedicated to quality and customer satisfaction.
             </p>
             <div id="contact"></div>
         </section>
-        
 
-        <section  class="contact">
+        <section class="contact">
             <h2 id="contactTitle">Contact Us</h2>
             <form id="contactForm">
                 <input type="text" name="name" id="contactName" placeholder="Your Name" required />
